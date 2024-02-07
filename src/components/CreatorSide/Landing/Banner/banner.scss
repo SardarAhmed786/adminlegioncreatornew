@@ -1,0 +1,207 @@
+.mainbanner {
+  // padding: 178px 0px;
+  position: relative;
+  background: url("../../../../assets/banner.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  // min-height: 100vh;
+  .parenttext {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    h2 {
+      text-align: center;
+      font-size: 62px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 120%;
+      text-transform: uppercase;
+      background: var(--Button-Primery-Gradient, linear-gradient(180deg, #3456D0 0%, #0D32B7 100%));
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      max-width: 712px;
+      width: 100%;
+    }
+
+    p {
+      color: var(--Secondary-Text-Blue, #8A97A9);
+      margin-top: 30px;
+      margin-bottom: 35px;
+      text-align: center;
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 130%;
+      max-width: 712px;
+      width: 100%;
+    }
+
+    button {
+      border-radius: 40px;
+      background: var(--Button-Primery-Gradient, linear-gradient(180deg, #3456D0 0%, #0D32B7 100%));
+      padding: 17px 40px;
+      max-width: 207px;
+      width: 100%;
+      overflow: hidden;
+      color: var(--White, #FFF);
+      text-overflow: ellipsis;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 120%;
+      border: none;
+      white-space: nowrap;
+      text-transform: uppercase;
+    }
+  }
+
+}
+
+.box {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  .parentbox {
+    background: var(--Primary-Color, #3456D0);
+    padding: 40px 120px;
+    width: 100%;
+
+    .parenttext1 {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .mainhead {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        border-right: 1px solid #4D6EE3;
+        padding: 0px 50px;
+
+        &:last-child {
+          border-right: none !important;
+        }
+
+        h3 {
+          color: var(--White, #FFF);
+          font-size: 42px;
+          font-style: normal;
+          font-weight: 600;
+          line-height: 100%;
+
+        }
+
+        p {
+          color: #99ABE7;
+          font-feature-settings: 'clig' off, 'liga' off;
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 500;
+          line-height: 120%;
+          text-transform: uppercase;
+        }
+      }
+
+    }
+  }
+}
+
+@media(max-width:1024px){
+  .userbanner .mainimg .innerimage{
+      max-width: 100%;
+      width: 100%;
+      height: 100%;
+  }
+  // .mainflow .flowparent{
+  //     flex-direction: column;
+  // }
+  // .mainflow .flowparent .mainssss{
+  //     width: 100% !important;
+  // }
+  // .mainflow .flowparent .parentmains .left input{
+  //     width: 696px !important;
+  // }
+  // .mainflow .cardsparents{
+  //     flex-direction: column;
+  // }
+  // .mainflow .cardsparents .parentcardflow .maincontent{
+  //     width: 100% !important;
+  //     height: 100% !important;
+  // }
+}
+@media(max-width:991px){
+  .mainbanner .parenttext h2{
+      font-size: 40px;
+  }
+  .mainbanner .parenttext p{
+      font-size: 14px;
+      margin: 20px 0px;
+  }
+  .box .parentbox{
+      padding: 20px;
+  }
+}
+
+@media(max-width:600px){
+  .userbanner .mainhead h2{
+      width: unset;
+  }
+  .userbanner .mainhead p{
+      width: unset;
+  }
+  .userbanner .endpara{
+      flex-direction: column;
+      align-items: flex-start;
+  }
+  .box .parentbox .parenttext1{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+  }
+  .box .parentbox .parenttext1 .mainhead{
+      padding: 0px 20px !important;
+      margin-bottom: 10px !important;
+      border-right: none;
+  }
+  .mainbanner .parenttext button{
+      margin-bottom: 40px;
+  }
+}
+@media(max-width:425px){
+  .userbanner .mainhead h2{
+      width: unset;
+  }
+  .userbanner .mainhead p{
+      width: unset;
+  }
+ 
+  .box .parentbox .parenttext1 .mainhead{
+      border-right: none;
+  }
+
+  .userbanner .endpara{
+      flex-direction: column;
+      align-items: flex-start;
+  }
+  .userbanner .twisebtns .upcoming{
+      width: 100%;
+  }
+  .userbanner .twisebtns{
+    flex-direction: column;
+  }
+  .userbanner .twisebtns .buy{
+      width: 100%;
+  }
+}

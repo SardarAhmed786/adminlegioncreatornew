@@ -1,0 +1,37 @@
+.network {
+    padding: 90px 0px;
+
+    .heading {
+        h2 {
+            color: var(--Primary-Text, #343434);
+            font-size: 40px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 100%;
+            margin-bottom: 30px;
+        }
+
+        p {
+            color: #585E65;
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 120%;
+            margin-bottom: 15px;
+            max-width: 643px;
+            width: 100%;
+
+            &:last-child {
+                margin-bottom: 0px;
+            }
+        }
+    }
+}
+@media(max-width:600px){
+    .network .heading h2{
+        font-size: 28px;
+    }
+    .network .heading p{
+        font-size: 13px;
+    }
+}

@@ -1,0 +1,27 @@
+.mainfooter {
+    padding: 18px 0px;
+
+    .mainparent {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        p {
+            color: var(--Primary-Text, #343434);
+            text-align: right;
+            font-family: Poppins;
+            font-size: 12px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 120%;
+        }
+    }
+}
+@media(max-width:600px){
+    .mainfooter .mainparent{
+        flex-direction: column;
+    }
+    .mainfooter .mainparent p{
+        margin-top: 20px;
+    }
+}

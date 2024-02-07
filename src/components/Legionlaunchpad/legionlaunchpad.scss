@@ -1,0 +1,138 @@
+.legionlauncpad {
+    min-height: 100vh;
+    padding-top: 74px;
+    background: url('../../../src/assets/launchpadbanner.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    padding-bottom: 116px;
+
+    .launchpadlogo {
+        text-align: center;
+        margin: 0 auto 70px;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .launchpadinner {
+        border-radius: 15px;
+        border: 1px solid #EBF2FF;
+        background: var(--White, #FFF);
+        display: flex;
+        align-items: center;
+        max-width: 832px;
+        width: 100%;
+        margin: 0 auto 27px;
+
+        .innerleft {
+            width: 110%;
+            padding: 40px;
+            border-right: 1px solid #EBF2FF;
+
+            .launchpadhead {
+                color: var(--Primary-Text, #343434);
+                font-size: 22px;
+                font-style: normal;
+                font-weight: 600;
+                line-height: 100%;
+                text-transform: uppercase;
+                margin-bottom: 8px;
+                text-align: center;
+                width: 100%;
+            }
+
+            .launchpadpara {
+                color: #C0C7D5;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 125%;
+                text-align: center;
+                margin-bottom: 30px;
+                width: 100%;
+            }
+
+            .loginbtn {
+                border-radius: 40px;
+                background: var(--Button-Primery-Gradient, linear-gradient(180deg, #3456D0 0%, #0D32B7 100%));
+                display: flex;
+                padding: 19px 36px;
+                justify-content: center;
+                align-items: center;
+                color: var(--White, #FFF);
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 120%;
+                border: none;
+                width: 100%;
+                margin-top: 30px;
+            }
+        }
+
+        .innerright {
+            width: 90%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 30px;
+
+            .loginhead {
+                color: var(--Primary-Text, #343434);
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 600;
+                line-height: 100%;
+                text-align: center;
+                margin-top: 30px;
+                margin-bottom: 8px;
+            }
+
+            .loginpara {
+                color: #C0C7D5;
+                text-align: center;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 125%;
+
+                .bluetext {
+                    color: #3456D0;
+                }
+            }
+        }
+    }
+
+    .lastpara {
+        color: #C2CCF1;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 100%;
+        text-align: center;
+        width: 100%;
+
+        .whitetxt {
+            color: var(--White, #FFF);
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 100%;
+            margin-left: 6px;
+        }
+    }
+}
+
+@media(max-width:600px){
+    .legionlauncpad .launchpadinner{
+        flex-direction: column;
+    }
+    .legionlauncpad .launchpadinner .innerleft{
+        width: 100%;
+        border-bottom: 1px solid #EBF2FF;
+        border-right: none;
+    }
+}
