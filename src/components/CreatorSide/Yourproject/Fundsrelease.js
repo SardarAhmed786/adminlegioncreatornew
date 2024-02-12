@@ -14,21 +14,21 @@ const Fundsrelease = () => {
         <p>Qui reiciendis optio et assumenda beatae</p>
       </div>
       <div className='mainssss'>
-                <Nav variant="pills" activeKey={activeTab} onSelect={handleSelect}>
-                    <Nav.Item>
-                        <Nav.Link eventKey="link-1">Pending</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                        <Nav.Link eventKey="link-2">Approved</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                        <Nav.Link eventKey="link-3">
-                            Rejected
-                        </Nav.Link>
-                    </Nav.Item>
-                </Nav>
+        <Nav variant="pills" activeKey={activeTab} onSelect={handleSelect}>
+          <Nav.Item>
+            <Nav.Link eventKey="link-1">Pending</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link eventKey="link-2">Approved</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link eventKey="link-3">
+              Rejected
+            </Nav.Link>
+          </Nav.Item>
+        </Nav>
 
-            </div>
+      </div>
       {activeTab === 'link-1' && (
         <>
           <div className='parentcardmain'>
@@ -101,7 +101,7 @@ const Fundsrelease = () => {
 
                       </td>
                       <td><p className='bold'>$30.5K</p></td>
-           
+
                       <td><p className='bold'>Ruth Wilson</p></td>
                       <td><p className='bold'>14/11/2023</p></td>
                       <td><button className='appr'>Approve</button></td>
@@ -115,7 +115,7 @@ const Fundsrelease = () => {
 
                       </td>
                       <td><p className='bold'>$30.5K</p></td>
-           
+
                       <td><p className='bold'>Ruth Wilson</p></td>
                       <td><p className='bold'>14/11/2023</p></td>
                       <td><button className='appr'>Approve</button></td>
@@ -129,7 +129,7 @@ const Fundsrelease = () => {
 
                       </td>
                       <td><p className='bold'>$30.5K</p></td>
-           
+
                       <td><p className='bold'>Ruth Wilson</p></td>
                       <td><p className='bold'>14/11/2023</p></td>
                       <td><button className='appr'>Approve</button></td>
@@ -143,7 +143,7 @@ const Fundsrelease = () => {
 
                       </td>
                       <td><p className='bold'>$30.5K</p></td>
-           
+
                       <td><p className='bold'>Ruth Wilson</p></td>
                       <td><p className='bold'>14/11/2023</p></td>
                       <td><button className='appr'>Approve</button></td>
@@ -157,7 +157,7 @@ const Fundsrelease = () => {
 
                       </td>
                       <td><p className='bold'>$30.5K</p></td>
-           
+
                       <td><p className='bold'>Ruth Wilson</p></td>
                       <td><p className='bold'>14/11/2023</p></td>
                       <td><button className='appr'>Approve</button></td>
@@ -173,7 +173,7 @@ const Fundsrelease = () => {
       )}
       {activeTab === 'link-2' && (
         <>
-           <div className='parentcardmain'>
+          <div className='parentcardmain'>
             <div className='parentmains'>
               <div className='left'>
                 <input type='text' placeholder='Search' />
@@ -230,7 +230,7 @@ const Fundsrelease = () => {
                       <th>Amount</th>
                       <th>Submit By</th>
                       <th>Submission Date</th>
-           
+
                     </tr>
                   </thead>
                   <tbody>
@@ -241,12 +241,12 @@ const Fundsrelease = () => {
                         <h6>$EARN</h6>
 
                       </td>
-                      <td><p className='bold'>0x4c595ad...d18 <img src='\assets\External_Link.png'alt='img' className='img-fluid'/></p></td>
-           
+                      <td><p className='bold'>0x4c595ad...d18 <img src='\assets\External_Link.png' alt='img' className='img-fluid' /></p></td>
+
                       <td><p className='bold'>$30.5K</p></td>
                       <td><p className='bold'>Ruth Wilson</p></td>
                       <td>14/11/2023</td>
-                    
+
                     </tr>
                     <tr>
                       <td>
@@ -255,12 +255,12 @@ const Fundsrelease = () => {
                         <h6>$EARN</h6>
 
                       </td>
-                      <td><p className='bold'>0x4c595ad...d18 <img src='\assets\External_Link.png'alt='img' className='img-fluid'/></p></td>
-           
+                      <td><p className='bold'>0x4c595ad...d18 <img src='\assets\External_Link.png' alt='img' className='img-fluid' /></p></td>
+
                       <td><p className='bold'>$30.5K</p></td>
                       <td><p className='bold'>Ruth Wilson</p></td>
                       <td>14/11/2023</td>
-                    
+
                     </tr>
                     <tr>
                       <td>
@@ -269,12 +269,12 @@ const Fundsrelease = () => {
                         <h6>$EARN</h6>
 
                       </td>
-                      <td><p className='bold'>0x4c595ad...d18 <img src='\assets\External_Link.png'alt='img' className='img-fluid'/></p></td>
-           
+                      <td><p className='bold'>0x4c595ad...d18 <img src='\assets\External_Link.png' alt='img' className='img-fluid' /></p></td>
+
                       <td><p className='bold'>$30.5K</p></td>
                       <td><p className='bold'>Ruth Wilson</p></td>
                       <td>14/11/2023</td>
-                    
+
                     </tr>
                     <tr>
                       <td>
@@ -283,12 +283,12 @@ const Fundsrelease = () => {
                         <h6>$EARN</h6>
 
                       </td>
-                      <td><p className='bold'>0x4c595ad...d18 <img src='\assets\External_Link.png'alt='img' className='img-fluid'/></p></td>
-           
+                      <td><p className='bold'>0x4c595ad...d18 <img src='\assets\External_Link.png' alt='img' className='img-fluid' /></p></td>
+
                       <td><p className='bold'>$30.5K</p></td>
                       <td><p className='bold'>Ruth Wilson</p></td>
                       <td>14/11/2023</td>
-                    
+
                     </tr>
                     <tr>
                       <td>
@@ -297,14 +297,14 @@ const Fundsrelease = () => {
                         <h6>$EARN</h6>
 
                       </td>
-                      <td><p className='bold'>0x4c595ad...d18 <img src='\assets\External_Link.png'alt='img' className='img-fluid'/></p></td>
-           
+                      <td><p className='bold'>0x4c595ad...d18 <img src='\assets\External_Link.png' alt='img' className='img-fluid' /></p></td>
+
                       <td><p className='bold'>$30.5K</p></td>
                       <td><p className='bold'>Ruth Wilson</p></td>
                       <td>14/11/2023</td>
-                    
+
                     </tr>
-                  
+
                   </tbody>
                 </table>
               </div>
@@ -314,7 +314,7 @@ const Fundsrelease = () => {
       )}
       {activeTab === 'link-3' && (
         <>
-          <h1>hamza</h1>
+
         </>
       )}
     </div>

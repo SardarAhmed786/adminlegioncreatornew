@@ -240,12 +240,12 @@
 
                                 .dropdown-menu {
 
-                                    width: 115px;
+                                    min-width: 115px;
                                     // margin-top: 10px;
                                     // border: 1px solid rgba(134, 47, 192, 0.70);
                                     // padding: 15px;
                                     // background: #08050A;
-                                    padding: 12px !important;
+                                    // padding: 12px !important;
                                     border-radius: 10px !important;
                                     border: 1px solid #ECEFF8 !important;
                                     background: var(--White, #FFF);
@@ -253,7 +253,7 @@
                                     outline: none;
                                     padding: 0;
                                     margin: 0;
-                                    transform: translate3d(0px, 50px, 0px) !important;
+                                    transform: translate3d(14px, 61px, 0px) !important;
                                 }
 
 

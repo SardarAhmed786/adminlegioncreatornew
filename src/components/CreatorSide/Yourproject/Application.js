@@ -37,7 +37,7 @@ const Application = () => {
                                 <Dropdown.Menu>
                                     <Dropdown.Item href="#/action-1">twitter</Dropdown.Item>
                                     <Dropdown.Item href="#/action-2">news article</Dropdown.Item>
-                                    <Dropdown.Item href="#/action-3">an existing project that launched</Dropdown.Item>
+                          
                                 </Dropdown.Menu>
                             </Dropdown>
                         </div>
@@ -56,7 +56,7 @@ const Application = () => {
                                 <Dropdown.Menu>
                                     <Dropdown.Item href="#/action-1">twitter</Dropdown.Item>
                                     <Dropdown.Item href="#/action-2">news article</Dropdown.Item>
-                                    <Dropdown.Item href="#/action-3">an existing project that launched</Dropdown.Item>
+                           
                                 </Dropdown.Menu>
                             </Dropdown>
                         </div>

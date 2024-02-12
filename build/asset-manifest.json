@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/static/css/main.78bf1cf7.chunk.css",
+    "main.js": "/static/js/main.8db28cfe.chunk.js",
+    "main.js.map": "/static/js/main.8db28cfe.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.c5ba3537.js",
+    "runtime-main.js.map": "/static/js/runtime-main.c5ba3537.js.map",
+    "static/js/2.600e3566.chunk.js": "/static/js/2.600e3566.chunk.js",
+    "static/js/2.600e3566.chunk.js.map": "/static/js/2.600e3566.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/main.78bf1cf7.chunk.css.map": "/static/css/main.78bf1cf7.chunk.css.map",
+    "static/js/2.600e3566.chunk.js.LICENSE.txt": "/static/js/2.600e3566.chunk.js.LICENSE.txt",
+    "static/media/banner.scss": "/static/media/banner.a8a4dd51.svg",
+    "static/media/usertoken.scss": "/static/media/banner1.6d0cd4fc.svg",
+    "static/media/userpresaleflow.scss": "/static/media/close-circle.888bc7c4.svg",
+    "static/media/legionlaunchpad.scss": "/static/media/launchpadbanner.9c727190.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.c5ba3537.js",
+    "static/js/2.600e3566.chunk.js",
+    "static/css/main.78bf1cf7.chunk.css",
+    "static/js/main.8db28cfe.chunk.js"
+  ]
+}
