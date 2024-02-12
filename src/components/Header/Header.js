@@ -30,13 +30,20 @@ const Header = ({ show, setShow }) => {
           <nav class="navbar navbar-expand-lg">
             <a class="navbar-brand" href="/"><img src="\logo.svg" alt="img" className='img-fluid' /></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path d="M5 17H13M5 12H19M11 7H19" stroke="#53FFEA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g clip-path="url(#clip0_1462_2956)">
+                  <path d="M3 17.98C3 18.5323 3.44772 18.98 4 18.98H20C20.5523 18.98 21 18.5323 21 17.98C21 17.4277 20.5523 16.98 20 16.98H4C3.44772 16.98 3 17.4277 3 17.98ZM3 12.98C3 13.5323 3.44772 13.98 4 13.98H20C20.5523 13.98 21 13.5323 21 12.98C21 12.4277 20.5523 11.98 20 11.98H4C3.44772 11.98 3 12.4277 3 12.98ZM4 6.97998C3.44772 6.97998 3 7.4277 3 7.97998C3 8.53227 3.44772 8.97998 4 8.97998H20C20.5523 8.97998 21 8.53227 21 7.97998C21 7.4277 20.5523 6.97998 20 6.97998H4Z" fill="black" />
+                </g>
+                <defs>
+                  <clipPath id="clip0_1462_2956">
+                    <rect width="24" height="24" fill="white" transform="translate(0 0.97998)" />
+                  </clipPath>
+                </defs>
               </svg>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
               <ul class="navbar-nav navbar-navvvvv  me-0 mb-2 mb-lg-0">
-{/* 
+                {/* 
                 <li class="nav-item">
                   <a class="nav-link active for-a" aria-current="page" href="#home">Home</a>
                 </li> */}
@@ -52,8 +59,8 @@ const Header = ({ show, setShow }) => {
                 <li class="nav-item">
                   <a class="nav-link for-a" href="#roadmap">🚀 Launch with Legion</a>
                 </li> */}
-               
-             
+
+
 
 
 
@@ -79,7 +86,7 @@ const Header = ({ show, setShow }) => {
 
               </ul>
               <button className="connect-btn" onClick={handleShow}>
-              Connect Wallet
+                Connect Wallet
               </button>
 
             </div>

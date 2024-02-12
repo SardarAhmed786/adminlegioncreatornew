@@ -15,12 +15,12 @@ function Landing() {
 
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       {/* <Banner />
       <Launch />
       <Legionnetwork />
       <Token /> */}
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }

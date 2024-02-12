@@ -22,7 +22,6 @@ function App() {
   return (
     <>
       <Switch>
-        <Route exact path="/" component={Landing} />
         <Route exact path="/idapplication" component={Idapplication} />
         <Route exact path="/" component={Startapplication} />
         <Route path="/yourproject/:tab" component={Yourproject} />
