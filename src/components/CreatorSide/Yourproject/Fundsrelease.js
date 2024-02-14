@@ -34,7 +34,7 @@ const Fundsrelease = () => {
           <div className='parentcardmain'>
             <div className='parentmains'>
               <div className='left'>
-                <input type='text' placeholder='Search' />
+                <input type='text' placeholder='Search'className='kkkk' />
                 <img src='\assets\Search_Magnifying_Glass.svg' alt='img' className='img-fluid' />
               </div>
               <div className='right'>
@@ -53,29 +53,11 @@ const Fundsrelease = () => {
                     <Dropdown.Menu>
                       <Dropdown.Item href="#/action-1">twitter</Dropdown.Item>
                       <Dropdown.Item href="#/action-2">news article</Dropdown.Item>
-                      <Dropdown.Item href="#/action-3">an existing project that launched</Dropdown.Item>
+                    
                     </Dropdown.Menu>
                   </Dropdown>
                 </div>
-                <div className='dropbtn'>
-                  <Dropdown>
-                    <Dropdown.Toggle variant="success" id="dropdown-basic">
-                      <div className='muinput'>
-                        <div class="material-textfield">
-                          <input placeholder="All" type="text" />
-                          <label>Chains</label>
-                        </div>
-                      </div>
-                      <img src='\assets\Vector.png' alt='img' className='img-fluid' />
-                    </Dropdown.Toggle>
-
-                    <Dropdown.Menu>
-                      <Dropdown.Item href="#/action-1">twitter</Dropdown.Item>
-                      <Dropdown.Item href="#/action-2">news article</Dropdown.Item>
-                      <Dropdown.Item href="#/action-3">an existing project that launched</Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
-                </div>
+             
               </div>
             </div>
             <div className='main-card'>
@@ -105,7 +87,7 @@ const Fundsrelease = () => {
                       <td><p className='bold'>Ruth Wilson</p></td>
                       <td><p className='bold'>14/11/2023</p></td>
                       <td><button className='appr'>Approve</button></td>
-                      <td><button className='rejc'>Reject</button></td>
+                      <td className='hhh'><button className='rejc'>Reject</button></td>
                     </tr>
                     <tr>
                       <td>
@@ -119,7 +101,7 @@ const Fundsrelease = () => {
                       <td><p className='bold'>Ruth Wilson</p></td>
                       <td><p className='bold'>14/11/2023</p></td>
                       <td><button className='appr'>Approve</button></td>
-                      <td><button className='rejc'>Reject</button></td>
+                      <td className='hhh'><button className='rejc'>Reject</button></td>
                     </tr>
                     <tr>
                       <td>
@@ -133,7 +115,7 @@ const Fundsrelease = () => {
                       <td><p className='bold'>Ruth Wilson</p></td>
                       <td><p className='bold'>14/11/2023</p></td>
                       <td><button className='appr'>Approve</button></td>
-                      <td><button className='rejc'>Reject</button></td>
+                      <td className='hhh'><button className='rejc'>Reject</button></td>
                     </tr>
                     <tr>
                       <td>
@@ -147,7 +129,7 @@ const Fundsrelease = () => {
                       <td><p className='bold'>Ruth Wilson</p></td>
                       <td><p className='bold'>14/11/2023</p></td>
                       <td><button className='appr'>Approve</button></td>
-                      <td><button className='rejc'>Reject</button></td>
+                      <td className='hhh'><button className='rejc'>Reject</button></td>
                     </tr>
                     <tr>
                       <td>
@@ -161,7 +143,7 @@ const Fundsrelease = () => {
                       <td><p className='bold'>Ruth Wilson</p></td>
                       <td><p className='bold'>14/11/2023</p></td>
                       <td><button className='appr'>Approve</button></td>
-                      <td><button className='rejc'>Reject</button></td>
+                      <td className='hhh'><button className='rejc'>Reject</button></td>
                     </tr>
                   </tbody>
                 </table>
@@ -176,7 +158,7 @@ const Fundsrelease = () => {
           <div className='parentcardmain'>
             <div className='parentmains'>
               <div className='left'>
-                <input type='text' placeholder='Search' />
+                <input type='text' placeholder='Search' className='kkkk'/>
                 <img src='\assets\Search_Magnifying_Glass.svg' alt='img' className='img-fluid' />
               </div>
               <div className='right'>
@@ -195,11 +177,11 @@ const Fundsrelease = () => {
                     <Dropdown.Menu>
                       <Dropdown.Item href="#/action-1">twitter</Dropdown.Item>
                       <Dropdown.Item href="#/action-2">news article</Dropdown.Item>
-                      <Dropdown.Item href="#/action-3">an existing project that launched</Dropdown.Item>
+             
                     </Dropdown.Menu>
                   </Dropdown>
                 </div>
-                <div className='dropbtn'>
+                {/* <div className='dropbtn'>
                   <Dropdown>
                     <Dropdown.Toggle variant="success" id="dropdown-basic">
                       <div className='muinput'>
@@ -217,7 +199,7 @@ const Fundsrelease = () => {
                       <Dropdown.Item href="#/action-3">an existing project that launched</Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>
-                </div>
+                </div> */}
               </div>
             </div>
             <div className='main-card'>

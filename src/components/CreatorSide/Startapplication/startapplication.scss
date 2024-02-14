@@ -101,4 +101,19 @@
 
         }
     }
+    .parentsssssss{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .forget{
+            color: #C0C7D5;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 125%;
+        }
+    }
+    .material-textfield input{
+        padding-right: 54px;
+    }
 }

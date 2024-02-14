@@ -3,7 +3,7 @@ import { Nav } from 'react-bootstrap';
 import Dropdown from 'react-bootstrap/Dropdown';
 import "./yourproject.scss"
 import { Link } from 'react-router-dom';
-
+import { Pagination } from 'react-bootstrap'
 const Liveprojects = () => {
     const [activeTab, setActiveTab] = useState('link-1');
     const handleSelect = (eventKey) => {
@@ -12,8 +12,8 @@ const Liveprojects = () => {
     return (
         <div className='right'>
             <div className='uppercard'>
-                <h5>Your Projects</h5>
-                <p>Your project on Legion Launchpad</p>
+                <h5>Projects</h5>
+                <p>All projects on Legion Launchpad</p>
             </div>
             <div className='mainssss'>
                 <Nav variant="pills" activeKey={activeTab} onSelect={handleSelect}>
@@ -87,7 +87,7 @@ const Liveprojects = () => {
                                         <tr>
                                             <th>Project</th>
                                             <th>Total Raised</th>
-                                            <th>Total Raised</th>
+                                            <th>Status</th>
                                             <th>Chain</th>
                                             <th>Contributors</th>
                                             <th>Start Date</th>
@@ -193,6 +193,25 @@ const Liveprojects = () => {
                                     </tbody>
                                 </table>
                             </div>
+                            <div className="pagi">
+                        <div className="rightsss">
+                            <div className='arrows'>
+                                <img src='\assets\pegiarrow1.png' alt='1mg' className='img-fluid' />
+                                <img src='\assets\pegiarrow2.png' alt='1mg' className='img-fluid' />
+                            </div>
+                            <Pagination>
+                                <Pagination.Item active>{1}</Pagination.Item>
+                                <Pagination.Item>{2}</Pagination.Item>
+                                <Pagination.Item >{3}</Pagination.Item>
+                                <Pagination.Item>{4}</Pagination.Item>
+                                <Pagination.Item >{5}</Pagination.Item>
+                            </Pagination>
+                            <div className='arrows' style={{ display: 'flex', gap: '13px', alignItems: 'center' }}>
+                                <img src='\assets\pegiarrow3.png' alt='1mg' className='img-fluid' />
+                                <img src='\assets\pegiarrow4.png' alt='1mg' className='img-fluid' />
+                            </div>
+                        </div>
+                    </div>
                         </div>
                     </div>
 
@@ -202,13 +221,13 @@ const Liveprojects = () => {
                 <>
                 
                 <div className='parentcardmain'>
-                        <div className='parentmains'>
+                <div className='parentmains'>
                             <div className='left'>
                                 <input type='text' placeholder='Search' />
                                 <img src='\assets\Search_Magnifying_Glass.svg' alt='img' className='img-fluid' />
                             </div>
                             <div className='right'>
-                                {/* <div className='dropbtn'>
+                                <div className='dropbtn'>
                                     <Dropdown>
                                         <Dropdown.Toggle variant="success" id="dropdown-basic">
                                             <div className='muinput'>
@@ -223,7 +242,7 @@ const Liveprojects = () => {
                                         <Dropdown.Menu>
                                             <Dropdown.Item href="#/action-1">twitter</Dropdown.Item>
                                             <Dropdown.Item href="#/action-2">news article</Dropdown.Item>
-                                            <Dropdown.Item href="#/action-3">an existing project that launched</Dropdown.Item>
+                                            {/* <Dropdown.Item href="#/action-3">an existing project that launched</Dropdown.Item> */}
                                         </Dropdown.Menu>
                                     </Dropdown>
                                 </div>
@@ -242,10 +261,10 @@ const Liveprojects = () => {
                                         <Dropdown.Menu>
                                             <Dropdown.Item href="#/action-1">twitter</Dropdown.Item>
                                             <Dropdown.Item href="#/action-2">news article</Dropdown.Item>
-                                            <Dropdown.Item href="#/action-3">an existing project that launched</Dropdown.Item>
+                                            {/* <Dropdown.Item href="#/action-3">an existing project that launched</Dropdown.Item> */}
                                         </Dropdown.Menu>
                                     </Dropdown>
-                                </div> */}
+                                </div>
                             </div>
                         </div>
                         <div className='main-card'>
@@ -361,6 +380,25 @@ const Liveprojects = () => {
                                     </tbody>
                                 </table>
                             </div>
+                            <div className="pagi">
+                        <div className="rightsss">
+                            <div className='arrows'>
+                                <img src='\assets\pegiarrow1.png' alt='1mg' className='img-fluid' />
+                                <img src='\assets\pegiarrow2.png' alt='1mg' className='img-fluid' />
+                            </div>
+                            <Pagination>
+                                <Pagination.Item active>{1}</Pagination.Item>
+                                <Pagination.Item>{2}</Pagination.Item>
+                                <Pagination.Item >{3}</Pagination.Item>
+                                <Pagination.Item>{4}</Pagination.Item>
+                                <Pagination.Item >{5}</Pagination.Item>
+                            </Pagination>
+                            <div className='arrows' style={{ display: 'flex', gap: '13px', alignItems: 'center' }}>
+                                <img src='\assets\pegiarrow3.png' alt='1mg' className='img-fluid' />
+                                <img src='\assets\pegiarrow4.png' alt='1mg' className='img-fluid' />
+                            </div>
+                        </div>
+                    </div>
                         </div>
                     </div>
                 </>
@@ -368,13 +406,13 @@ const Liveprojects = () => {
             {activeTab === 'link-3' && (
                 <>
                    <div className='parentcardmain'>
-                        <div className='parentmains'>
+                   <div className='parentmains'>
                             <div className='left'>
                                 <input type='text' placeholder='Search' />
                                 <img src='\assets\Search_Magnifying_Glass.svg' alt='img' className='img-fluid' />
                             </div>
                             <div className='right'>
-                                {/* <div className='dropbtn'>
+                                <div className='dropbtn'>
                                     <Dropdown>
                                         <Dropdown.Toggle variant="success" id="dropdown-basic">
                                             <div className='muinput'>
@@ -389,7 +427,7 @@ const Liveprojects = () => {
                                         <Dropdown.Menu>
                                             <Dropdown.Item href="#/action-1">twitter</Dropdown.Item>
                                             <Dropdown.Item href="#/action-2">news article</Dropdown.Item>
-                                            <Dropdown.Item href="#/action-3">an existing project that launched</Dropdown.Item>
+                                            {/* <Dropdown.Item href="#/action-3">an existing project that launched</Dropdown.Item> */}
                                         </Dropdown.Menu>
                                     </Dropdown>
                                 </div>
@@ -408,10 +446,10 @@ const Liveprojects = () => {
                                         <Dropdown.Menu>
                                             <Dropdown.Item href="#/action-1">twitter</Dropdown.Item>
                                             <Dropdown.Item href="#/action-2">news article</Dropdown.Item>
-                                            <Dropdown.Item href="#/action-3">an existing project that launched</Dropdown.Item>
+                                            {/* <Dropdown.Item href="#/action-3">an existing project that launched</Dropdown.Item> */}
                                         </Dropdown.Menu>
                                     </Dropdown>
-                                </div> */}
+                                </div>
                             </div>
                         </div>
                         <div className='main-card'>
@@ -527,6 +565,25 @@ const Liveprojects = () => {
                                     </tbody>
                                 </table>
                             </div>
+                            <div className="pagi">
+                        <div className="rightsss">
+                            <div className='arrows'>
+                                <img src='\assets\pegiarrow1.png' alt='1mg' className='img-fluid' />
+                                <img src='\assets\pegiarrow2.png' alt='1mg' className='img-fluid' />
+                            </div>
+                            <Pagination>
+                                <Pagination.Item active>{1}</Pagination.Item>
+                                <Pagination.Item>{2}</Pagination.Item>
+                                <Pagination.Item >{3}</Pagination.Item>
+                                <Pagination.Item>{4}</Pagination.Item>
+                                <Pagination.Item >{5}</Pagination.Item>
+                            </Pagination>
+                            <div className='arrows' style={{ display: 'flex', gap: '13px', alignItems: 'center' }}>
+                                <img src='\assets\pegiarrow3.png' alt='1mg' className='img-fluid' />
+                                <img src='\assets\pegiarrow4.png' alt='1mg' className='img-fluid' />
+                            </div>
+                        </div>
+                    </div>
                         </div>
                     </div>
                 </>

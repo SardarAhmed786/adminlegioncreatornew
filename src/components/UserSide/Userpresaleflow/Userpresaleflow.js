@@ -7,6 +7,7 @@ import Header from '../../Header/Header';
 
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import Footer from '../../Footer/Footer';
 const Userpresaleflow = () => {
     const [activeTab, setActiveTab] = useState('link-1');
     const handleSelect = (eventKey) => {
@@ -73,9 +74,9 @@ const Userpresaleflow = () => {
     return (
         <>
             <Header />
-            <section className='mainpresaleuser'>
+            <section className='mainpresaleusersss'>
                 <div className="custom-container">
-                    <div className='detailimage'>
+                    <div className='detailimage maindetail'>
                         <img src='\assets\userflowimg.svg' alt='img' className='img-fluid images' />
                     </div>
                     <div className='parentdetail'>
@@ -117,15 +118,15 @@ const Userpresaleflow = () => {
                                         <h6>$0.02</h6>
                                     </div>
                                     <div className='textcard'>
-                                        <p>Token Price</p>
+                                        <p>Soft Cap</p>
                                         <h6>1,000 USDT</h6>
                                     </div>
                                     <div className='textcard'>
-                                        <p>Token Price</p>
+                                        <p>Hard Cap</p>
                                         <h6>5,000 USDT</h6>
                                     </div>
                                     <div className='textcard'>
-                                        <p>Token Price</p>
+                                        <p>Total Raise</p>
                                         <h6>$0.02</h6>
                                     </div>
                                     <div className='textcard'>
@@ -313,10 +314,10 @@ const Userpresaleflow = () => {
                                     <div className='tokencard'>
                                         <h2 className='head'>Token Sale and Economics</h2>
                                         <div className='parenttokencard'>
-                                            <div className='graycard'>
+                                            <div className='graycard forraius'>
                                                 <p className='graytext'>Hard Cap</p>
                                             </div>
-                                            <div className='graycard'>
+                                            <div className='graycard forraius1'>
                                                 <p className=''>2,500,000 USD</p>
                                             </div>
                                         </div>
@@ -377,10 +378,10 @@ const Userpresaleflow = () => {
                                             </div>
                                         </div>
                                         <div className='parenttokencard'>
-                                            <div className='graycard'>
-                                                <p className='graytext'>Token Distribution</p>
+                                            <div className='graycard forraius2'>
+                                                <p className='graytext '>Token Distribution</p>
                                             </div>
-                                            <div className='graycard'>
+                                            <div className='graycard forraius3'>
                                                 <p className=''>After the end of token sale</p>
                                             </div>
                                         </div>
@@ -554,6 +555,59 @@ const Userpresaleflow = () => {
                             )}
                             {activeTab === 'link-3' && (
                                 <>
+                                    <div className='projectmilestone'>
+                                        <h2>Project Milestones</h2>
+                                        <div className='mainprojectcard'>
+                                            <div className='parent'>
+                                                <div className='left'>
+                                                    <img src='\assets\Frame166.png' alt='img' className='img-fluid' />
+                                                </div>
+                                                <div className='right'>
+                                                    <h6>Completion of our whitepaper and initial team assembly.</h6>
+                                                    <p>Completed on: June 2023</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className='mainprojectcard'>
+                                            <div className='parent'>
+                                                <div className='left'>
+                                                    <img src='\assets\Frame166.png' alt='img' className='img-fluid' />
+                                                </div>
+                                                <div className='right'>
+                                                    <h6>Completion of our whitepaper and initial team assembly.</h6>
+                                                    <p>Completed on: June 2023</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className='mainprojectcard1'>
+                                            <div className='parentcard'>
+                                                <div className='left'>
+                                                    <img src='\assets\Frame167.png' alt='img' className='img-fluid' />
+                                                    <div className='cardtext'>
+                                                        <h6>Launch of our beta platform.</h6>
+                                                        <p>Q1 2024</p>
+                                                    </div>
+                                                </div>
+                                                <div className='right'>
+                                                    <button>Mark as Complete</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className='mainprojectcard1'>
+                                            <div className='parentcard'>
+                                                <div className='left'>
+                                                    <img src='\assets\Frame167.png' alt='img' className='img-fluid' />
+                                                    <div className='cardtext'>
+                                                        <h6>Launch of our beta platform.</h6>
+                                                        <p>Q1 2024</p>
+                                                    </div>
+                                                </div>
+                                                <div className='right'>
+                                                    <button>Mark as Complete</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div className='card forpad'>
                                         <div className='innercontent'>
                                             <div className='left'>
@@ -567,7 +621,7 @@ const Userpresaleflow = () => {
                                                 </div>
 
                                             </div>
-                                            <button  onClick={handleShow}> Create Update</button>
+                                            <button onClick={handleShow}> Create Update</button>
                                         </div>
                                         <div className='bottomcontentss'>
                                             <p className='officialflow'>Ut omnis suscipit aut exercitationem eius qui cumque ullam qui sunt nihil sit quam consequuntur non odio odio et corrupti velit. Est consequuntur quasi a blanditiis laboriosam et dicta fugit ea nihil earum.</p>
@@ -786,7 +840,7 @@ const Userpresaleflow = () => {
                             <div className='presalecard'>
                                 <div className='parent'>
                                     <div className='left'>
-                                        <p>yourproject/:tab</p>
+                                        <p>Presale Ending In</p>
                                     </div>
                                     <div className='right'>
                                         <div className='inner'>
@@ -916,13 +970,15 @@ const Userpresaleflow = () => {
                         </div>
                     </div>
                 </div>
+
             </section>
+            <Footer />
             <Modal className='participatemodal' show={show} onHide={handleClose} centered>
                 <Modal.Header closeButton>
                     <Modal.Title>Create Update</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                   
+
                     <div className='muinput'>
                         <div class="material-textfield">
                             <input placeholder="Enter Update URL" type="text" />
@@ -930,8 +986,8 @@ const Userpresaleflow = () => {
                         </div>
                         <p>PASTE</p>
                     </div>
-                 
-                   
+
+
                     <div className='endbtns'>
                         <button className='cancel' > Cancel</button>
                         <button className='confirm' onClick={() => {
@@ -1060,7 +1116,7 @@ const Userpresaleflow = () => {
 
             </Modal> */}
 
-{/* 
+            {/* 
             <Modal className='participatemodal' show={show4} onHide={handleClose4} centered>
                 <Modal.Header closeButton>
                     <Modal.Title>Success</Modal.Title>
@@ -1074,7 +1130,7 @@ const Userpresaleflow = () => {
                 </Modal.Body>
 
             </Modal> */}
-{/* 
+            {/* 
             <Modal className='participatemodal' show={show5} onHide={handleClose5} centered>
                 <Modal.Header closeButton>
                     <Modal.Title>Submit Feedback</Modal.Title>

@@ -23,6 +23,7 @@
         gap: 20px;
 
         .left {
+
             .forpad {
                 margin-top: 15px;
             }
@@ -233,7 +234,7 @@
                 }
 
                 .nav-item {
-                    width: 20%;
+                    width: 25%;
                 }
 
                 .nav-link {
@@ -351,6 +352,42 @@
                             height: 100%;
                             object-fit: cover;
                             object-position: center;
+                        }
+                    }
+                }
+            }
+
+            .mainprojectcard {
+                border-radius: 12px;
+                border: 1px solid #D9F6EC;
+                background: #FFF;
+                padding: 15px;
+                max-width: 737px;
+                width: 100%;
+                margin-bottom: 10px;
+
+                .parent {
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-start;
+                    gap: 12px;
+
+                    .right {
+                        h6 {
+                            color: var(--Black, #000);
+                            font-size: 14px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: 100%;
+                        }
+
+                        p {
+                            color: #9E9E9E;
+                            font-size: 12px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: 100%;
+                            margin-top: 5px;
                         }
                     }
                 }
@@ -1124,6 +1161,58 @@
                     }
                 }
             }
+
+            .contactcard {
+                border-radius: 12px;
+                background: var(--White, #FFF);
+                padding: 30px 20px;
+                width: 437px;
+                // width: 100%;
+                margin-top: 20px;
+
+                h2 {
+                    color: var(--Black, #000);
+                    font-family: Poppins;
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: 100%;
+                    text-transform: uppercase;
+                }
+
+                .brdr {
+                    background: #EBF2FF;
+                    height: 1px;
+                    width: 100%;
+                    margin: 16px 0px;
+                }
+
+                .parentpara {
+
+                    p {
+                        color: #9AA0AA;
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-start;
+                        gap: 12px;
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: 120%;
+                        margin-bottom: 12px;
+
+                        span {
+                            color: var(--Primary-Text, #343434);
+                            font-size: 14px;
+                            font-style: normal;
+                            font-weight: 500;
+                            line-height: 120%
+                        }
+                    }
+
+
+                }
+            }
         }
     }
 
@@ -1822,6 +1911,10 @@
                         gap: 12px;
                     }
 
+                    .muinput {
+                        width: 100%;
+                    }
+
                     .dropbtn {
                         .dropdown-toggle::after {
                             display: none;
@@ -1833,7 +1926,7 @@
                                 border: 1px solid transparent !important;
                                 background: transparent;
 
-
+                                padding: 0px;
                                 color: var(--Primary-Text, #343434);
                                 text-align: center;
                                 width: 100% !important;
@@ -1896,8 +1989,7 @@
                                 &:hover {
                                     padding: 12px 15px;
                                     border-bottom: 1px solid #F7FAFF;
-
-                                    background: #F8FAFF;
+                                    background: #F8FAFF !important;
                                 }
 
                             }
@@ -1923,6 +2015,7 @@
                     align-items: center;
                     justify-content: flex-start;
                     gap: 8px;
+                    margin-top: 15px;
 
                     .cancle {
                         border-radius: 50px;
@@ -2007,15 +2100,16 @@
 
                 .main-card {
                     border-radius: 14px;
-                    border: 1px solid #F8F8F8;
+                    border: 2px solid #F8F8F8;
                     background: var(--White, #FFF);
                     width: 100%;
+          
 
                     .table-responsive {
 
                         th {
                             // border-radius: 14px 14px 0px 0px;
-                            border-bottom: 1px solid #F8F8F8;
+                            border-bottom: none !important;
                             background: #FBFCFD !important;
                             padding: 20px;
                             vertical-align: middle;
@@ -2034,7 +2128,9 @@
                             background: var(--White, #FFF);
                             padding: 20px;
                             vertical-align: middle;
-
+                            border-right: 1px solid #F8F8F8;
+                            border-bottom: none;
+                            border-bottom-width: 0px;
                             h6 {
                                 color: #8A8C90;
 
@@ -2149,6 +2245,7 @@
                     align-items: center;
                     justify-content: flex-start;
                     gap: 8px;
+                    margin-top: 15px;
 
                     .cancle {
                         border-radius: 50px;
@@ -2188,6 +2285,10 @@
 }
 
 @media(max-width:1199px) {
+    .mainpresaleuser .parentdetail .right .contactcard {
+        width: 100%;
+    }
+
     .mainpresaleuser .detailimage {
         width: 100%;
         height: unset;
@@ -2396,4 +2497,10 @@
     .mainpresaleuser .summerycard .endboxx {
         padding: 15px;
     }
+}
+
+.modal-backdrop.show {
+    background: rgba(77, 77, 77, 0.80) !important;
+
+    backdrop-filter: blur(2px) !important;
 }

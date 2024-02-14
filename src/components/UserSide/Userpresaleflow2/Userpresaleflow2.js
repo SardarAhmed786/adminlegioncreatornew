@@ -7,6 +7,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Header from '../../Header/Header';
+import Footer from '../../Footer/Footer';
 const Userpresaleflow2 = () => {
     const [activeTab, setActiveTab] = useState('link-1');
     const handleSelect = (eventKey) => {
@@ -47,6 +48,10 @@ const Userpresaleflow2 = () => {
     const [show11, setShow11] = useState(false);
     const handleClose11 = () => setShow11(false);
     const handleShow11 = () => setShow11(true);
+
+    const [show12, setShow12] = useState(false);
+    const handleClose12 = () => setShow12(false);
+    const handleShow12 = () => setShow12(true);
 
 
     const [show1, setShow1] = useState(false);
@@ -511,6 +516,39 @@ const Userpresaleflow2 = () => {
                             )}
                             {activeTab === 'link-3' && (
                                 <>
+                                    <div className='mainprojectcard'>
+                                        <div className='parent'>
+                                            <div className='left'>
+                                                <img src='\assets\Frame167.png' alt='img' className='img-fluid' />
+                                            </div>
+                                            <div className='right'>
+                                                <h6>Completion of our whitepaper and initial team assembly.</h6>
+                                                <p>Q4 2023</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className='mainprojectcard'>
+                                        <div className='parent'>
+                                            <div className='left'>
+                                                <img src='\assets\Frame167.png' alt='img' className='img-fluid' />
+                                            </div>
+                                            <div className='right'>
+                                                <h6>Development of our MVP and first partnerships with logistics companies.</h6>
+                                                <p>Q3 2023</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className='mainprojectcard'>
+                                        <div className='parent'>
+                                            <div className='left'>
+                                                <img src='\assets\Frame167.png' alt='img' className='img-fluid' />
+                                            </div>
+                                            <div className='right'>
+                                                <h6>Full platform launch in Q3 2023, followed by expansion to additional markets.</h6>
+                                                <p>Q1 2023</p>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div className='card forpad'>
                                         <div className='innercontent'>
                                             <div className='left'>
@@ -639,6 +677,10 @@ const Userpresaleflow2 = () => {
                                             <p>Reddit</p>
                                             <h6>https://www.reddit.com/presaletoken</h6>
                                         </div>
+                                        <div className='summeryparent'>
+                                            <p>Medium</p>
+                                            <h6>https://www.medium.com/presaletoken</h6>
+                                        </div>
                                         <div className='endboxx'>
                                             <p>Warning: Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
                                         </div>
@@ -752,6 +794,7 @@ const Userpresaleflow2 = () => {
                     </div>
                 </div>
             </section>
+            <Footer />
             <Modal className='settingmodal' show={show11} onHide={handleClose11} centered>
                 <Modal.Header closeButton>
                     <Modal.Title>Allocation Settings</Modal.Title>
@@ -885,9 +928,9 @@ const Userpresaleflow2 = () => {
                                 </Dropdown.Toggle>
 
                                 <Dropdown.Menu>
-                                    <Dropdown.Item href="#/action-1">twitter</Dropdown.Item>
-                                    <Dropdown.Item href="#/action-2">news article</Dropdown.Item>
-                                    <Dropdown.Item href="#/action-3">an existing project that launched</Dropdown.Item>
+                                    <Dropdown.Item href="#/action-1">All Stakers</Dropdown.Item>
+                                    <Dropdown.Item href="#/action-2">Legend Staker</Dropdown.Item>
+                                    <Dropdown.Item href="#/action-3">Diamond Staker</Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>
                         </div>
@@ -979,7 +1022,155 @@ const Userpresaleflow2 = () => {
                     </div>
                     <div className='endbtns'>
                         <button className='cancle'>Cancel</button>
-                        <button className='confirm' onClick={handleShow11}>Edit</button>
+                        <button className='confirm' onClick={handleShow12}>Edit</button>
+                    </div>
+                </Modal.Body>
+
+            </Modal>
+
+            <Modal className='settingmodal' show={show12} onHide={handleClose12} centered>
+                <Modal.Header closeButton>
+                    <Modal.Title>Edit Allocation</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className='uppersettingparent'>
+                        <div className='heading'>
+                            <h2>tier 1 allocations</h2>
+                        </div>
+                        <div className='parentsetting'>
+                            <div className='muinput'>
+                                <div class="material-textfield">
+                                    <input placeholder="Enter no. of Tickets" type="text" />
+                                    <label>Number of Tickets</label>
+                                </div>
+                            </div>
+                            <div className='muinput'>
+                                <div class="material-textfield">
+                                    <input placeholder="Enter Total Allocation" type="text" />
+                                    <label>Total Allocation (USD)</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='muinput'>
+                            <div class="material-textfield">
+                                <input placeholder="Enter Ticket amount" type="text" />
+                                <label>Max Ticket Use</label>
+                            </div>
+                        </div>
+                        <div className='dropbtn'>
+                            <Dropdown>
+                                <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                    <div className='muinput'>
+                                        <div class="material-textfield">
+                                            <input placeholder="Select Accessibility" type="text" />
+                                            <label>Accessibility</label>
+                                        </div>
+                                    </div>
+                                    <img src='\assets\Vector.png' alt='img' className='img-fluid' />
+                                </Dropdown.Toggle>
+
+                                <Dropdown.Menu>
+                                    <Dropdown.Item href="#/action-1">Premium Members</Dropdown.Item>
+                                    <Dropdown.Item href="#/action-2">All Stakers</Dropdown.Item>
+                                    <Dropdown.Item href="#/action-3">Legend Staker</Dropdown.Item>
+                                    <Dropdown.Item href="#/action-4">Diamond Staker</Dropdown.Item>
+                                    <Dropdown.Item href="#/action-5">Platinum Staker</Dropdown.Item>
+                                    <Dropdown.Item href="#/action-5">Gold Staker</Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
+                        </div>
+                    </div>
+                    <div className='uppersettingparent'>
+                        <div className='heading'>
+                            <h2>tier 2 allocations</h2>
+                        </div>
+                        <div className='parentsetting'>
+                            <div className='muinput'>
+                                <div class="material-textfield">
+                                    <input placeholder="Enter no. of Tickets" type="text" />
+                                    <label>Number of Tickets</label>
+                                </div>
+                            </div>
+                            <div className='muinput'>
+                                <div class="material-textfield">
+                                    <input placeholder="Enter Total Allocation" type="text" />
+                                    <label>Total Allocation (USD)</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='muinput'>
+                            <div class="material-textfield">
+                                <input placeholder="Enter Ticket amount" type="text" />
+                                <label>Max Ticket Use</label>
+                            </div>
+                        </div>
+                        <div className='dropbtn'>
+                            <Dropdown>
+                                <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                    <div className='muinput'>
+                                        <div class="material-textfield">
+                                            <input placeholder="Select Accessibility" type="text" />
+                                            <label>Accessibility</label>
+                                        </div>
+                                    </div>
+                                    <img src='\assets\Vector.png' alt='img' className='img-fluid' />
+                                </Dropdown.Toggle>
+
+                                <Dropdown.Menu>
+                                    <Dropdown.Item href="#/action-1">twitter</Dropdown.Item>
+                                    <Dropdown.Item href="#/action-2">news article</Dropdown.Item>
+                                    <Dropdown.Item href="#/action-3">an existing project that launched</Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
+                        </div>
+                    </div>
+                    <div className='uppersettingparent'>
+                        <div className='heading'>
+                            <h2>tier 3 allocations</h2>
+                        </div>
+                        <div className='parentsetting'>
+                            <div className='muinput'>
+                                <div class="material-textfield">
+                                    <input placeholder="Enter no. of Tickets" type="text" />
+                                    <label>Number of Tickets</label>
+                                </div>
+                            </div>
+                            <div className='muinput'>
+                                <div class="material-textfield">
+                                    <input placeholder="Enter Total Allocation" type="text" />
+                                    <label>Total Allocation (USD)</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='muinput'>
+                            <div class="material-textfield">
+                                <input placeholder="Enter Ticket amount" type="text" />
+                                <label>Max Ticket Use</label>
+                            </div>
+                        </div>
+                        <div className='dropbtn'>
+                            <Dropdown>
+                                <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                    <div className='muinput'>
+                                        <div class="material-textfield">
+                                            <input placeholder="Select Accessibility" type="text" />
+                                            <label>Accessibility</label>
+                                        </div>
+                                    </div>
+                                    <img src='\assets\Vector.png' alt='img' className='img-fluid' />
+                                </Dropdown.Toggle>
+
+                                <Dropdown.Menu>
+                                    <Dropdown.Item href="#/action-1">All Stakers</Dropdown.Item>
+                                    <Dropdown.Item href="#/action-2">Legend Staker</Dropdown.Item>
+                                    <Dropdown.Item href="#/action-3">Diamond Staker</Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
+                        </div>
+                    </div>
+                    <div className='endbtns'>
+                        <button className='cancle'>Cancel</button>
+                        <button className='confirm' >Save</button>
                     </div>
                 </Modal.Body>
 

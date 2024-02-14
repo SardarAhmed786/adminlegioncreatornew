@@ -64,7 +64,7 @@ const Startapplication = () => {
                                 <div className='applicationcard'>
                                     <div className='mainheads'>
                                         <h2>Sign in</h2>
-                                        <p>Sign in to your creator account</p>
+                                        <p>Sign in to your account to admin</p>
                                     </div>
                                     <div className='muinput'>
                                         <div class="material-textfield">
@@ -74,22 +74,27 @@ const Startapplication = () => {
                                     </div>
                                     <div className='muinput'>
                                         <div class="material-textfield">
-                                            <input placeholder="Password" type="text" />
+                                            <input placeholder="Enter Password" type="text" />
                                             <label>Password</label>
                                         </div>
                                         <img src='\assets\eye.png' alt='img' className='img-fluid eye' />
                                     </div>
 
                                     <div className='endpara'>
+                                        <div className='parentsssssss'>
                                         <div className='chec'>
                                             <div class="example">
                                                 <label class="checkbox-button">
                                                     <input type="checkbox" class="checkbox-button__input" id="choice1-1" name="choice1" />
                                                     <span class="checkbox-button__control"></span>
-                                                    <span class="checkbox-button__label">Forgot Password?</span>
+                                                    <span class="checkbox-button__label">Remember me</span>
                                                 </label>
                                             </div>
+                                           
                                         </div>
+                                        <p className='forget'>Forgot Password?</p>
+                                        </div>
+                                    
                                         <Link to="yourproject/:tab">  <button onClick={() => { settoggle(!toggle) }}>Sign In</button></Link>
                                       
                                     </div>

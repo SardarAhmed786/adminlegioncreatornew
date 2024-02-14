@@ -1,14 +1,15 @@
 import React from 'react'
 import Dropdown from 'react-bootstrap/Dropdown';
 import { Link } from 'react-router-dom';
+import { Pagination } from 'react-bootstrap'
 const Application = () => {
     return (
         <div className='right'>
             <div className='uppercard'>
                 <div className='iii'>
                     <div className='iiitext'>
-                        <h5>Your Applications</h5>
-                        <p>Apply to launch your project on Legion Launchpad</p>
+                        <h5>Applications</h5>
+                        <p>Application submitted on Legion Launchpad</p>
                     </div>
 
                 </div>
@@ -37,7 +38,7 @@ const Application = () => {
                                 <Dropdown.Menu>
                                     <Dropdown.Item href="#/action-1">twitter</Dropdown.Item>
                                     <Dropdown.Item href="#/action-2">news article</Dropdown.Item>
-                          
+
                                 </Dropdown.Menu>
                             </Dropdown>
                         </div>
@@ -56,7 +57,7 @@ const Application = () => {
                                 <Dropdown.Menu>
                                     <Dropdown.Item href="#/action-1">twitter</Dropdown.Item>
                                     <Dropdown.Item href="#/action-2">news article</Dropdown.Item>
-                           
+
                                 </Dropdown.Menu>
                             </Dropdown>
                         </div>
@@ -86,7 +87,7 @@ const Application = () => {
 
                                     </td>
                                     <td><p className='bold'>BSC</p></td>
-                                    
+
                                     <td><p className='bold'>Ruth Wilson</p></td>
                                     <td><p className='bold'>23/2/2024</p></td>
                                     <td><p className='bold'>14/11/2023</p></td>
@@ -101,7 +102,7 @@ const Application = () => {
 
                                     </td>
                                     <td><p className='bold'>BSC</p></td>
-                                    
+
                                     <td><p className='bold'>Ruth Wilson</p></td>
                                     <td><p className='bold'>23/2/2024</p></td>
                                     <td><p className='bold'>14/11/2023</p></td>
@@ -116,7 +117,7 @@ const Application = () => {
 
                                     </td>
                                     <td><p className='bold'>BSC</p></td>
-                                    
+
                                     <td><p className='bold'>Ruth Wilson</p></td>
                                     <td><p className='bold'>23/2/2024</p></td>
                                     <td><p className='bold'>14/11/2023</p></td>
@@ -131,7 +132,7 @@ const Application = () => {
 
                                     </td>
                                     <td><p className='bold'>BSC</p></td>
-                                    
+
                                     <td><p className='bold'>Ruth Wilson</p></td>
                                     <td><p className='bold'>23/2/2024</p></td>
                                     <td><p className='bold'>14/11/2023</p></td>
@@ -146,7 +147,7 @@ const Application = () => {
 
                                     </td>
                                     <td><p className='bold'>BSC</p></td>
-                                    
+
                                     <td><p className='bold'>Ruth Wilson</p></td>
                                     <td><p className='bold'>23/2/2024</p></td>
                                     <td><p className='bold'>14/11/2023</p></td>
@@ -154,6 +155,25 @@ const Application = () => {
                                 </tr>
                             </tbody>
                         </table>
+                    </div>
+                    <div className="pagi">
+                        <div className="rightsss">
+                            <div className='arrows'>
+                                <img src='\assets\pegiarrow1.png' alt='1mg' className='img-fluid' />
+                                <img src='\assets\pegiarrow2.png' alt='1mg' className='img-fluid' />
+                            </div>
+                            <Pagination>
+                                <Pagination.Item active>{1}</Pagination.Item>
+                                <Pagination.Item>{2}</Pagination.Item>
+                                <Pagination.Item >{3}</Pagination.Item>
+                                <Pagination.Item>{4}</Pagination.Item>
+                                <Pagination.Item >{5}</Pagination.Item>
+                            </Pagination>
+                            <div className='arrows' style={{ display: 'flex', gap: '13px', alignItems: 'center' }}>
+                                <img src='\assets\pegiarrow3.png' alt='1mg' className='img-fluid' />
+                                <img src='\assets\pegiarrow4.png' alt='1mg' className='img-fluid' />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

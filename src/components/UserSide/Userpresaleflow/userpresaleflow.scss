@@ -1,4 +1,4 @@
-.mainpresaleuser {
+.mainpresaleusersss {
     background: #F8FAFB;
     padding: 110px 0px;
 
@@ -69,7 +69,7 @@
                                 font-style: normal;
                                 font-weight: 500;
                                 line-height: 100%;
-                                text-transform: uppercase;
+                                // text-transform: uppercase;
                             }
 
                             p {
@@ -98,7 +98,7 @@
                                         background: #F3F3F3;
                                         padding: 7px 10px;
                                         color: var(--Black, #000);
-
+                                        text-transform: capitalize;
                                         font-family: Poppins;
                                         font-size: 12px;
                                         font-style: normal;
@@ -129,6 +129,10 @@
                             font-style: normal;
                             font-weight: 600;
                             line-height: 110%;
+                            display: flex;
+                            align-items: flex-start;
+                            gap: 4px;
+                            justify-content: flex-start;
                         }
                     }
 
@@ -458,12 +462,26 @@
                         width: 100%;
                     }
 
+                    .forraius {
+                        border-radius: 10px 0px 0px 0px;
+                    }
+
+                    .forraius1 {
+                        border-radius: 0px 10px 0px 0px;
+                    }
+
+                    .forraius2 {
+                        border-radius: 0px 0px 0px 10px;
+                    }
+
+                    .forraius3 {
+                        border-radius: 0px 0px 10px 0px;
+                    }
+
                     .graycard {
                         background: #F8FAFB;
                         padding: 14px 20px;
                         width: 100%;
-
-
                     }
                 }
 
@@ -753,6 +771,119 @@
                 }
             }
 
+            .projectmilestone {
+                border-radius: 15px;
+                background: #FFF;
+                max-width: 797px;
+                width: 100%;
+                padding: 30px;
+
+                h2 {
+                    color: var(--Primary-Text, #343434);
+                    font-family: Poppins;
+                    font-size: 18px;
+                    font-style: normal;
+                    font-weight: 600;
+                    line-height: 100%;
+                    margin-bottom: 15px;
+                    text-transform: uppercase;
+                }
+
+                .mainprojectcard {
+                    border-radius: 12px;
+                    border: 1px solid #D9F6EC;
+                    background: #FFF;
+                    padding: 15px;
+                    max-width: 737px;
+                    width: 100%;
+                    margin-bottom: 10px;
+
+                    .parent {
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-start;
+                        gap: 12px;
+
+                        .right {
+                            h6 {
+                                color: var(--Black, #000);
+                                font-size: 14px;
+                                font-style: normal;
+                                font-weight: 400;
+                                line-height: 100%;
+                            }
+
+                            p {
+                                color: #9E9E9E;
+                                font-size: 12px;
+                                font-style: normal;
+                                font-weight: 400;
+                                line-height: 100%;
+                                margin-top: 5px;
+                            }
+                        }
+                    }
+                }
+
+                .mainprojectcard1 {
+                    padding: 15px;
+                    max-width: 737px;
+                    width: 100%;
+                    margin-bottom: 10px;
+                    border-radius: 12px;
+                    border: 1px solid #F8F8F8;
+                    background: #FFF;
+
+                    .parentcard {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+
+                        .left {
+                            display: flex;
+                            align-items: center;
+                            justify-content: flex-start;
+                            gap: 12px;
+
+                            .cardtext {
+                                h6 {
+                                    color: #727272;
+                                    font-size: 14px;
+                                    font-style: normal;
+                                    font-weight: 400;
+                                    line-height: 100%;
+                                }
+
+                                p {
+                                    color: #9E9E9E;
+                                    font-size: 12px;
+                                    font-style: normal;
+                                    font-weight: 400;
+                                    line-height: 100%;
+                                    margin-top: 5px;
+                                }
+                            }
+                        }
+
+                        .right {
+                            button {
+                                border-radius: 45px;
+                                background: #E0FAF3;
+                                padding: 8px 12px;
+                                max-width: 122px;
+                                width: 100%;
+                                color: var(--Green, #04C182);
+                                font-size: 10px;
+                                font-style: normal;
+                                font-weight: 500;
+                                line-height: 100%;
+                                text-transform: uppercase;
+                                border: none;
+                            }
+                        }
+                    }
+                }
+            }
 
         }
 
@@ -802,6 +933,7 @@
                             font-weight: 600;
                             line-height: 100%;
                             /* 20px */
+                            margin-bottom: 5px;
                             text-transform: uppercase;
                         }
 
@@ -1047,7 +1179,7 @@
             gap: 8px;
             flex-direction: column;
             width: 100%;
-            margin-top: 50px;
+            margin-top: 20px;
 
             .progress {
                 border-radius: 40px;
@@ -1097,7 +1229,7 @@
             align-items: center;
             justify-content: space-between;
             padding-bottom: 11px;
-            margin-bottom: 15px;
+            // margin-bottom: 15px;
 
             &:last-child {
                 padding-bottom: 0px;
@@ -1349,6 +1481,7 @@
                         font-style: normal;
                         font-weight: 500;
                         line-height: 120%;
+                        cursor: pointer;
                     }
                 }
 
@@ -1361,7 +1494,7 @@
                     .cancel {
                         border-radius: 50px;
                         background: #F4F8FF;
-                        padding: 16px 98px;
+                        padding: 16px 70px !important;
                         max-width: 217px;
                         width: 100%;
                         color: var(--Primary-Color, #3456D0);
@@ -1376,7 +1509,7 @@
                     .confirm {
                         border-radius: 50px;
                         background: var(--Button-Primery-Gradient, linear-gradient(180deg, #3456D0 0%, #0D32B7 100%));
-                        padding: 16px 98px;
+                        padding: 16px 70px;
                         width: 217px;
                         text-align: center;
                         color: var(--White, #FFF);
@@ -1635,93 +1768,93 @@
 }
 
 @media(max-width:1199px) {
-    .mainpresaleuser .detailimage {
+    .mainpresaleusersss .detailimage {
         width: 100%;
         height: unset;
     }
 
-    .mainpresaleuser .parentdetail {
+    .mainpresaleusersss .parentdetail {
         flex-direction: column;
     }
 
-    .mainpresaleuser .parentdetail .left {
+    .mainpresaleusersss .parentdetail .left {
         width: 100%;
     }
 
-    .mainpresaleuser .parentdetail .left .card {
+    .mainpresaleusersss .parentdetail .left .card {
         max-width: 100%;
     }
 
-    .mainpresaleuser .parentdetail .left .card .secondcard {
+    .mainpresaleusersss .parentdetail .left .card .secondcard {
         max-width: 100%;
     }
 
-    .mainpresaleuser .parentdetail .left .mainssss {
+    .mainpresaleusersss .parentdetail .left .mainssss {
         width: 100%;
     }
 
-    .mainpresaleuser .parentdetail .left .infocard {
+    .mainpresaleusersss .parentdetail .left .infocard {
         max-width: 100%;
     }
 
-    .mainpresaleuser .parentdetail .right .joinproject {
+    .mainpresaleusersss .parentdetail .right .joinproject {
         max-width: 100%;
     }
 
-    .mainpresaleuser .parentdetail .left .infocard .roadmap .roadmap {
+    .mainpresaleusersss .parentdetail .left .infocard .roadmap .roadmap {
         width: 100%;
     }
 
-    .mainpresaleuser .parentdetail .left .infocard .mainheading .partner {
+    .mainpresaleusersss .parentdetail .left .infocard .mainheading .partner {
         width: 100%;
     }
 
-    .mainpresaleuser .parentdetail .left .livepitch {
+    .mainpresaleusersss .parentdetail .left .livepitch {
         width: 100%;
     }
 
-    .mainpresaleuser .parentdetail .left .tokencard {
+    .mainpresaleusersss .parentdetail .left .tokencard {
         max-width: 100%;
     }
 
-    .mainpresaleuser .parentdetail .right {
+    .mainpresaleusersss .parentdetail .right {
         width: 100%;
     }
 
-    .mainpresaleuser .parentdetail .ggg {
+    .mainpresaleusersss .parentdetail .ggg {
         width: unset !important;
     }
 
-    .mainpresaleuser .parentdetail .right .presalecard {
+    .mainpresaleusersss .parentdetail .right .presalecard {
         width: 100%;
     }
 
-    .mainpresaleuser .parentdetail .right .yellowcard {
+    .mainpresaleusersss .parentdetail .right .yellowcard {
         max-width: 100%;
         overflow: hidden;
     }
 
-    .mainpresaleuser .parentdetail .left .parentrating {
+    .mainpresaleusersss .parentdetail .left .parentrating {
         width: 100%;
     }
 
-    .mainpresaleuser .parentdetail .left .tokenutility {
+    .mainpresaleusersss .parentdetail .left .tokenutility {
         max-width: 100%;
     }
 
-    .mainpresaleuser .parentdetail .left .livepitch .mainparentcard {
+    .mainpresaleusersss .parentdetail .left .livepitch .mainparentcard {
         flex-direction: column;
 
     }
 
-    .mainpresaleuser .parentdetail .left .livepitch .mainparentcard .innercard .maincardimg {
+    .mainpresaleusersss .parentdetail .left .livepitch .mainparentcard .innercard .maincardimg {
         width: 100%;
         height: 100%;
     }
 }
 
 @media(max-width:768px) {
-    .mainpresaleuser .parentdetail .left .mainssss .nav.nav-pills {
+    .mainpresaleusersss .parentdetail .left .mainssss .nav.nav-pills {
         overflow: auto;
         flex-wrap: nowrap;
 
@@ -1730,66 +1863,66 @@
         }
     }
 
-    .mainpresaleuser .parentdetail .left .mainssss .nav-item {
+    .mainpresaleusersss .parentdetail .left .mainssss .nav-item {
         width: 200px;
     }
 }
 
 @media(max-width:600px) {
-    .mainpresaleuser .parentdetail .left .card .innercontent {
+    .mainpresaleusersss .parentdetail .left .card .innercontent {
         flex-direction: column;
     }
 
-    .mainpresaleuser .parentdetail .left .card .innercontent button {
+    .mainpresaleusersss .parentdetail .left .card .innercontent button {
         max-width: 100%;
         margin: 20px 0px;
     }
 
-    .mainpresaleuser .parentdetail .left .card {
+    .mainpresaleusersss .parentdetail .left .card {
         padding: 20px;
     }
 
-    .mainpresaleuser .parentdetail .left .card .innercontent .left .innerleft .parentsocial .social {
+    .mainpresaleusersss .parentdetail .left .card .innercontent .left .innerleft .parentsocial .social {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 
     }
 
-    .mainpresaleuser .parentdetail .left .card .innercontent .left .innerleft .parentsocial {
+    .mainpresaleusersss .parentdetail .left .card .innercontent .left .innerleft .parentsocial {
         flex-direction: column;
     }
 
-    .mainpresaleuser .parentdetail .left .card .secondcard {
+    .mainpresaleusersss .parentdetail .left .card .secondcard {
         padding: 20px;
         flex-direction: column;
         align-items: flex-start;
     }
 
-    .mainpresaleuser .parentdetail .left .card .secondcard .textcard {
+    .mainpresaleusersss .parentdetail .left .card .secondcard .textcard {
         margin-bottom: 10px;
     }
 
-    .mainpresaleuser .parentdetail .left .infocard {
+    .mainpresaleusersss .parentdetail .left .infocard {
         padding: 20px;
     }
 
-    .mainpresaleuser .parentdetail .left .infocard .roadmap .roadmap {
+    .mainpresaleusersss .parentdetail .left .infocard .roadmap .roadmap {
         height: unset;
     }
 
-    .mainpresaleuser .parentdetail .right .yellowcard .ticket {
+    .mainpresaleusersss .parentdetail .right .yellowcard .ticket {
         display: none;
     }
 
-    .mainpresaleuser .parentdetail .left .tokenutility {
+    .mainpresaleusersss .parentdetail .left .tokenutility {
         padding: 20px;
     }
 
-    .mainpresaleuser .parentdetail .left .parentrating .headssss {
+    .mainpresaleusersss .parentdetail .left .parentrating .headssss {
         flex-direction: column;
     }
 
-    .mainpresaleuser .parentdetail .left .parentrating .headssss .left .ratingcard {
+    .mainpresaleusersss .parentdetail .left .parentrating .headssss .left .ratingcard {
         width: 100%;
     }
 
