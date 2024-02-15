@@ -35,7 +35,16 @@
                 max-width: 743px;
                 width: 100%;
                 margin-top: 20px;
-
+h2{
+    color: var(--Primary-Text, #343434);
+    font-family: Poppins;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 100%; /* 18px */
+    text-transform: uppercase;
+    margin-bottom: 15px;
+}
                 .innercontent {
                     display: flex;
                     align-items: center;
@@ -357,41 +366,60 @@
                 }
             }
 
-            .mainprojectcard {
-                border-radius: 12px;
-                border: 1px solid #D9F6EC;
+            .projectparentsss {
+                border-radius: 15px;
                 background: #FFF;
-                padding: 15px;
-                max-width: 737px;
-                width: 100%;
-                margin-bottom: 10px;
+                padding: 30px;
 
-                .parent {
-                    display: flex;
-                    align-items: center;
-                    justify-content: flex-start;
-                    gap: 12px;
+                h2 {
+                    color: var(--Primary-Text, #343434);
+                    font-size: 18px;
+                    font-style: normal;
+                    font-weight: 600;
+                    line-height: 100%;
+                    text-transform: uppercase;
+                    margin-bottom: 15px;
+                }
 
-                    .right {
-                        h6 {
-                            color: var(--Black, #000);
-                            font-size: 14px;
-                            font-style: normal;
-                            font-weight: 400;
-                            line-height: 100%;
-                        }
+                .mainprojectcard {
+                    border-radius: 12p;
+                    border: 1px solid #D9F6EC;
+                    background: #FFF;
+                    padding: 15px;
+                    max-width: 737px;
+                    width: 100%;
+                    margin-bottom: 10px;
 
-                        p {
-                            color: #9E9E9E;
-                            font-size: 12px;
-                            font-style: normal;
-                            font-weight: 400;
-                            line-height: 100%;
-                            margin-top: 5px;
+
+
+                    .parent {
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-start;
+                        gap: 12px;
+
+                        .right {
+                            h6 {
+                                color: var(--Black, #000);
+                                font-size: 14px;
+                                font-style: normal;
+                                font-weight: 400;
+                                line-height: 100%;
+                            }
+
+                            p {
+                                color: #9E9E9E;
+                                font-size: 12px;
+                                font-style: normal;
+                                font-weight: 400;
+                                line-height: 100%;
+                                margin-top: 5px;
+                            }
                         }
                     }
                 }
             }
+
 
             .tokenutility {
                 border-radius: 15px;
@@ -1175,7 +1203,7 @@
                     font-family: Poppins;
                     font-size: 16px;
                     font-style: normal;
-                    font-weight: 500;
+                    font-weight: 600;
                     line-height: 100%;
                     text-transform: uppercase;
                 }
@@ -2103,7 +2131,7 @@
                     border: 2px solid #F8F8F8;
                     background: var(--White, #FFF);
                     width: 100%;
-          
+
 
                     .table-responsive {
 
@@ -2115,7 +2143,7 @@
                             vertical-align: middle;
                             border: none;
                             white-space: nowrap;
-                            color: var(--Secondary-Text-Blue, #8A97A9);
+                            color: #343434;
                             font-size: 12px;
                             font-style: normal;
                             font-weight: 500;
@@ -2131,6 +2159,16 @@
                             border-right: 1px solid #F8F8F8;
                             border-bottom: none;
                             border-bottom-width: 0px;
+
+                            .bolds {
+                                color: #4A4A4A;
+
+                                font-size: 14px;
+                                font-style: normal;
+                                font-weight: 400;
+                                line-height: 120%;
+                            }
+
                             h6 {
                                 color: #8A8C90;
 

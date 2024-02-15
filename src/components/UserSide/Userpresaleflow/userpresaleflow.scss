@@ -33,12 +33,21 @@
                 padding: 30px;
                 max-width: 797px;
                 width: 100%;
-
-                .innercontent {
+ 
+                .parentszz{
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
-
+                    h2{
+                        color: var(--Primary-Text, #343434);
+                        font-family: Poppins;
+                        font-size: 18px;
+                        font-style: normal;
+                        font-weight: 600;
+                        line-height: 100%; /* 18px */
+                        text-transform: uppercase;
+                    }
+                    
                     button {
                         border-radius: 45px;
                         background: var(--Primary-Color, #3456D0);
@@ -55,6 +64,13 @@
                         white-space: nowrap;
                         text-transform: uppercase;
                     }
+                }
+   
+                .innercontent {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+
 
                     .left {
                         display: flex;
@@ -462,21 +478,7 @@
                         width: 100%;
                     }
 
-                    .forraius {
-                        border-radius: 10px 0px 0px 0px;
-                    }
-
-                    .forraius1 {
-                        border-radius: 0px 10px 0px 0px;
-                    }
-
-                    .forraius2 {
-                        border-radius: 0px 0px 0px 10px;
-                    }
-
-                    .forraius3 {
-                        border-radius: 0px 0px 10px 0px;
-                    }
+                 
 
                     .graycard {
                         background: #F8FAFB;
@@ -1265,7 +1267,7 @@
             font-family: Poppins;
             font-size: 16px;
             font-style: normal;
-            font-weight: 500;
+            font-weight: 600;
             line-height: 100%;
             text-transform: uppercase;
         }
@@ -1926,4 +1928,9 @@
         width: 100%;
     }
 
+}
+.modal-backdrop.show {
+    background: rgba(77, 77, 77, 0.80) !important;
+
+    backdrop-filter: blur(2px) !important;
 }

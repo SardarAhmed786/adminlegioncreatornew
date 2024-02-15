@@ -194,7 +194,7 @@
 
                         img {
                             position: absolute;
-                            top: 18px;
+                            top: 16px;
                             left: 20px;
                         }
                     }
@@ -337,7 +337,8 @@
                             background: var(--White, #FFF);
                             padding: 20px;
                             vertical-align: middle;
-
+                            border-bottom: none;
+                            border-bottom-width: 0px;
                             h6 {
                                 color: #8A8C90;
 

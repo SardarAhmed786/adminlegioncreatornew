@@ -206,8 +206,24 @@ h6 {
   width: unset;
 }
 
+.forpadd{
+  padding: 16px 70px !important;
+}
+.forraius {
+  border-radius: 10px 0px 0px 0px;
+}
 
+.forraius1 {
+  border-radius: 0px 10px 0px 0px;
+}
 
+.forraius2 {
+  border-radius: 0px 0px 0px 10px;
+}
+
+.forraius3 {
+  border-radius: 0px 0px 10px 0px;
+}
 @media only screen and (max-width: 600px) {
   .navbar-toggler {
     padding: 0.25rem 0.75rem;
@@ -270,7 +286,16 @@ iframe {
 button {
   cursor: pointer;
 }
+input{
+  color: #000 !important;
+}
 
+.parentssssss{
+  border-radius: 12px;
+border: 1px solid #F8F8F8;
+padding: 15px;
+background: #FFF;
+}
 @media (max-width: 600px) {
 
 

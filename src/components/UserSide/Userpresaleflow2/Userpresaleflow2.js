@@ -174,10 +174,10 @@ const Userpresaleflow2 = () => {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className='right ggg'>
+                                            {/* <div className='right ggg'>
                                                 <h6>Rating</h6>
                                                 <p><img src='\assets\Star.png' alt='img' className='img-fluid' />4.8</p>
-                                            </div>
+                                            </div> */}
                                         </div>
                                         <div className='secondcard'>
                                             <div className='textcard'>
@@ -275,10 +275,10 @@ const Userpresaleflow2 = () => {
                                     <div className='tokencard'>
                                         <h2 className='head'>Token Sale and Economics</h2>
                                         <div className='parenttokencard'>
-                                            <div className='graycard'>
+                                            <div className='graycard forraius'>
                                                 <p className='graytext'>Hard Cap</p>
                                             </div>
-                                            <div className='graycard'>
+                                            <div className='graycard forraius1'>
                                                 <p className=''>2,500,000 USD</p>
                                             </div>
                                         </div>
@@ -339,10 +339,10 @@ const Userpresaleflow2 = () => {
                                             </div>
                                         </div>
                                         <div className='parenttokencard'>
-                                            <div className='graycard'>
+                                            <div className='graycard forraius2'>
                                                 <p className='graytext'>Token Distribution</p>
                                             </div>
-                                            <div className='graycard'>
+                                            <div className='graycard forraius3'>
                                                 <p className=''>After the end of token sale</p>
                                             </div>
                                         </div>
@@ -516,8 +516,12 @@ const Userpresaleflow2 = () => {
                             )}
                             {activeTab === 'link-3' && (
                                 <>
-                                    <div className='mainprojectcard'>
+                                <div className='projectparentsss'>
+                                <h2>Project Milestones</h2>
+                                <div className='mainprojectcard'>
+                                 
                                         <div className='parent'>
+                                          
                                             <div className='left'>
                                                 <img src='\assets\Frame167.png' alt='img' className='img-fluid' />
                                             </div>
@@ -549,30 +553,12 @@ const Userpresaleflow2 = () => {
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                                 
+                                    
                                     <div className='card forpad'>
-                                        <div className='innercontent'>
-                                            <div className='left'>
-                                                <div className='innerright'>
-                                                    <img src='\assets\presale.png' alt='img' className='img-fluid' />
-                                                </div>
-                                                <div className='innerleft'>
-                                                    <h4>FlowX_Official</h4>
-                                                    <p>20 Nov, 2023</p>
-
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-                                        <div className='bottomcontentss'>
-                                            <p className='officialflow'>Ut omnis suscipit aut exercitationem eius qui cumque ullam qui sunt nihil sit quam consequuntur non odio odio et corrupti velit. Est consequuntur quasi a blanditiis laboriosam et dicta fugit ea nihil earum.</p>
-                                            <p className='officialflow'>
-                                                #FLOWX #Crypto #Blockchain #Token</p>
-                                            <img src='\assets\dflow.png' alt='img' className='img-fluid' />
-                                        </div>
-
-                                    </div>
-                                    <div className='card'>
+                                        <h2>Latest Updates</h2>
+                                        <div className='parentssssss'>
                                         <div className='innercontent'>
                                             <div className='left'>
                                                 <div className='innerright'>
@@ -593,6 +579,8 @@ const Userpresaleflow2 = () => {
                                                 #FLOWX #Crypto #Blockchain #Token</p>
                                             <img src='\assets\enchanc.png' alt='img' className='img-fluid' />
                                         </div>
+                                        </div>
+                                      
 
                                     </div>
                                 </>
@@ -981,38 +969,29 @@ const Userpresaleflow2 = () => {
                                 <tbody>
                                     <tr>
 
-                                        <td><p className='bold'>1</p></td>
+                                        <td><p className='bolds'>1</p></td>
 
-                                        <td><p className='bold'>200</p></td>
-                                        <td><p className='bold'>$20,000</p></td>
-                                        <td><p className='bold'>All Stakers & Premium Member</p></td>
-
-                                    </tr>
-                                    <tr>
-
-                                        <td><p className='bold'>1</p></td>
-
-                                        <td><p className='bold'>200</p></td>
-                                        <td><p className='bold'>$20,000</p></td>
-                                        <td><p className='bold'>All Stakers & Premium Member</p></td>
+                                        <td><p className='bolds'>200</p></td>
+                                        <td><p className='bolds'>$20,000</p></td>
+                                        <td><p className='bolds'>All Stakers & Premium Member</p></td>
 
                                     </tr>
                                     <tr>
 
-                                        <td><p className='bold'>1</p></td>
+                                        <td><p className='bolds'>1</p></td>
 
-                                        <td><p className='bold'>200</p></td>
-                                        <td><p className='bold'>$20,000</p></td>
-                                        <td><p className='bold'>All Stakers & Premium Member</p></td>
+                                        <td><p className='bolds'>200</p></td>
+                                        <td><p className='bolds'>$20,000</p></td>
+                                        <td><p className='bolds'>All Stakers & Premium Member</p></td>
 
                                     </tr>
                                     <tr>
 
-                                        <td><p className='bold'>1</p></td>
+                                        <td><p className='bolds'>1</p></td>
 
-                                        <td><p className='bold'>200</p></td>
-                                        <td><p className='bold'>$20,000</p></td>
-                                        <td><p className='bold'>All Stakers & Premium Member</p></td>
+                                        <td><p className='bolds'>200</p></td>
+                                        <td><p className='bolds'>$20,000</p></td>
+                                        <td><p className='bolds'>All Stakers & Premium Member</p></td>
 
                                     </tr>
 
@@ -1022,7 +1001,10 @@ const Userpresaleflow2 = () => {
                     </div>
                     <div className='endbtns'>
                         <button className='cancle'>Cancel</button>
-                        <button className='confirm' onClick={handleShow12}>Edit</button>
+                        <button className='confirm'  onClick={() => {
+                            handleShow12();
+                            handleClose1();
+                        }}>Edit</button>
                     </div>
                 </Modal.Body>
 

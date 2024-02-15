@@ -609,6 +609,10 @@ const Userpresaleflow = () => {
                                         </div>
                                     </div>
                                     <div className='card forpad'>
+                                       <div className='parentszz'>
+                                        <h2>Latest Updates</h2>
+                                        <button onClick={handleShow}> Create Update</button>
+                                       </div>
                                         <div className='innercontent'>
                                             <div className='left'>
                                                 <div className='innerright'>
@@ -621,7 +625,7 @@ const Userpresaleflow = () => {
                                                 </div>
 
                                             </div>
-                                            <button onClick={handleShow}> Create Update</button>
+                                           
                                         </div>
                                         <div className='bottomcontentss'>
                                             <p className='officialflow'>Ut omnis suscipit aut exercitationem eius qui cumque ullam qui sunt nihil sit quam consequuntur non odio odio et corrupti velit. Est consequuntur quasi a blanditiis laboriosam et dicta fugit ea nihil earum.</p>
@@ -990,7 +994,7 @@ const Userpresaleflow = () => {
 
                     <div className='endbtns'>
                         <button className='cancel' > Cancel</button>
-                        <button className='confirm' onClick={() => {
+                        <button className='confirm forpadd' onClick={() => {
                             handleShow1();
                             handleClose();
                         }}> Confirm</button>
