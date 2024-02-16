@@ -609,54 +609,58 @@ const Userpresaleflow = () => {
                                         </div>
                                     </div>
                                     <div className='card forpad'>
-                                       <div className='parentszz'>
-                                        <h2>Latest Updates</h2>
-                                        <button onClick={handleShow}> Create Update</button>
-                                       </div>
-                                        <div className='innercontent'>
-                                            <div className='left'>
-                                                <div className='innerright'>
-                                                    <img src='\assets\presale.png' alt='img' className='img-fluid' />
-                                                </div>
-                                                <div className='innerleft'>
-                                                    <h4>FlowX_Official</h4>
-                                                    <p>20 Nov, 2023</p>
-
-                                                </div>
-
-                                            </div>
-                                           
+                                        <div className='parentszz'>
+                                            <h2>Latest Updates</h2>
+                                            <button onClick={handleShow}> Create Update</button>
                                         </div>
-                                        <div className='bottomcontentss'>
-                                            <p className='officialflow'>Ut omnis suscipit aut exercitationem eius qui cumque ullam qui sunt nihil sit quam consequuntur non odio odio et corrupti velit. Est consequuntur quasi a blanditiis laboriosam et dicta fugit ea nihil earum.</p>
-                                            <p className='officialflow'>
-                                                #FLOWX #Crypto #Blockchain #Token</p>
-                                            <img src='\assets\dflow.png' alt='img' className='img-fluid' />
-                                        </div>
+                                        <div className='outerdivolybdr'>
+                                            <div className='innercontent'>
+                                                <div className='left'>
+                                                    <div className='innerright'>
+                                                        <img src='\assets\presale.png' alt='img' className='img-fluid' />
+                                                    </div>
+                                                    <div className='innerleft'>
+                                                        <h4>FlowX_Official</h4>
+                                                        <p>20 Nov, 2023</p>
 
-                                    </div>
-                                    <div className='card'>
-                                        <div className='innercontent'>
-                                            <div className='left'>
-                                                <div className='innerright'>
-                                                    <img src='\assets\presale.png' alt='img' className='img-fluid' />
-                                                </div>
-                                                <div className='innerleft'>
-                                                    <h4>FlowX_Official</h4>
-                                                    <p>20 Nov, 2023</p>
+                                                    </div>
 
                                                 </div>
 
                                             </div>
+                                            <div className='bottomcontentss'>
+                                                <p className='officialflow'>Ut omnis suscipit aut exercitationem eius qui cumque ullam qui sunt nihil sit quam consequuntur non odio odio et corrupti velit. Est consequuntur quasi a blanditiis laboriosam et dicta fugit ea nihil earum.</p>
+                                                <p className='officialflow'>
+                                                    #FLOWX #Crypto #Blockchain #Token</p>
+                                                <img src='\assets\dflow.png' alt='img' className='img-fluid' />
+                                            </div>
+                                        </div>
+
+                                        <div className='outerdivolybdr'>
+                                        <div className='card'>
+                                            <div className='innercontent'>
+                                                <div className='left'>
+                                                    <div className='innerright'>
+                                                        <img src='\assets\presale.png' alt='img' className='img-fluid' />
+                                                    </div>
+                                                    <div className='innerleft'>
+                                                        <h4>FlowX_Official</h4>
+                                                        <p>20 Nov, 2023</p>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                            <div className='bottomcontentss'>
+                                                <p className='officialflow'>Ut omnis suscipit aut exercitationem eius qui cumque ullam qui sunt nihil sit quam consequuntur non odio odio et corrupti velit. Est consequuntur quasi a blanditiis laboriosam et dicta fugit ea nihil earum.</p>
+                                                <p className='officialflow'>
+                                                    #FLOWX #Crypto #Blockchain #Token</p>
+                                                <img src='\assets\enchanc.png' alt='img' className='img-fluid' />
+                                            </div>
 
                                         </div>
-                                        <div className='bottomcontentss'>
-                                            <p className='officialflow'>Ut omnis suscipit aut exercitationem eius qui cumque ullam qui sunt nihil sit quam consequuntur non odio odio et corrupti velit. Est consequuntur quasi a blanditiis laboriosam et dicta fugit ea nihil earum.</p>
-                                            <p className='officialflow'>
-                                                #FLOWX #Crypto #Blockchain #Token</p>
-                                            <img src='\assets\enchanc.png' alt='img' className='img-fluid' />
                                         </div>
-
                                     </div>
                                 </>
                             )}
