@@ -112,7 +112,7 @@
 
                 .nav-pills .nav-link.active,
                 .nav-pills .show>.nav-link {
-                    padding: 13px 66px;
+                    // padding: 13px 66px;
                     border-radius: 60px;
                     background: var(--Button-Primery-Gradient, linear-gradient(180deg, #3456D0 0%, #0D32B7 100%));
                     color: var(--White, #FFF);
@@ -135,7 +135,7 @@
                     font-style: normal;
                     font-weight: 500;
                     line-height: 130%;
-                    padding: 13px 66px;
+                    padding: 13px;
                 }
 
                 .nav.nav-pills {

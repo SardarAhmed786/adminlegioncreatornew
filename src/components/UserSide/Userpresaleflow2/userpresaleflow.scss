@@ -26,6 +26,7 @@
 
             .forpad {
                 margin-top: 15px;
+                // margin-bottom: 15px;
             }
 
             .card {
@@ -35,6 +36,7 @@
                 max-width: 743px;
                 width: 100%;
                 margin-top: 20px;
+                border: none;
 h2{
     color: var(--Primary-Text, #343434);
     font-family: Poppins;
@@ -47,12 +49,12 @@ h2{
 }
                 .innercontent {
                     display: flex;
-                    align-items: center;
+                    align-items: flex-start;
                     justify-content: space-between;
 
                     .left {
                         display: flex;
-                        align-items: center;
+                        align-items: flex-start;
                         justify-content: flex-start;
                         gap: 18px;
 
@@ -525,6 +527,7 @@ h2{
                 background: var(--White, #FFF);
                 padding: 30px;
                 width: 797px;
+                border: none;
 
                 .mainheading {
                     h2 {
@@ -596,7 +599,7 @@ h2{
                 background: var(--White, #FFF);
                 padding: 30px;
                 width: 797px;
-
+border: none;
                 .headssss {
                     display: flex;
                     align-items: flex-start;
@@ -809,6 +812,7 @@ h2{
                 padding: 30px;
                 width: 797px;
 
+                border: none;
                 .mainclaimhead {
                     h2 {
                         color: var(--Primary-Text, #343434);
@@ -1978,7 +1982,7 @@ h2{
 
                                 img {
                                     position: absolute;
-                                    top: 30px;
+                                    top: 26px;
                                     right: 30px;
                                 }
                             }
@@ -2048,7 +2052,7 @@ h2{
                     .cancle {
                         border-radius: 50px;
                         background: #F4F8FF;
-                        padding: 16px 98px;
+                        padding: 16px ;
                         border: none;
                         color: var(--Primary-Color, #3456D0);
                         text-align: center;
@@ -2064,7 +2068,7 @@ h2{
                     .confirm {
                         border-radius: 50px;
                         background: var(--Button-Primery-Gradient, linear-gradient(180deg, #3456D0 0%, #0D32B7 100%));
-                        padding: 16px 98px;
+                        padding: 16px ;
                         color: var(--White, #FFF);
                         text-align: center;
                         font-family: Poppins;

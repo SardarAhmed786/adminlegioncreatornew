@@ -33,6 +33,8 @@
                 padding: 30px;
                 max-width: 797px;
                 width: 100%;
+                border: none;
+                margin-bottom: 15px;
  
                 .parentszz{
                     display: flex;
@@ -68,15 +70,16 @@
    
                 .innercontent {
                     display: flex;
-                    align-items: center;
+                    align-items: flex-start;
                     justify-content: space-between;
 
 
                     .left {
                         display: flex;
-                        align-items: center;
+                        align-items: flex-start;
                         justify-content: flex-start;
                         gap: 18px;
+                
 
                         .innerleft {
                             h4 {
@@ -1369,7 +1372,11 @@
 
     }
 }
-
+.innerright {
+    width: 41.702px;
+    height: 41.702px;
+    /* flex-shrink: 0; */
+}
 .participatemodal {
 
 
