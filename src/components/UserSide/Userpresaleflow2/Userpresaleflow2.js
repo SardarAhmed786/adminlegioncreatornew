@@ -8,7 +8,13 @@ import Modal from 'react-bootstrap/Modal';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Header from '../../Header/Header';
 import Footer from '../../Footer/Footer';
+import RichTextEditor from './RichTextEditor';
 const Userpresaleflow2 = () => {
+    const [description, setDescription] = useState('');
+
+    const getValue = (newDescription) => {
+        setDescription(newDescription);
+    };
     const [activeTab, setActiveTab] = useState('link-1');
     const handleSelect = (eventKey) => {
         setActiveTab(eventKey);
@@ -40,6 +46,15 @@ const Userpresaleflow2 = () => {
         }, 1000);
         return () => clearInterval(interval);
     }, []);
+
+
+    const [show56, setShow56] = useState(false);
+    const handleClose56 = () => setShow56(false);
+    const handleShow56 = () => setShow56(true);
+
+    const [show55, setShow55] = useState(false);
+    const handleClose55 = () => setShow55(false);
+    const handleShow55 = () => setShow55(true);
 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -516,71 +531,85 @@ const Userpresaleflow2 = () => {
                             )}
                             {activeTab === 'link-3' && (
                                 <>
-                                <div className='projectparentsss'>
-                                <h2>Project Milestones</h2>
-                                <div className='mainprojectcard'>
-                                 
-                                        <div className='parent'>
-                                          
-                                            <div className='left'>
-                                                <img src='\assets\Frame167.png' alt='img' className='img-fluid' />
+                                    <div className='projectparentsss'>
+                                        <h2>Project Milestones</h2>
+                                        <div className='mainprojectcard'>
+
+                                            <div className='parent'>
+
+                                                <div className='left'>
+                                                    <img src='\assets\Frame167.png' alt='img' className='img-fluid' />
+                                                </div>
+                                                <div className='right'>
+                                                    <h6>Completion of our whitepaper and initial team assembly.</h6>
+                                                    <p>Q4 2023</p>
+                                                </div>
                                             </div>
-                                            <div className='right'>
-                                                <h6>Completion of our whitepaper and initial team assembly.</h6>
-                                                <p>Q4 2023</p>
+                                        </div>
+                                        <div className='mainprojectcard'>
+                                            <div className='parent'>
+                                                <div className='left'>
+                                                    <img src='\assets\Frame167.png' alt='img' className='img-fluid' />
+                                                </div>
+                                                <div className='right'>
+                                                    <h6>Development of our MVP and first partnerships with logistics companies.</h6>
+                                                    <p>Q3 2023</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className='mainprojectcard'>
+                                            <div className='parent'>
+                                                <div className='left'>
+                                                    <img src='\assets\Frame167.png' alt='img' className='img-fluid' />
+                                                </div>
+                                                <div className='right'>
+                                                    <h6>Full platform launch in Q3 2023, followed by expansion to additional markets.</h6>
+                                                    <p>Q1 2023</p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className='mainprojectcard'>
-                                        <div className='parent'>
-                                            <div className='left'>
-                                                <img src='\assets\Frame167.png' alt='img' className='img-fluid' />
-                                            </div>
-                                            <div className='right'>
-                                                <h6>Development of our MVP and first partnerships with logistics companies.</h6>
-                                                <p>Q3 2023</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className='mainprojectcard'>
-                                        <div className='parent'>
-                                            <div className='left'>
-                                                <img src='\assets\Frame167.png' alt='img' className='img-fluid' />
-                                            </div>
-                                            <div className='right'>
-                                                <h6>Full platform launch in Q3 2023, followed by expansion to additional markets.</h6>
-                                                <p>Q1 2023</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                 
-                                    
+
+
                                     <div className='card forpad'>
-                                        <h2>Latest Updates</h2>
+                                        <div className='llatestpdates'>
+                                            <h5 className='cccccccccczzzzzz'>
+                                                Latest Updates
+                                            </h5>
+
+                                            <button className='ccreatepdate' onClick={handleShow55}  >
+                                                Create Update
+                                            </button>
+                                            {/* <button className='ccreatepdatePending'>
+                                            Pending Approve
+                                            </button> */}
+
+
+
+                                        </div>
                                         <div className='parentssssss'>
-                                        <div className='innercontent'>
-                                            <div className='left'>
-                                                <div className='innerright'>
-                                                    <img src='\assets\presale.png' alt='img' className='img-fluid' />
-                                                </div>
-                                                <div className='innerleft'>
-                                                    <h4>FlowX_Official</h4>
-                                                    <p>20 Nov, 2023</p>
+                                            <div className='innercontent'>
+                                                <div className='left'>
+                                                    <div className='innerright'>
+                                                        <img src='\assets\presale.png' alt='img' className='img-fluid' />
+                                                    </div>
+                                                    <div className='innerleft'>
+                                                        <h4>FlowX_Official</h4>
+                                                        <p>20 Nov, 2023</p>
+
+                                                    </div>
 
                                                 </div>
 
                                             </div>
+                                            <div className='bottomcontentss'>
+                                                <p className='officialflow'>Ut omnis suscipit aut exercitationem eius qui cumque ullam qui sunt nihil sit quam consequuntur non odio odio et corrupti velit. Est consequuntur quasi a blanditiis laboriosam et dicta fugit ea nihil earum.</p>
+                                                <p className='officialflow'>
+                                                    #FLOWX #Crypto #Blockchain #Token</p>
+                                                <img src='\assets\enchanc.png' alt='img' className='img-fluid' />
+                                            </div>
+                                        </div>
 
-                                        </div>
-                                        <div className='bottomcontentss'>
-                                            <p className='officialflow'>Ut omnis suscipit aut exercitationem eius qui cumque ullam qui sunt nihil sit quam consequuntur non odio odio et corrupti velit. Est consequuntur quasi a blanditiis laboriosam et dicta fugit ea nihil earum.</p>
-                                            <p className='officialflow'>
-                                                #FLOWX #Crypto #Blockchain #Token</p>
-                                            <img src='\assets\enchanc.png' alt='img' className='img-fluid' />
-                                        </div>
-                                        </div>
-                                      
 
                                     </div>
                                 </>
@@ -1001,7 +1030,7 @@ const Userpresaleflow2 = () => {
                     </div>
                     <div className='endbtns'>
                         <button className='cancle'>Cancel</button>
-                        <button className='confirm'  onClick={() => {
+                        <button className='confirm' onClick={() => {
                             handleShow12();
                             handleClose1();
                         }}>Edit</button>
@@ -1157,6 +1186,75 @@ const Userpresaleflow2 = () => {
                 </Modal.Body>
 
             </Modal>
+
+{/* 
+            <Modal className='participatemodal' show={show55} onHide={handleClose55} centered>
+                <Modal.Header closeButton>
+                    <Modal.Title>Success</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className='success'>
+                        <img src='\assets\tick.svg' alt='img' className='img-fluid' />
+                        <p>your Feedback submitted successfully</p>
+                        <button>Okay</button>
+                    </div>
+                </Modal.Body>
+            </Modal> */}
+
+
+
+
+
+            <Modal className='participatemodal' show={show55} onHide={handleClose55} centered>
+                <Modal.Header closeButton>
+                    <Modal.Title>Update</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className='leftcczxcxzc'>
+                        <div className='innerrightxzcxzc'>
+                            <img src='\assets\presale.png' alt='img' className='img-fluid' />
+                        </div>
+                        <div className='innerleft'>
+                            <h4>Eclipsefi</h4>
+                            <p>20 Nov, 2023</p>
+
+                        </div>
+
+                    </div>
+
+
+                    <h6 className="verifyhead"> Description</h6>
+
+                    <div>
+                        <RichTextEditor initialValue={description} getValue={getValue} />
+                    </div>
+
+                    <div className='endbtns'>
+                        <button className='cancle'>Cancel</button>
+                        <button className='confirm'   onClick={() => {
+                            handleShow56();
+                            handleClose55();
+                        }}>Save</button>
+                    </div>
+
+                </Modal.Body>
+            </Modal>
+
+            <Modal className='participatemodal' show={show56} onHide={handleClose56} centered>
+                <Modal.Header closeButton>
+                    <Modal.Title>Success</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className='success'>
+                        <img src='\assets\tick.svg' alt='img' className='img-fluid' />
+                        <p>your Feedback submitted successfully</p>
+                        <button className='confirm' >Save</button>
+                    </div>
+                </Modal.Body>
+            </Modal> 
+
+
+
         </>
     )
 }
