@@ -174,7 +174,7 @@
                             border: 1px solid #ECEFF8;
                             background: var(--White, #FFF);
                             padding: 12px;
-                            width: 622px;
+                            width: 735px;
                             height: 50px;
                             color: #B9C4D2;
                             font-size: 14px;
@@ -517,6 +517,123 @@
             }
         }
     }
+
+    .outerdivolybdrss {
+        display: flex;
+        max-width: 743px;
+        padding: 30px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+        border-radius: 12px;
+        background: var(--White, #FFF);
+        width: 100%;
+        .innercontentss {
+            border-radius: 12px;
+            border: 1px solid #F8F8F8;
+            background: var(--White, #FFF);
+            display: flex;
+            padding: 15px;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 18px;
+            align-self: stretch;
+        }
+        .leftss {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            .innerleftss {
+
+                display: flex;
+                padding: 0px 5px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+                h4 {
+                    color: var(--Black, #000);
+                    font-family: Poppins;
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: 100%;
+                }
+                p{
+                    color: #9E9E9E;
+                    font-family: Poppins;
+                    font-size: 12px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 100%;
+                }
+
+            }
+            p.officialflows {
+                color: #282828;
+                font-family: Poppins;
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 120%;
+                span.bluessedx {
+                    color: var(--Primary-Color, #3456D0);
+                    font-family: Poppins;
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 120%;
+                }
+            }
+        }
+        .twinnsdfbtns {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            align-self: stretch;
+            padding: 20px 15px 30px;
+            button.lefttwinbtn {
+                border-radius: 40px;
+                background: #FEEDE8;
+                display: flex;
+                padding: 19px;
+                justify-content: center;
+                align-items: center;
+                gap: 5px;
+                flex: 1 0 0;
+                overflow: hidden;
+                color: var(--Red, #F04914);
+                text-overflow: ellipsis;
+                font-family: Poppins;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 120%;
+                border: none;
+            }
+            .lefttwinbtnApprove {
+                border-radius: 40px;
+                background: #E0F4EF;
+                display: flex;
+                padding: 19px;
+                justify-content: center;
+                align-items: center;
+                gap: 5px;
+                flex: 1 0 0;
+                overflow: hidden;
+                color: var(--Green, #04C182);
+                text-overflow: ellipsis;
+                font-family: Poppins;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 120%;
+                border: none;
+            }
+        }
+    
+    }
+
+
 }
 
 @media(max-width:1024px) {

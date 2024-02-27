@@ -14,6 +14,7 @@ import Userpresaleflow from './components/UserSide/Userpresaleflow/Userpresalefl
 import Mainprojectdetail from './components/UserSide/Mainprojectdetail/Mainprojectdetail';
 import Userpresaleflow2 from './components/UserSide/Userpresaleflow2/Userpresaleflow2';
 import Profileuser from './components/UserSide/Profileuser/Profileuser';
+import Updatedroadmap from './components/CreatorSide/Yourproject/Updatedroadmap';
 
 
 
@@ -35,6 +36,7 @@ function App() {
         <Route path="/mainproject/:tab" component={Mainprojectdetail} />
         <Route exact path="/userpresaleflow2" component={Userpresaleflow2} />
         <Route exact path="/profileuser" component={Profileuser} />
+        <Route exact path="/updatedroadmap" component={Updatedroadmap} />
       </Switch>
     </>
   );
