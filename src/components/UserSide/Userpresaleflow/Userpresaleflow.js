@@ -322,6 +322,14 @@ const Userpresaleflow = () => {
                                             </div>
                                         </div>
                                         <div className='parenttokencard'>
+                                            <div className='graycard'>
+                                                <p className='graytext'>Soft Cap</p>
+                                            </div>
+                                            <div className='graycard'>
+                                                <p className=''>10,000,000 FLOW</p>
+                                            </div>
+                                        </div>
+                                        <div className='parenttokencard'>
                                             <div className='whitecard'>
                                                 <p className='graytext'>Total Token Supply</p>
                                             </div>
@@ -409,6 +417,14 @@ const Userpresaleflow = () => {
                                             </div>
                                             <div className='graycard'>
                                                 <p className=''>2,500,000 USD</p>
+                                            </div>
+                                        </div>
+                                        <div className='parenttokencard'>
+                                            <div className='graycard'>
+                                                <p className='graytext'>Soft Cap</p>
+                                            </div>
+                                            <div className='graycard'>
+                                                <p className=''>10,000,000 FLOW</p>
                                             </div>
                                         </div>
                                         <div className='parenttokencard'>
@@ -637,29 +653,29 @@ const Userpresaleflow = () => {
                                         </div>
 
                                         <div className='outerdivolybdr'>
-                                        <div className='card'>
-                                            <div className='innercontent'>
-                                                <div className='left'>
-                                                    <div className='innerright'>
-                                                        <img src='\assets\presale.png' alt='img' className='img-fluid' />
-                                                    </div>
-                                                    <div className='innerleft'>
-                                                        <h4>FlowX_Official</h4>
-                                                        <p>20 Nov, 2023</p>
+                                            <div className='card'>
+                                                <div className='innercontent'>
+                                                    <div className='left'>
+                                                        <div className='innerright'>
+                                                            <img src='\assets\presale.png' alt='img' className='img-fluid' />
+                                                        </div>
+                                                        <div className='innerleft'>
+                                                            <h4>FlowX_Official</h4>
+                                                            <p>20 Nov, 2023</p>
+
+                                                        </div>
 
                                                     </div>
 
                                                 </div>
+                                                <div className='bottomcontentss'>
+                                                    <p className='officialflow'>Ut omnis suscipit aut exercitationem eius qui cumque ullam qui sunt nihil sit quam consequuntur non odio odio et corrupti velit. Est consequuntur quasi a blanditiis laboriosam et dicta fugit ea nihil earum.</p>
+                                                    <p className='officialflow'>
+                                                        #FLOWX #Crypto #Blockchain #Token</p>
+                                                    <img src='\assets\enchanc.png' alt='img' className='img-fluid' />
+                                                </div>
 
                                             </div>
-                                            <div className='bottomcontentss'>
-                                                <p className='officialflow'>Ut omnis suscipit aut exercitationem eius qui cumque ullam qui sunt nihil sit quam consequuntur non odio odio et corrupti velit. Est consequuntur quasi a blanditiis laboriosam et dicta fugit ea nihil earum.</p>
-                                                <p className='officialflow'>
-                                                    #FLOWX #Crypto #Blockchain #Token</p>
-                                                <img src='\assets\enchanc.png' alt='img' className='img-fluid' />
-                                            </div>
-
-                                        </div>
                                         </div>
                                     </div>
                                 </>

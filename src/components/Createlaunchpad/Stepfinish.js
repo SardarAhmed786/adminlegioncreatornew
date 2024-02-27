@@ -122,6 +122,14 @@ const Stepfinish = ({ onNext, onBack }) => {
               </div>
             </div>
             <div className='parenttokencard'>
+                <div className='graycard'>
+                  <p className='graytext'>Soft Cap</p>
+                </div>
+                <div className='graycard'>
+                  <p className=''>10,000,000 FLOW</p>
+                </div>
+              </div>
+            <div className='parenttokencard'>
               <div className='whitecard'>
                 <p className='graytext'>Total Token Supply</p>
               </div>
@@ -212,6 +220,14 @@ const Stepfinish = ({ onNext, onBack }) => {
                 <p className=''>2,500,000 USD</p>
               </div>
             </div>
+            <div className='parenttokencard'>
+                <div className='graycard'>
+                  <p className='graytext'>Soft Cap</p>
+                </div>
+                <div className='graycard'>
+                  <p className=''>10,000,000 FLOW</p>
+                </div>
+              </div>
             <div className='parenttokencard'>
               <div className='whitecard'>
                 <p className='graytext'>Total Token Supply</p>

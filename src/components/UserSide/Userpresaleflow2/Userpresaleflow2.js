@@ -298,6 +298,14 @@ const Userpresaleflow2 = () => {
                                             </div>
                                         </div>
                                         <div className='parenttokencard'>
+                                            <div className='graycard'>
+                                                <p className='graytext'>Soft Cap</p>
+                                            </div>
+                                            <div className='graycard'>
+                                                <p className=''>10,000,000 FLOW</p>
+                                            </div>
+                                        </div>
+                                        <div className='parenttokencard'>
                                             <div className='whitecard'>
                                                 <p className='graytext'>Total Token Supply</p>
                                             </div>
@@ -385,6 +393,14 @@ const Userpresaleflow2 = () => {
                                             </div>
                                             <div className='graycard'>
                                                 <p className=''>2,500,000 USD</p>
+                                            </div>
+                                        </div>
+                                        <div className='parenttokencard'>
+                                            <div className='graycard'>
+                                                <p className='graytext'>Soft Cap</p>
+                                            </div>
+                                            <div className='graycard'>
+                                                <p className=''>10,000,000 FLOW</p>
                                             </div>
                                         </div>
                                         <div className='parenttokencard'>
@@ -1187,7 +1203,7 @@ const Userpresaleflow2 = () => {
 
             </Modal>
 
-{/* 
+            {/* 
             <Modal className='participatemodal' show={show55} onHide={handleClose55} centered>
                 <Modal.Header closeButton>
                     <Modal.Title>Success</Modal.Title>
@@ -1231,7 +1247,7 @@ const Userpresaleflow2 = () => {
 
                     <div className='endbtns'>
                         <button className='cancle'>Cancel</button>
-                        <button className='confirm'   onClick={() => {
+                        <button className='confirm' onClick={() => {
                             handleShow56();
                             handleClose55();
                         }}>Save</button>
@@ -1251,7 +1267,7 @@ const Userpresaleflow2 = () => {
                         <button className='confirm' >Save</button>
                     </div>
                 </Modal.Body>
-            </Modal> 
+            </Modal>
 
 
 
