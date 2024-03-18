@@ -1,8 +1,85 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { Link } from 'react-router-dom';
-import { Pagination } from 'react-bootstrap'
+import { Pagination } from 'react-bootstrap';
+import Environment from '../../../utils/Environment';
+import { toast } from 'react-toastify';
+import axios from 'axios';
+
 const Application = () => {
+
+    // const id = props.match.params.id;
+    const token = localStorage.getItem('mytoken');
+
+    const [applicationsData, setApplicationsData] = useState(null);
+
+    // pagenition============================
+
+    const [limit] = useState(10);
+    const [page, setPage] = useState(0);
+    const [pageCount, setPageCount] = useState(0);
+
+    const handlePageClick = (e) => {
+        const selectedPage = e.selected;
+        setPage(selectedPage)
+    };
+
+    // pagenition============================
+
+    // timerformate ================================
+
+    const changeDateFormate = (createdAt) => {
+        const originalDate = new Date(createdAt);
+
+        // Format the date
+        const formattedDate = originalDate.toLocaleString('en-US', {
+            month: 'short',
+            day: 'numeric',
+            year: 'numeric',
+        });
+
+        // Update the state with the formatted date
+        return formattedDate;
+    }
+
+    // timerformate ================================
+
+    const applicationHandle = (search, filter) => {
+        // setOpen(true);
+        axios.get(
+            `${Environment.backendUrl}/launchpad/launchpadApplicationListing?search=${search ? search : ""}&limit=${limit}&filter=${filter ? filter : "pending"}`,
+            {
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            }
+        )
+            .then((response) => {
+                console.log("🚀 ~ file: UserDetail.js:111 ~ .then ~ response: rejectApplicationHandle", response);
+                // setOpen(false);
+                console.log(response.data, response.data.msg, 'response.data.msg');
+
+                if (response) {
+                    setApplicationsData(response?.data?.data);
+                    toast.success(response?.data?.applicationStatus?.msg, {
+                        position: "top-center",
+                        autoClose: 2000,
+                    });
+                }
+            })
+            .catch((err) => {
+                // setOpen(false);
+                toast.error(err.response?.data.msg, {
+                    position: "top-center",
+                    autoClose: 2000,
+                });
+            });
+    }
+
+    useEffect(() => {
+        applicationHandle();
+    }, [])
+
     return (
         <div className='right'>
             <div className='uppercard'>
@@ -73,86 +150,26 @@ const Application = () => {
                                     <th>Submit By</th>
                                     <th>Launch date</th>
                                     <th>Submission Date</th>
-
-                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>
-
-                                        <p className='bold'>EARN NETWORK</p>
-                                        <h6>$$EARN</h6>
-
-
-                                    </td>
-                                    <td><p className='bold'>BSC</p></td>
-
-                                    <td><p className='bold'>Ruth Wilson</p></td>
-                                    <td><p className='bold'>23/2/2024</p></td>
-                                    <td><p className='bold'>14/11/2023</p></td>
-                                    <td><Link to="/userpresaleflow2"><button>View</button></Link></td>
-                                </tr>
-                                <tr>
-                                    <td>
-
-                                        <p className='bold'>EARN NETWORK</p>
-                                        <h6>$$EARN</h6>
-
-
-                                    </td>
-                                    <td><p className='bold'>BSC</p></td>
-
-                                    <td><p className='bold'>Ruth Wilson</p></td>
-                                    <td><p className='bold'>23/2/2024</p></td>
-                                    <td><p className='bold'>14/11/2023</p></td>
-                                    <td><Link to="/userpresaleflow2"><button>View</button></Link></td>
-                                </tr>
-                                <tr>
-                                    <td>
-
-                                        <p className='bold'>EARN NETWORK</p>
-                                        <h6>$$EARN</h6>
-
-
-                                    </td>
-                                    <td><p className='bold'>BSC</p></td>
-
-                                    <td><p className='bold'>Ruth Wilson</p></td>
-                                    <td><p className='bold'>23/2/2024</p></td>
-                                    <td><p className='bold'>14/11/2023</p></td>
-                                    <td><button>View</button></td>
-                                </tr>
-                                <tr>
-                                    <td>
-
-                                        <p className='bold'>EARN NETWORK</p>
-                                        <h6>$$EARN</h6>
-
-
-                                    </td>
-                                    <td><p className='bold'>BSC</p></td>
-
-                                    <td><p className='bold'>Ruth Wilson</p></td>
-                                    <td><p className='bold'>23/2/2024</p></td>
-                                    <td><p className='bold'>14/11/2023</p></td>
-                                    <td><button>View</button></td>
-                                </tr>
-                                <tr>
-                                    <td>
-
-                                        <p className='bold'>EARN NETWORK</p>
-                                        <h6>$$EARN</h6>
-
-
-                                    </td>
-                                    <td><p className='bold'>BSC</p></td>
-
-                                    <td><p className='bold'>Ruth Wilson</p></td>
-                                    <td><p className='bold'>23/2/2024</p></td>
-                                    <td><p className='bold'>14/11/2023</p></td>
-                                    <td><button>View</button></td>
-                                </tr>
+                                {
+                                    applicationsData?.map((data, index) => {
+                                        return (
+                                            <tr key={index}>
+                                                <td>
+                                                    <p className='bold'>{data?.projectName}</p>
+                                                    <h6>${data?.tokenSymbol}</h6>
+                                                </td>
+                                                <td><p className='bold'>BSC</p></td>
+                                                <td><p className='bold'>{data?.User?.full_name}</p></td>
+                                                <td><p className='bold'>{changeDateFormate(data?.startTime)}</p></td>
+                                                <td><p className='bold'>{changeDateFormate(data?.startTime)}</p></td>
+                                                <td><Link to="/userpresaleflow2"><button>View</button></Link></td>
+                                            </tr>
+                                        )
+                                    })
+                                }
                             </tbody>
                         </table>
                     </div>

@@ -88,7 +88,7 @@ const Startapplication = () => {
                     localStorage.setItem('myroleId', roleId)
                     localStorage.setItem('acls', JSON.stringify(obj))
                     setOpen(false)
-                    history.push('yourproject/:tab');
+                    history.push('/yourproject/applications');
                     // window.$('#qrcode').modal('show')
 
                 }).catch((err) => {
