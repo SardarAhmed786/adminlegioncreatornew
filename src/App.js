@@ -15,16 +15,19 @@ import Mainprojectdetail from './components/UserSide/Mainprojectdetail/Mainproje
 import Userpresaleflow2 from './components/UserSide/Userpresaleflow2/Userpresaleflow2';
 import Profileuser from './components/UserSide/Profileuser/Profileuser';
 import Updatedroadmap from './components/CreatorSide/Yourproject/Updatedroadmap';
-
+import useEagerConnect from './hooks/useEagerConnect';
 
 
 
 function App() {
+
+  useEagerConnect();
+
   return (
     <>
       <Switch>
-        <Route exact path="/idapplication" component={Idapplication} />
         <Route exact path="/" component={Startapplication} />
+        <Route exact path="/idapplication" component={Idapplication} />
         <Route path="/yourproject/:tab" component={Yourproject} />
         <Route exact path="/details" component={Details} />
         <Route exact path="/createlaunchpad" component={Createlaunchpad} />

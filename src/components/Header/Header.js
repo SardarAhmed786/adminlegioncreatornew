@@ -2,29 +2,115 @@ import "./header.scss";
 import { Link } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
 import { useState, useEffect } from "react";
+import { useWeb3React } from '@web3-react/core/dist';
+import useAuth from '../../hooks/useAuth';
+import toasts from "../../state/toasts";
+import Signature from "../../utils/userSign";
 
-import Offcanvas from 'react-bootstrap/Offcanvas';
 
-const Header = ({ show, setShow }) => {
-  const [showModal, setShowModal] = useState(false);
-  const [showOffcanvas, setShowOffcanvas] = useState(false);
+const Header = () => {
+
+  let { account } = useWeb3React();
+  const { login, logout } = useAuth();
+
+  const { userSign } = Signature();
+
+  const [show, setShow] = useState(false);
+  const [loader, setLoader] = useState(false);
+  const [isMetaMaskInstalled, setIsMetaMaskInstalled] = useState(false);
+  const [userSigns, setUserSing] = useState(null)
+
 
   const handleClose = () => {
     setShow(false);
-    setShowModal(false);
-    setShowOffcanvas(false);
   };
 
   const handleShow = () => {
     setShow(true);
-    setShowModal(true);
-    setShowOffcanvas(true);
   };
 
+
+  const connectMetamask = async (e) => {
+    if (isMetaMaskInstalled) {
+      setLoader(true);
+      console.log(e, 'eeeeeeeee');
+      handleClose();
+      if (account) {
+        const connectorId = window.localStorage.getItem("connectorId")
+        await logout(connectorId);
+        localStorage.removeItem("connectorId");
+        localStorage.removeItem("flag");
+      } else {
+        await login("injected", e);
+        localStorage.setItem("connectorId", "injected");
+        localStorage.setItem("flag", "true");
+        localStorage.setItem("chain", e);
+        setLoader(false);
+      }
+      setLoader(false);
+    } else {
+      toasts.error("Metamask does not exist, please install it.");
+      handleClose();
+    }
+  };
+
+  const trustWallet = async () => {
+    setLoader(true)
+    console.log('startt trust.....');
+    handleClose();
+    if (account) {
+      await logout("walletconnect");
+    } else {
+      let a = await login("walletconnect");
+      console.log(a, 'aaaaa');
+      localStorage.setItem('connectorId', 'walletconnect');
+      localStorage.setItem("flag", "true");
+    }
+    setLoader(false);
+  };
+
+  const logoutHandle = async () => {
+    const connectorId = window.localStorage.getItem("connectorId")
+    logout(connectorId)
+    localStorage.removeItem('connectorId')
+    localStorage.removeItem('flag')
+    localStorage.removeItem('chain')
+  }
+
+
+  const gettingSign = async () => {
+    console.log('in sign funcationnnnn');
+    if (account) {
+      const res1 = await userSign();
+      console.log(res1, 'res1 okokokok');
+      setUserSing(res1)
+
+      if (res1) {
+        localStorage.setItem('sign', res1)
+        localStorage.setItem('userAddress', account)
+      }
+    }
+  }
+
+
+  useEffect(() => {
+    // Check if MetaMask is installed
+    if (typeof window.ethereum !== 'undefined') {
+      console.log('MetaMask is installed!');
+      setIsMetaMaskInstalled(true);
+
+      // You can also check the network if needed
+      console.log('Current network:', window.ethereum.networkVersion);
+    } else {
+      console.log('MetaMask is not installed!');
+      setIsMetaMaskInstalled(false);
+    }
+  }, []);
 
 
   return (
     <>
+      {/* {loader && <Loader />} */}
       <section className="main-navbar">
         <div className="custom-container">
           <nav class="navbar navbar-expand-lg">
@@ -42,12 +128,11 @@ const Header = ({ show, setShow }) => {
               </svg>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-              <ul class="navbar-nav navbar-navvvvv  me-0 mb-2 mb-lg-0">
-                {/* 
+              {/* <ul class="navbar-nav navbar-navvvvv  me-0 mb-2 mb-lg-0">
                 <li class="nav-item">
                   <a class="nav-link active for-a" aria-current="page" href="#home">Home</a>
-                </li> */}
-                {/* <li class="nav-item">
+                </li>
+                <li class="nav-item">
                   <a class="nav-link for-a" href="#about">About</a>
                 </li>
                 <li class="nav-item">
@@ -58,13 +143,8 @@ const Header = ({ show, setShow }) => {
                 </li>
                 <li class="nav-item">
                   <a class="nav-link for-a" href="#roadmap">🚀 Launch with Legion</a>
-                </li> */}
-
-
-
-
-
-              </ul>
+                </li>
+              </ul> */}
               <ul class="navbar-nav navbar-navv d-none me-0 mb-2 mb-lg-0">
                 <li class="nav-item forsocial">
                   <a class="nav-link" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -80,36 +160,36 @@ const Header = ({ show, setShow }) => {
                 <li class="nav-item">
                   <a class="nav-link connect-wallet" aria-current="page" href="#">Connect Wallet</a>
                 </li>
-
-
-
-
               </ul>
-              <button className="connect-btn" onClick={handleShow}>
-                Connect Wallet
-              </button>
 
+              {
+                account ?
+                  <>
+                    <button onClick={gettingSign}>Sign</button>
+                    <button onClick={logoutHandle}>Disconnect</button>
+                  </>
+                  :
+                  <button className="connect-btn" onClick={handleShow}>
+                    Connect Wallet
+                  </button>
+              }
             </div>
           </nav>
         </div>
       </section>
 
 
-      <Modal className="connectwallet-modal" show={show}
-        onHide={handleClose}
-        backdrop="static"
-        keyboard={false} centered>
+      <Modal className="connectwallet-modal" show={show} onHide={handleClose} backdrop="static" keyboard={false} centered>
         <Modal.Header closeButton>
           <Modal.Title>Connect Wallet</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="twice-btns" >
-            <button className="forhideee">
+            <button className="forhideee" onClick={connectMetamask}>
               <img src="\assets\metamask.svg" alt="img" className="img-fluid" />
               <h6>Metamask</h6>
             </button>
-
-            <button >
+            <button onClick={trustWallet}>
               <img
                 src="\assets\walletconnect.svg"
                 alt="img"
@@ -117,16 +197,9 @@ const Header = ({ show, setShow }) => {
               />
               <h6>WalletConnect</h6>
             </button>
-
-            {/* } */}
-
           </div>
-
         </Modal.Body>
-
       </Modal>
-
-
     </>
   );
 };
