@@ -5,7 +5,6 @@ import { useState, useEffect } from "react";
 import { useWeb3React } from '@web3-react/core/dist';
 import useAuth from '../../hooks/useAuth';
 import toasts from "../../state/toasts";
-import Signature from "../../utils/userSign";
 
 
 const Header = () => {
@@ -13,12 +12,9 @@ const Header = () => {
   let { account } = useWeb3React();
   const { login, logout } = useAuth();
 
-  const { userSign } = Signature();
-
   const [show, setShow] = useState(false);
   const [loader, setLoader] = useState(false);
   const [isMetaMaskInstalled, setIsMetaMaskInstalled] = useState(false);
-  const [userSigns, setUserSing] = useState(null)
 
 
   const handleClose = () => {
@@ -75,21 +71,6 @@ const Header = () => {
     localStorage.removeItem('connectorId')
     localStorage.removeItem('flag')
     localStorage.removeItem('chain')
-  }
-
-
-  const gettingSign = async () => {
-    console.log('in sign funcationnnnn');
-    if (account) {
-      const res1 = await userSign();
-      console.log(res1, 'res1 okokokok');
-      setUserSing(res1)
-
-      if (res1) {
-        localStorage.setItem('sign', res1)
-        localStorage.setItem('userAddress', account)
-      }
-    }
   }
 
 

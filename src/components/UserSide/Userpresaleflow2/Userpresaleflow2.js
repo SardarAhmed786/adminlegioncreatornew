@@ -9,17 +9,24 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import Header from '../../Header/Header';
 import Footer from '../../Footer/Footer';
 import RichTextEditor from './RichTextEditor';
-import { MultiSelect } from "react-multi-select-component";
 import Environment from '../../../utils/Environment';
-import axios from 'axios';
 import { toast } from 'react-toastify';
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+import { useWeb3React } from '@web3-react/core';
+import Signature from '../../../utils/userSign';
+
 
 const Userpresaleflow2 = () => {
 
+
+    const history = useHistory();
     const token = localStorage.getItem('mytoken');
-
+    const sign = localStorage.getItem('sign');
     const [description, setDescription] = useState('');
+    const [detail, setDetail] = useState([]);
 
+    const [id, setId] = useState("");
     const getValue = (newDescription) => {
         setDescription(newDescription);
     };
@@ -55,6 +62,27 @@ const Userpresaleflow2 = () => {
         return () => clearInterval(interval);
     }, []);
 
+
+    // Web3 ===========================
+    const { account } = useWeb3React();
+    const { userSign } = Signature();
+    const [userSigns, setUserSing] = useState(null);
+
+    const gettingSign = async () => {
+        console.log('in sign funcationnnnn');
+        if (account) {
+            const res1 = await userSign();
+            console.log(res1, 'res1 okokokok userSigns');
+            setUserSing(res1)
+
+            if (res1) {
+                localStorage.setItem('sign', res1)
+                localStorage.setItem('userAddress', account)
+            }
+        }
+    }
+
+    // Web3 ===========================
 
     const [show56, setShow56] = useState(false);
     const handleClose56 = () => setShow56(false);
@@ -144,51 +172,113 @@ const Userpresaleflow2 = () => {
             });
     }
 
-    const approveProjectHandle = () => {
+    const approveProjectHandle = async () => {
+        console.log("start approve");
         const payload = {
             launchpad_id: "1",
-            tier1NumberOfTickets: 200,
-            tier1TotalAllocationUsd: 10,
-            tier1MaxTicketsUse: 150,
+            tier1NumberOfTickets: numberOfTickets1,
+            tier1TotalAllocationUsd: totalAllocations1,
+            tier1MaxTicketsUse: maxTicketsUse1,
             tier1Accessibility: "Premium Members",
-            tier2NumberOfTickets: 200,
-            tier2TotalAllocationUsd: 10,
-            tier2MaxTicketsUse: 150,
+            tier2NumberOfTickets: numberOfTickets2,
+            tier2TotalAllocationUsd: totalAllocations2,
+            tier2MaxTicketsUse: maxTicketsUse2,
             tier2Accessibility: "Legend Staker",
-            tier3NumberOfTickets: 200,
-            tier3TotalAllocationUsd: 10,
-            tier3MaxTicketsUse: 150,
+            tier3NumberOfTickets: numberOfTickets3,
+            tier3TotalAllocationUsd: totalAllocations3,
+            tier3MaxTicketsUse: maxTicketsUse3,
             tier3Accessibility: "All Stakers",
-            adminLaunchpadApprovalAddress: "98udfojf8290989esdadf0asd8",
-            RSsignature: "a8f098asd90fusjacmasdjf0d8ufdsakfdsfsadfiopk;ld,s"
+            adminLaunchpadApprovalAddress: account,
+            RSsignature: sign
         };
 
-        axios.post(
-            `${Environment.backendUrl}/launchpad/approveLaunchpadApplication`,
-            payload, // Directly pass the payload object here
-            {
-                headers: {
-                    "Authorization": `Bearer ${token}`
+        try {
+            if (!account) {
+                toast?.error("Please connect your wallet");
+            } else if (!sign) {
+                const res = await gettingSign();
+                console.log("🚀 ~ approveProjectHandle ~ res:", res);
+
+                // Call the API after receiving a response from gettingSign
+                if (res) {
+                    console.log('approveProjectHandle resssssssssssssssssss');
+                    const response = await axios.post(
+                        `${Environment.backendUrl}/launchpad/approveLaunchpadApplication`,
+                        payload,
+                        {
+                            headers: {
+                                Authorization: `Bearer ${token}`
+                            }
+                        }
+                    );
+
+                    console.log("🚀 ~ response:", response);
+                    console.log(response.data, "AccessibilityList response.data.msg");
+
+                    if (response) {
+                        toast.success(response?.data?.applicationStatus?.msg, {
+                            position: "top-center",
+                            autoClose: 2000
+                        });
+                    }
                 }
-            }
-        )
-            .then((response) => {
-                console.log("🚀 ~ file: UserDetail.js:111 ~ .then ~ response: approveProjectHandle", response);
-                console.log(response.data, 'AccessibilityList response.data.msg');
+            } else {
+                const response = await axios.post(
+                    `${Environment.backendUrl}/launchpad/approveLaunchpadApplication`,
+                    payload,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
+                    }
+                );
+
+                console.log("🚀 ~ response:", response);
+                console.log(response.data, "AccessibilityList response.data.msg");
 
                 if (response) {
-                    toast.success(response?.data?.applicationStatus?.msg, {
+                    handleClose1();
+                    toast.success(response?.data?.message, {
                         position: "top-center",
+                        autoClose: 2000
+                    });
+                }
+            }
+        } catch (error) {
+            console.log("🚀 ~ approveProjectHandle ~ error:", error);
+            toast.error(error.response?.data.msg || "An error occurred", {
+                position: "top-center",
+                autoClose: 2000
+            });
+        }
+    };
+
+
+
+    const getApplicationDetails = async () => {
+
+        const config = {
+            method: "get",
+            url: `${Environment.backendUrl}/launchpad/getLaunchpadById/${id}`,
+            headers: {
+                Authorization: "Bearer " + token,
+            },
+        };
+        await axios(config)
+            .then((res) => {
+                console.log(res?.data?.data, "aabi");
+                setDetail(res?.data?.data);
+            })
+            .catch((err) => {
+                if (err?.response?.status == 501) {
+                    history.push("/");
+                } else {
+                    toast.error(err?.response?.data?.message, {
+                        position: "top-right",
                         autoClose: 2000,
                     });
                 }
-            })
-            .catch((err) => {
-                console.log("🚀 ~ approveProjectHandle ~ err:", err);
-                toast.error(err.response?.data.msg, {
-                    position: "top-center",
-                    autoClose: 2000,
-                });
+
             });
     };
 
@@ -196,6 +286,17 @@ const Userpresaleflow2 = () => {
     useEffect(() => {
         applicationHandle();
     }, []);
+
+    useEffect(() => {
+        var val = window.location.href;
+        val = new URL(val);
+        setId(val.searchParams.get("id"));
+        localStorage.setItem("currentId", val.searchParams.get("id"));
+        // window.scroll(0, 0);
+        if (id) {
+            getApplicationDetails();
+        }
+    }, [id]);
 
     return (
         <>
@@ -205,61 +306,6 @@ const Userpresaleflow2 = () => {
 
                     <div className='parentdetail'>
                         <div className='left'>
-                            {/* <div className='card'>
-                            <div className='innercontent'>
-                                <div className='left'>
-                                    <div className='innerright'>
-                                        <img src='\assets\presale.png' alt='img' className='img-fluid' />
-                                    </div>
-                                    <div className='innerleft'>
-                                        <h4>FLOWX PRESALE</h4>
-                                        <p>Fair Launch</p>
-                                        <div className='parentsocial'>
-                                            <div className='social'>
-                                                <img src='\assets\twitter.svg' alt='img' className='img-fluid' />
-                                                <img src='\assets\telegram.svg' alt='img' className='img-fluid' />
-                                                <img src='\assets\instagram.svg' alt='img' className='img-fluid' />
-                                                <img src='\assets\Discord.svg' alt='img' className='img-fluid' />
-
-                                                <img src='\assets\reddit.svg' alt='img' className='img-fluid' />
-                                            </div>
-
-                                            <div className='buttonsss'>
-                                                <button>Website</button>
-                                                <button>Whitepaper</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className='right ggg'>
-                                    <h6>Rating</h6>
-                                    <p><img src='\assets\Star.png' alt='img' className='img-fluid' />4.8</p>
-                                </div>
-                            </div>
-                            <div className='secondcard'>
-                                <div className='textcard'>
-                                    <p>Token Price</p>
-                                    <h6>$0.02</h6>
-                                </div>
-                                <div className='textcard'>
-                                    <p>Token Price</p>
-                                    <h6>1,000 USDT</h6>
-                                </div>
-                                <div className='textcard'>
-                                    <p>Token Price</p>
-                                    <h6>5,000 USDT</h6>
-                                </div>
-                                <div className='textcard'>
-                                    <p>Token Price</p>
-                                    <h6>$0.02</h6>
-                                </div>
-                                <div className='textcard'>
-                                    <p>Network</p>
-                                    <h6>BSC Chain</h6>
-                                </div>
-                            </div>
-
-                        </div> */}
                             <div className='mainssss'>
                                 <Nav variant="pills" activeKey={activeTab} onSelect={handleSelect}>
                                     <Nav.Item>
@@ -286,16 +332,16 @@ const Userpresaleflow2 = () => {
                             {activeTab === 'link-1' && (
                                 <>
                                     <div className='detailimage'>
-                                        <img src='\assets\userflowimg.svg' alt='img' className='img-fluid images' />
+                                        <img src={detail?.projectBanner} alt='img' className='img-fluid images' />
                                     </div>
                                     <div className='card'>
                                         <div className='innercontent'>
                                             <div className='left'>
                                                 <div className='innerright'>
-                                                    <img src='\assets\presale.png' alt='img' className='img-fluid' />
+                                                    <img src={detail?.projectLogo} alt='img' className='img-fluid' />
                                                 </div>
                                                 <div className='innerleft'>
-                                                    <h4>FLOWX PRESALE</h4>
+                                                    <h4>{detail?.projectName}</h4>
                                                     <p>Fair Launch</p>
                                                     <div className='parentsocial'>
                                                         <div className='social'>
@@ -322,18 +368,18 @@ const Userpresaleflow2 = () => {
                                         <div className='secondcard'>
                                             <div className='textcard'>
                                                 <p>Token Price</p>
-                                                <h6>$0.02</h6>
+                                                <h6>${detail?.publicSalePrice}</h6>
                                             </div>
                                             <div className='textcard'>
-                                                <p>Token Price</p>
-                                                <h6>1,000 USDT</h6>
+                                                <p>Soft Cap</p>
+                                                <h6>{detail?.softCap} USDT</h6>
                                             </div>
                                             <div className='textcard'>
-                                                <p>Token Price</p>
-                                                <h6>5,000 USDT</h6>
+                                                <p>Hard Cap</p>
+                                                <h6>{detail?.hardCap} USDT</h6>
                                             </div>
                                             <div className='textcard'>
-                                                <p>Token Price</p>
+                                                <p>GOAL</p>
                                                 <h6>$0.02</h6>
                                             </div>
                                             <div className='textcard'>
@@ -419,7 +465,7 @@ const Userpresaleflow2 = () => {
                                                 <p className='graytext'>Hard Cap</p>
                                             </div>
                                             <div className='graycard forraius1'>
-                                                <p className=''>2,500,000 USD</p>
+                                                <p className=''>{detail?.hardCap} USD</p>
                                             </div>
                                         </div>
                                         <div className='parenttokencard'>
@@ -427,7 +473,7 @@ const Userpresaleflow2 = () => {
                                                 <p className='graytext'>Soft Cap</p>
                                             </div>
                                             <div className='graycard'>
-                                                <p className=''>10,000,000 FLOW</p>
+                                                <p className=''>{detail?.softCap} FLOW</p>
                                             </div>
                                         </div>
                                         <div className='parenttokencard'>
@@ -435,7 +481,7 @@ const Userpresaleflow2 = () => {
                                                 <p className='graytext'>Total Token Supply</p>
                                             </div>
                                             <div className='whitecard'>
-                                                <p className=''>1,000,000,000 FLOW</p>
+                                                <p className=''>{detail?.totalTokenSupply} FLOW</p>
                                             </div>
                                         </div>
                                         <div className='parenttokencard'>
@@ -845,91 +891,9 @@ const Userpresaleflow2 = () => {
                                     </div>
                                 </>
                             )}
-
-
-
                         </div>
 
                         <div className='right gggg'>
-                            {/* <div className='presalecard'>
-                            <div className='parent'>
-                                <div className='left'>
-                                    <p>Presale Ending In</p>
-                                </div>
-                                <div className='right'>
-                                    <div className='inner'>
-                                        <p className='green'>{day ? day : 0} </p>
-                                        <p className='grey'>Days</p>
-                                    </div>
-                                    <span>:</span>
-                                    <div className='inner'>
-                                        <p className='green'>{hour ? hour : 0} </p>
-                                        <p className='grey'>Hours</p>
-                                    </div>
-                                    <span>:</span>
-                                    <div className='inner'>
-                                        <p className='green'>{min ? min : 0} </p>
-                                        <p className='grey'>MINUTES</p>
-                                    </div>
-                                    <span>:</span>
-                                    <div className='inner'>
-                                        <p className='green'>{sec ? sec : 0} </p>
-                                        <p className='grey'>Seconds</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div> */}
-
-                            {/* 
-                        <div className='joinproject'>
-                            <div className='maintexts'>
-                                <h3>Join Project</h3>
-
-
-                                <button>Buy Now</button>
-                            </div>
-                        </div>
-                        <div className='project'>
-                            <h2 className='projecthead'>Project Progress</h2>
-                            <div className="cardprogress">
-                                <div className="cardprogressheadings">
-                                    <p className="cardprogresspara">Progress</p>
-                                    <h6 className="cardprogresshead">0.00%</h6>
-                                </div>
-                                <ProgressBar now={100} />
-                                <div className="cardprogressheadings">
-                                    <p className="cardprogresspara">0.00 USDT</p>
-                                    <h6 className="cardprogresshead">5,000 USDT</h6>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div className='bottomcard'>
-                            <div className='bottomcardparent'>
-                                <h6>Status</h6>
-                                <p>Upcoming</p>
-
-                            </div>
-                            <div className='bottomcardparent'>
-
-                                <h6>Current Rate</h6>
-                                <p>$0.02 = 1 ECLIP</p>
-
-                            </div>
-                            <div className='bottomcardparent'>
-
-                                <h6>Max Contribution</h6>
-                                <p>5 USDT</p>
-
-                            </div>
-                            <div className='bottomcardparent'>
-
-                                <h6>Total Contributors</h6>
-                                <p>0</p>
-                            </div>
-
-                        </div> */}
                             <div className='contactcard'>
                                 <h2>Contact Information</h2>
                                 <div className='brdr'></div>
@@ -1175,7 +1139,7 @@ const Userpresaleflow2 = () => {
                             handleShow12();
                             handleClose1();
                         }}>Edit</button>
-                        <button className='confirm' onClick={() => approveProjectHandle()}>Approve</button>
+                        <button className='confirm' onClick={approveProjectHandle}>Approve</button>
                     </div>
                 </Modal.Body>
             </Modal>

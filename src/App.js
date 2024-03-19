@@ -1,6 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Switch, Route } from 'react-router-dom';
 import "./App.scss"
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Landing from './components/CreatorSide/Landing/Landing';
 import Idapplication from './components/CreatorSide/Idapplication/Idapplication';
 import Startapplication from './components/CreatorSide/Startapplication/Startapplication';
@@ -25,6 +27,8 @@ function App() {
 
   return (
     <>
+      <ToastContainer style={{ fontSize: 20, width: '400px' }} />
+
       <Switch>
         <Route exact path="/" component={Startapplication} />
         <Route exact path="/idapplication" component={Idapplication} />
