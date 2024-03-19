@@ -9,7 +9,15 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import Header from '../../Header/Header';
 import Footer from '../../Footer/Footer';
 import RichTextEditor from './RichTextEditor';
+import { MultiSelect } from "react-multi-select-component";
+import Environment from '../../../utils/Environment';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+
 const Userpresaleflow2 = () => {
+
+    const token = localStorage.getItem('mytoken');
+
     const [description, setDescription] = useState('');
 
     const getValue = (newDescription) => {
@@ -72,6 +80,123 @@ const Userpresaleflow2 = () => {
     const [show1, setShow1] = useState(false);
     const handleClose1 = () => setShow1(false);
     const handleShow1 = () => setShow1(true);
+
+    // Allocations states =============================
+    const [selected, setSelected] = useState([]);
+    const [accessibilityList, setAccessibilityList] = useState([]);
+
+    const options = [
+        { label: "Grapes 🍇", value: "grapes" },
+        { label: "Mango 🥭", value: "mango" },
+        { label: "Strawberry 🍓", value: "strawberry", disabled: true },
+    ];
+
+    // 1 Allocations states =============================
+    const [numberOfTickets1, setNumberOfTickets1] = useState(null);
+    const [totalAllocations1, setTotalAllocations1] = useState(null);
+    const [maxTicketsUse1, setMaxTicketsUse1] = useState(null);
+    const [accessibilityAry1, setAccessibilityAry1] = useState(null);
+
+    // 2 Allocations states =============================
+    const [numberOfTickets2, setNumberOfTickets2] = useState(null);
+    const [totalAllocations2, setTotalAllocations2] = useState(null);
+    const [maxTicketsUse2, setMaxTicketsUse2] = useState(null);
+    const [accessibilityAry2, setAccessibilityAry2] = useState(null);
+
+    // 3 Allocations states =============================
+    const [numberOfTickets3, setNumberOfTickets3] = useState(null);
+    const [totalAllocations3, setTotalAllocations3] = useState(null);
+    const [maxTicketsUse3, setMaxTicketsUse3] = useState(null);
+    const [accessibilityAry3, setAccessibilityAry3] = useState(null);
+
+    // Allocations states =============================
+
+
+    const applicationHandle = () => {
+        // setOpen(true);
+        axios.get(
+            `${Environment.backendUrl}/launchpad/tierAccessibilityList`,
+            {
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            }
+        )
+            .then((response) => {
+                console.log("🚀 ~ file: UserDetail.js:111 ~ .then ~ response: rejectApplicationHandle", response);
+                // setOpen(false);
+                console.log(response.data, 'AccessibilityList response.data.msg');
+
+                if (response) {
+                    setAccessibilityList(response?.data?.data);
+                    toast.success(response?.data?.applicationStatus?.msg, {
+                        position: "top-center",
+                        autoClose: 2000,
+                    });
+                }
+            })
+            .catch((err) => {
+                // setOpen(false);
+                toast.error(err.response?.data.msg, {
+                    position: "top-center",
+                    autoClose: 2000,
+                });
+            });
+    }
+
+    const approveProjectHandle = () => {
+        const payload = {
+            launchpad_id: "1",
+            tier1NumberOfTickets: 200,
+            tier1TotalAllocationUsd: 10,
+            tier1MaxTicketsUse: 150,
+            tier1Accessibility: "Premium Members",
+            tier2NumberOfTickets: 200,
+            tier2TotalAllocationUsd: 10,
+            tier2MaxTicketsUse: 150,
+            tier2Accessibility: "Legend Staker",
+            tier3NumberOfTickets: 200,
+            tier3TotalAllocationUsd: 10,
+            tier3MaxTicketsUse: 150,
+            tier3Accessibility: "All Stakers",
+            adminLaunchpadApprovalAddress: "98udfojf8290989esdadf0asd8",
+            RSsignature: "a8f098asd90fusjacmasdjf0d8ufdsakfdsfsadfiopk;ld,s"
+        };
+
+        axios.post(
+            `${Environment.backendUrl}/launchpad/approveLaunchpadApplication`,
+            payload, // Directly pass the payload object here
+            {
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            }
+        )
+            .then((response) => {
+                console.log("🚀 ~ file: UserDetail.js:111 ~ .then ~ response: approveProjectHandle", response);
+                console.log(response.data, 'AccessibilityList response.data.msg');
+
+                if (response) {
+                    toast.success(response?.data?.applicationStatus?.msg, {
+                        position: "top-center",
+                        autoClose: 2000,
+                    });
+                }
+            })
+            .catch((err) => {
+                console.log("🚀 ~ approveProjectHandle ~ err:", err);
+                toast.error(err.response?.data.msg, {
+                    position: "top-center",
+                    autoClose: 2000,
+                });
+            });
+    };
+
+
+    useEffect(() => {
+        applicationHandle();
+    }, []);
+
     return (
         <>
             <Header
@@ -840,23 +965,33 @@ const Userpresaleflow2 = () => {
                         <div className='parentsetting'>
                             <div className='muinput'>
                                 <div class="material-textfield">
-                                    <input placeholder="Enter no. of Tickets" type="text" />
+                                    <input placeholder="Enter no. of Tickets" type="text" value={numberOfTickets1} onChange={(e) => setNumberOfTickets1(e?.target?.value)} />
                                     <label>Number of Tickets</label>
                                 </div>
                             </div>
                             <div className='muinput'>
                                 <div class="material-textfield">
-                                    <input placeholder="Enter Total Allocation" type="text" />
+                                    <input placeholder="Enter Total Allocation" type="text" value={totalAllocations1} onChange={(e) => setTotalAllocations1(e?.target?.value)} />
                                     <label>Total Allocation (USD)</label>
                                 </div>
                             </div>
                         </div>
                         <div className='muinput'>
                             <div class="material-textfield">
-                                <input placeholder="Enter Ticket amount" type="text" />
+                                <input placeholder="Enter Ticket amount" type="text" value={maxTicketsUse1} onChange={(e) => setMaxTicketsUse1(e?.target?.value)} />
                                 <label>Max Ticket Use</label>
                             </div>
                         </div>
+                        {/* <div>
+                            <h1>Select Fruits</h1>
+                            <pre>{JSON.stringify(selected)}</pre>
+                            <MultiSelect
+                                options={accessibilityList}
+                                value={selected}
+                                onChange={setSelected}
+                                labelledBy="Select"
+                            />
+                        </div> */}
                         <div className='dropbtn'>
                             <Dropdown>
                                 <Dropdown.Toggle variant="success" id="dropdown-basic">
@@ -887,20 +1022,20 @@ const Userpresaleflow2 = () => {
                         <div className='parentsetting'>
                             <div className='muinput'>
                                 <div class="material-textfield">
-                                    <input placeholder="Enter no. of Tickets" type="text" />
+                                    <input placeholder="Enter no. of Tickets" type="text" value={numberOfTickets2} onChange={(e) => setNumberOfTickets2(e?.target?.value)} />
                                     <label>Number of Tickets</label>
                                 </div>
                             </div>
                             <div className='muinput'>
                                 <div class="material-textfield">
-                                    <input placeholder="Enter Total Allocation" type="text" />
+                                    <input placeholder="Enter Total Allocation" type="text" value={totalAllocations2} onChange={(e) => setTotalAllocations2(e?.target?.value)} />
                                     <label>Total Allocation (USD)</label>
                                 </div>
                             </div>
                         </div>
                         <div className='muinput'>
                             <div class="material-textfield">
-                                <input placeholder="Enter Ticket amount" type="text" />
+                                <input placeholder="Enter Ticket amount" type="text" value={maxTicketsUse2} onChange={(e) => setMaxTicketsUse2(e?.target?.value)} />
                                 <label>Max Ticket Use</label>
                             </div>
                         </div>
@@ -931,20 +1066,20 @@ const Userpresaleflow2 = () => {
                         <div className='parentsetting'>
                             <div className='muinput'>
                                 <div class="material-textfield">
-                                    <input placeholder="Enter no. of Tickets" type="text" />
+                                    <input placeholder="Enter no. of Tickets" type="text" value={numberOfTickets3} onChange={(e) => setNumberOfTickets3(e?.target?.value)} />
                                     <label>Number of Tickets</label>
                                 </div>
                             </div>
                             <div className='muinput'>
                                 <div class="material-textfield">
-                                    <input placeholder="Enter Total Allocation" type="text" />
+                                    <input placeholder="Enter Total Allocation" type="text" value={totalAllocations3} onChange={(e) => setTotalAllocations3(e?.target?.value)} />
                                     <label>Total Allocation (USD)</label>
                                 </div>
                             </div>
                         </div>
                         <div className='muinput'>
                             <div class="material-textfield">
-                                <input placeholder="Enter Ticket amount" type="text" />
+                                <input placeholder="Enter Ticket amount" type="text" value={maxTicketsUse3} onChange={(e) => setMaxTicketsUse3(e?.target?.value)} />
                                 <label>Max Ticket Use</label>
                             </div>
                         </div>
@@ -1013,33 +1148,23 @@ const Userpresaleflow2 = () => {
                                 </thead>
                                 <tbody>
                                     <tr>
-
                                         <td><p className='bolds'>1</p></td>
-
-                                        <td><p className='bolds'>200</p></td>
-                                        <td><p className='bolds'>$20,000</p></td>
+                                        <td><p className='bolds'>{numberOfTickets1}</p></td>
+                                        <td><p className='bolds'>${totalAllocations1}</p></td>
                                         <td><p className='bolds'>All Stakers & Premium Member</p></td>
-
                                     </tr>
                                     <tr>
-
-                                        <td><p className='bolds'>1</p></td>
-
-                                        <td><p className='bolds'>200</p></td>
-                                        <td><p className='bolds'>$20,000</p></td>
+                                        <td><p className='bolds'>2</p></td>
+                                        <td><p className='bolds'>{numberOfTickets2}</p></td>
+                                        <td><p className='bolds'>${totalAllocations2}</p></td>
                                         <td><p className='bolds'>All Stakers & Premium Member</p></td>
-
                                     </tr>
                                     <tr>
-
-                                        <td><p className='bolds'>1</p></td>
-
-                                        <td><p className='bolds'>200</p></td>
-                                        <td><p className='bolds'>$20,000</p></td>
+                                        <td><p className='bolds'>3</p></td>
+                                        <td><p className='bolds'>{numberOfTickets3}</p></td>
+                                        <td><p className='bolds'>${totalAllocations3}</p></td>
                                         <td><p className='bolds'>All Stakers & Premium Member</p></td>
-
                                     </tr>
-
                                 </tbody>
                             </table>
                         </div>
@@ -1050,9 +1175,9 @@ const Userpresaleflow2 = () => {
                             handleShow12();
                             handleClose1();
                         }}>Edit</button>
+                        <button className='confirm' onClick={() => approveProjectHandle()}>Approve</button>
                     </div>
                 </Modal.Body>
-
             </Modal>
 
             <Modal className='settingmodal' show={show12} onHide={handleClose12} centered>
@@ -1067,20 +1192,20 @@ const Userpresaleflow2 = () => {
                         <div className='parentsetting'>
                             <div className='muinput'>
                                 <div class="material-textfield">
-                                    <input placeholder="Enter no. of Tickets" type="text" />
+                                    <input placeholder="Enter no. of Tickets" type="text" value={numberOfTickets1} onChange={(e) => setNumberOfTickets1(e?.target?.value)} />
                                     <label>Number of Tickets</label>
                                 </div>
                             </div>
                             <div className='muinput'>
                                 <div class="material-textfield">
-                                    <input placeholder="Enter Total Allocation" type="text" />
+                                    <input placeholder="Enter Total Allocation" type="text" value={totalAllocations1} onChange={(e) => setTotalAllocations1(e?.target?.value)} />
                                     <label>Total Allocation (USD)</label>
                                 </div>
                             </div>
                         </div>
                         <div className='muinput'>
                             <div class="material-textfield">
-                                <input placeholder="Enter Ticket amount" type="text" />
+                                <input placeholder="Enter Ticket amount" type="text" value={maxTicketsUse1} onChange={(e) => setMaxTicketsUse1(e?.target?.value)} />
                                 <label>Max Ticket Use</label>
                             </div>
                         </div>
@@ -1114,20 +1239,20 @@ const Userpresaleflow2 = () => {
                         <div className='parentsetting'>
                             <div className='muinput'>
                                 <div class="material-textfield">
-                                    <input placeholder="Enter no. of Tickets" type="text" />
+                                    <input placeholder="Enter no. of Tickets" type="text" value={numberOfTickets2} onChange={(e) => setNumberOfTickets2(e?.target?.value)} />
                                     <label>Number of Tickets</label>
                                 </div>
                             </div>
                             <div className='muinput'>
                                 <div class="material-textfield">
-                                    <input placeholder="Enter Total Allocation" type="text" />
+                                    <input placeholder="Enter Total Allocation" type="text" value={totalAllocations2} onChange={(e) => setTotalAllocations2(e?.target?.value)} />
                                     <label>Total Allocation (USD)</label>
                                 </div>
                             </div>
                         </div>
                         <div className='muinput'>
                             <div class="material-textfield">
-                                <input placeholder="Enter Ticket amount" type="text" />
+                                <input placeholder="Enter Ticket amount" type="text" value={maxTicketsUse2} onChange={(e) => setMaxTicketsUse2(e?.target?.value)} />
                                 <label>Max Ticket Use</label>
                             </div>
                         </div>
@@ -1158,20 +1283,20 @@ const Userpresaleflow2 = () => {
                         <div className='parentsetting'>
                             <div className='muinput'>
                                 <div class="material-textfield">
-                                    <input placeholder="Enter no. of Tickets" type="text" />
+                                    <input placeholder="Enter no. of Tickets" type="text" value={numberOfTickets3} onChange={(e) => setNumberOfTickets3(e?.target?.value)} />
                                     <label>Number of Tickets</label>
                                 </div>
                             </div>
                             <div className='muinput'>
                                 <div class="material-textfield">
-                                    <input placeholder="Enter Total Allocation" type="text" />
+                                    <input placeholder="Enter Total Allocation" type="text" value={totalAllocations3} onChange={(e) => setTotalAllocations3(e?.target?.value)} />
                                     <label>Total Allocation (USD)</label>
                                 </div>
                             </div>
                         </div>
                         <div className='muinput'>
                             <div class="material-textfield">
-                                <input placeholder="Enter Ticket amount" type="text" />
+                                <input placeholder="Enter Ticket amount" type="text" value={maxTicketsUse3} onChange={(e) => setMaxTicketsUse3(e?.target?.value)} />
                                 <label>Max Ticket Use</label>
                             </div>
                         </div>
@@ -1197,7 +1322,7 @@ const Userpresaleflow2 = () => {
                     </div>
                     <div className='endbtns'>
                         <button className='cancle'>Cancel</button>
-                        <button className='confirm' >Save</button>
+                        <button className='confirm' onClick={approveProjectHandle}>Save</button>
                     </div>
                 </Modal.Body>
 

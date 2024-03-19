@@ -114,7 +114,7 @@ const Header = () => {
       <section className="main-navbar">
         <div className="custom-container">
           <nav class="navbar navbar-expand-lg">
-            <a class="navbar-brand" href="/"><img src="\logo.svg" alt="img" className='img-fluid' /></a>
+            <a class="navbar-brand" href="/yourproject/projects"><img src="\logo.svg" alt="img" className='img-fluid' /></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g clip-path="url(#clip0_1462_2956)">
@@ -165,8 +165,8 @@ const Header = () => {
               {
                 account ?
                   <>
-                    <button onClick={gettingSign}>Sign</button>
-                    <button onClick={logoutHandle}>Disconnect</button>
+                    {/* <button onClick={gettingSign}>Sign</button> */}
+                    <button className="connect-btn" onClick={logoutHandle}>Disconnect</button>
                   </>
                   :
                   <button className="connect-btn" onClick={handleShow}>
