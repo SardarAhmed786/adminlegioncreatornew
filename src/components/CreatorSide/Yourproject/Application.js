@@ -165,7 +165,7 @@ const Application = () => {
                                                 <td><p className='bold'>{data?.User?.full_name}</p></td>
                                                 <td><p className='bold'>{changeDateFormate(data?.startTime)}</p></td>
                                                 <td><p className='bold'>{changeDateFormate(data?.startTime)}</p></td>
-                                                <td><Link to="/userpresaleflow2"><button>View</button></Link></td>
+                                                <td><Link to={"/userpresaleflow2?id=" + data?.id}><button>View</button></Link></td>
                                             </tr>
                                         )
                                     })

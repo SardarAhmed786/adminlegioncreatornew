@@ -9,9 +9,19 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import Header from '../../Header/Header';
 import Footer from '../../Footer/Footer';
 import RichTextEditor from './RichTextEditor';
-const Userpresaleflow2 = () => {
-    const [description, setDescription] = useState('');
+import Environment from '../../../utils/Environment';
+import { toast } from 'react-toastify';
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
+
+const Userpresaleflow2 = () => {
+    const history = useHistory();
+    const token = localStorage.getItem('mytoken');
+    const [description, setDescription] = useState('');
+    const [detail, setDetail] = useState([]);
+
+    const [id, setId] = useState("");
     const getValue = (newDescription) => {
         setDescription(newDescription);
     };
@@ -72,6 +82,45 @@ const Userpresaleflow2 = () => {
     const [show1, setShow1] = useState(false);
     const handleClose1 = () => setShow1(false);
     const handleShow1 = () => setShow1(true);
+
+    useEffect(() => {
+        var val = window.location.href;
+        val = new URL(val);
+        setId(val.searchParams.get("id"));
+        localStorage.setItem("currentId", val.searchParams.get("id"));
+        // window.scroll(0, 0);
+        if (id) {
+          getApplicationDetails();
+        }
+      }, [id]);
+
+      const getApplicationDetails = async () => {
+       
+        const config = {
+          method: "get",
+          url: `${Environment.backendUrl}/launchpad/getLaunchpadById/${id}`,
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        };
+        await axios(config)
+          .then((res) => {
+             console.log(res?.data?.data,"aabi");
+             setDetail(res?.data?.data);
+          })
+          .catch((err) => {
+            if (err?.response?.status == 501) {
+              history.push("/");
+            } else {
+              toast.error(err?.response?.data?.message, {
+                position: "top-right",
+                autoClose: 2000,
+              });
+            }
+    
+          });
+      };
+
     return (
         <>
             <Header
@@ -161,16 +210,16 @@ const Userpresaleflow2 = () => {
                             {activeTab === 'link-1' && (
                                 <>
                                     <div className='detailimage'>
-                                        <img src='\assets\userflowimg.svg' alt='img' className='img-fluid images' />
+                                        <img src={detail?.projectBanner} alt='img' className='img-fluid images' />
                                     </div>
                                     <div className='card'>
                                         <div className='innercontent'>
                                             <div className='left'>
                                                 <div className='innerright'>
-                                                    <img src='\assets\presale.png' alt='img' className='img-fluid' />
+                                                    <img src={detail?.projectLogo} alt='img' className='img-fluid' />
                                                 </div>
                                                 <div className='innerleft'>
-                                                    <h4>FLOWX PRESALE</h4>
+                                                    <h4>{detail?.projectName}</h4>
                                                     <p>Fair Launch</p>
                                                     <div className='parentsocial'>
                                                         <div className='social'>
@@ -197,18 +246,18 @@ const Userpresaleflow2 = () => {
                                         <div className='secondcard'>
                                             <div className='textcard'>
                                                 <p>Token Price</p>
-                                                <h6>$0.02</h6>
+                                                <h6>${detail?.publicSalePrice}</h6>
                                             </div>
                                             <div className='textcard'>
-                                                <p>Token Price</p>
-                                                <h6>1,000 USDT</h6>
+                                                <p>Soft Cap</p>
+                                                <h6>{detail?.softCap} USDT</h6>
                                             </div>
                                             <div className='textcard'>
-                                                <p>Token Price</p>
-                                                <h6>5,000 USDT</h6>
+                                                <p>Hard Cap</p>
+                                                <h6>{detail?.hardCap} USDT</h6>
                                             </div>
                                             <div className='textcard'>
-                                                <p>Token Price</p>
+                                                <p>GOAL</p>
                                                 <h6>$0.02</h6>
                                             </div>
                                             <div className='textcard'>
@@ -294,7 +343,7 @@ const Userpresaleflow2 = () => {
                                                 <p className='graytext'>Hard Cap</p>
                                             </div>
                                             <div className='graycard forraius1'>
-                                                <p className=''>2,500,000 USD</p>
+                                                <p className=''>{detail?.hardCap} USD</p>
                                             </div>
                                         </div>
                                         <div className='parenttokencard'>
@@ -302,7 +351,7 @@ const Userpresaleflow2 = () => {
                                                 <p className='graytext'>Soft Cap</p>
                                             </div>
                                             <div className='graycard'>
-                                                <p className=''>10,000,000 FLOW</p>
+                                                <p className=''>{detail?.softCap} FLOW</p>
                                             </div>
                                         </div>
                                         <div className='parenttokencard'>
@@ -310,7 +359,7 @@ const Userpresaleflow2 = () => {
                                                 <p className='graytext'>Total Token Supply</p>
                                             </div>
                                             <div className='whitecard'>
-                                                <p className=''>1,000,000,000 FLOW</p>
+                                                <p className=''>{detail?.totalTokenSupply} FLOW</p>
                                             </div>
                                         </div>
                                         <div className='parenttokencard'>
