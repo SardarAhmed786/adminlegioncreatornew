@@ -1,15 +1,77 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { Nav } from 'react-bootstrap';
 import Dropdown from 'react-bootstrap/Dropdown';
 import "./yourproject.scss"
 import { Link } from 'react-router-dom';
 import { Pagination } from 'react-bootstrap'
+import Environment from '../../../utils/Environment';
+import { toast } from 'react-toastify';
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+
 
 const Updates = () => {
-    const [activeTab, setActiveTab] = useState('link-1');
-    const handleSelect = (eventKey) => {
-        setActiveTab(eventKey);
-    }
+
+    const token = localStorage.getItem('mytoken');
+    const history = useHistory();
+    const [updateList,setUpdateList]  = useState([]);
+    const [activeTab, setActiveTab] = useState('pending');
+    const [searchQuery, setSearchQuery] = useState("");
+
+        // pagination ============
+
+        const [limit] = useState(100);
+        const [page, setPage] = useState(1);
+        const [pageCount, setPageCount] = useState([]);
+    
+        console.log(page, pageCount, "asd pageee");
+    
+        const handlePageChange = (e) => {
+            const selectedPage = e.selected;
+            setPage(selectedPage + 1);
+        };
+    
+        // pagination ============
+    
+        const handleSelect = async (selectedTab) => {
+            setActiveTab(selectedTab);
+            await getUpdate(selectedTab);
+        };
+
+    const getUpdate = async (filter) => {
+
+        const config = {
+            method: "get",
+            url:  Environment.backendUrl + "/updates/getLaunchpadAllUpdates?limit=" + limit + "&offset=" + page + "&filter=" + filter + "&search=" + searchQuery,
+            headers: {
+                Authorization: "Bearer " + token,
+            },
+        };
+
+        try {
+            const response = await axios(config);
+            console.log(response?.data?.data);
+            setUpdateList(response?.data?.data);
+            setPageCount(response?.data?.data?.count);
+            window.scroll(0, 0);
+           
+        } catch (error) {
+            if (error.response && error.response.status === 401) {
+
+                history.push("/")
+            } else {
+
+                console.error("Error fetching launchpads:", error);
+
+            }
+          
+        }
+    };
+
+
+    useEffect(() => {
+        getUpdate(activeTab);
+    }, [searchQuery])
 
     return (
         <>
@@ -22,25 +84,24 @@ const Updates = () => {
                 <div className='mainssss'>
                     <Nav variant="pills" activeKey={activeTab} onSelect={handleSelect}>
                         <Nav.Item>
-                            <Nav.Link eventKey="link-1">Pending</Nav.Link>
+                        <Nav.Link eventKey="pending">Pending</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link eventKey="link-2">Approved</Nav.Link>
+                            <Nav.Link eventKey="approve" >Approved</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link eventKey="link-3">
-                                Rejected
-                            </Nav.Link>
+                            <Nav.Link eventKey="rejected" > Rejected</Nav.Link>
                         </Nav.Item>
                     </Nav>
 
                 </div>
-                {activeTab === 'link-1' && (
+                {activeTab === 'pending' && (
                     <>
                         <div className='parentcardmain'>
                             <div className='parentmains'>
                                 <div className='left'>
-                                    <input type='text' placeholder='Search' />
+                                    <input value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)} type='text' placeholder='Search' />
                                     <img src='\assets\Search_Magnifying_Glass.svg' alt='img' className='img-fluid' />
                                 </div>
                                 <div className='right'>
@@ -78,22 +139,29 @@ const Updates = () => {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
+                                          {updateList?.map((item,index) => {
+                                            return(
+                                                <>
+                                                   <tr key={index}>
                                                 <td>
                                                     <div className='innerparent'>
                                                         {/* <div className='left'>
                                                             <img src='\assets\imagetbl.png' alt='img' className='img-fluid' />
                                                         </div> */}
                                                         <div className='right'>
-                                                            <p className='bold'>EARN NETWORK</p>
-                                                            <h6>$FLOW</h6>
+                                                            <p className='bold'>{item?.launchpad?.projectName}</p>
+                                                            <h6>${item?.launchpad?.tokenSymbol}</h6>
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td><p className='bold'>Ruth Wilson</p></td>
-                                                <td><p className='bold'>2/12/2023</p></td>
-                                                <td><Link to="/updatedroadmap"><button>View</button></Link></td>
+                                                <td><p className='bold'>{item?.User?.full_name}</p></td>
+                                                <td><p className='bold'>{item?.createdAt}</p></td>
+                                                <td><Link to={"/updatedroadmap?id=" + item?.id}><button>View</button></Link></td>
                                             </tr>
+                                                </>
+                                            )
+                                          })}  
+                                         
                                         </tbody>
                                     </table>
                                 </div>
@@ -121,13 +189,14 @@ const Updates = () => {
 
                     </>
                 )}
-                {activeTab === 'link-2' && (
+                {activeTab === 'approve' && (
                     <>
 
                         <div className='parentcardmain'>
                             <div className='parentmains'>
                                 <div className='left'>
-                                    <input type='text' placeholder='Search' />
+                                    <input value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)} type='text' placeholder='Search' />
                                     <img src='\assets\Search_Magnifying_Glass.svg' alt='img' className='img-fluid' />
                                 </div>
                                 <div className='right'>
@@ -177,110 +246,35 @@ const Updates = () => {
                                         <thead className='tblheadss'>
                                             <tr>
                                                 <th>Project</th>
-                                                <th>Total Raised</th>
-                                                <th>Total Raised</th>
-                                                <th>Chain</th>
-                                                <th>Contributors</th>
-                                                <th>Start Date</th>
+                                                <th>Submit By</th>
+                                                <th>Submission Date</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
+                                          {updateList?.map((item,index) => {
+                                            return(
+                                                <>
+                                                   <tr key={index}>
                                                 <td>
                                                     <div className='innerparent'>
-                                                        <div className='left'>
+                                                        {/* <div className='left'>
                                                             <img src='\assets\imagetbl.png' alt='img' className='img-fluid' />
-                                                        </div>
+                                                        </div> */}
                                                         <div className='right'>
-                                                            <p className='bold'>FLOWX</p>
-                                                            <h6>$FLOW</h6>
+                                                            <p className='bold'>{item?.launchpad?.projectName}</p>
+                                                            <h6>${item?.launchpad?.tokenSymbol}</h6>
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td><p className='bold'>$100.32K</p></td>
-                                                <td><p className='green'>Live</p></td>
-                                                <td><p className='bold'>ETH</p></td>
-                                                <td><p className='bold'>29,200</p></td>
-                                                <td><p className='bold'>2/12/2023</p></td>
-                                                <td><Link to="/userpresaleflow"><button>Details</button></Link></td>
+                                                <td><p className='bold'>{item?.User?.full_name}</p></td>
+                                                <td><p className='bold'>{item?.createdAt}</p></td>
+                                                <td><Link to={"/updatedroadmap?id=" + item?.id}><button>View</button></Link></td>
                                             </tr>
-                                            <tr>
-                                                <td>
-                                                    <div className='innerparent'>
-                                                        <div className='left'>
-                                                            <img src='\assets\imagetbl.png' alt='img' className='img-fluid' />
-                                                        </div>
-                                                        <div className='right'>
-                                                            <p className='bold'>FLOWX</p>
-                                                            <h6>$FLOW</h6>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td><p className='bold'>$100.32K</p></td>
-                                                <td><p className='green'>Live</p></td>
-                                                <td><p className='bold'>ETH</p></td>
-                                                <td><p className='bold'>29,200</p></td>
-                                                <td><p className='bold'>2/12/2023</p></td>
-                                                <td><button>Details</button></td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div className='innerparent'>
-                                                        <div className='left'>
-                                                            <img src='\assets\imagetbl.png' alt='img' className='img-fluid' />
-                                                        </div>
-                                                        <div className='right'>
-                                                            <p className='bold'>FLOWX</p>
-                                                            <h6>$FLOW</h6>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td><p className='bold'>$100.32K</p></td>
-                                                <td><p className='green'>Live</p></td>
-                                                <td><p className='bold'>ETH</p></td>
-                                                <td><p className='bold'>29,200</p></td>
-                                                <td><p className='bold'>2/12/2023</p></td>
-                                                <td><button>Details</button></td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div className='innerparent'>
-                                                        <div className='left'>
-                                                            <img src='\assets\imagetbl.png' alt='img' className='img-fluid' />
-                                                        </div>
-                                                        <div className='right'>
-                                                            <p className='bold'>FLOWX</p>
-                                                            <h6>$FLOW</h6>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td><p className='bold'>$100.32K</p></td>
-                                                <td><p className='green'>Live</p></td>
-                                                <td><p className='bold'>ETH</p></td>
-                                                <td><p className='bold'>29,200</p></td>
-                                                <td><p className='bold'>2/12/2023</p></td>
-                                                <td><button>Details</button></td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div className='innerparent'>
-                                                        <div className='left'>
-                                                            <img src='\assets\imagetbl.png' alt='img' className='img-fluid' />
-                                                        </div>
-                                                        <div className='right'>
-                                                            <p className='bold'>FLOWX</p>
-                                                            <h6>$FLOW</h6>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td><p className='bold'>$100.32K</p></td>
-                                                <td><p className='green'>Live</p></td>
-                                                <td><p className='bold'>ETH</p></td>
-                                                <td><p className='bold'>29,200</p></td>
-                                                <td><p className='bold'>2/12/2023</p></td>
-                                                <td><button>Details</button></td>
-                                            </tr>
+                                                </>
+                                            )
+                                          })}  
+                                         
                                         </tbody>
                                     </table>
                                 </div>
@@ -307,12 +301,13 @@ const Updates = () => {
                         </div>
                     </>
                 )}
-                {activeTab === 'link-3' && (
+                {activeTab === 'rejected' && (
                     <>
                         <div className='parentcardmain'>
                             <div className='parentmains'>
                                 <div className='left'>
-                                    <input type='text' placeholder='Search' />
+                                    <input value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)} type='text' placeholder='Search' />
                                     <img src='\assets\Search_Magnifying_Glass.svg' alt='img' className='img-fluid' />
                                 </div>
                                 <div className='right'>
@@ -362,110 +357,35 @@ const Updates = () => {
                                         <thead className='tblheadss'>
                                             <tr>
                                                 <th>Project</th>
-                                                <th>Total Raised</th>
-                                                <th>Total Raised</th>
-                                                <th>Chain</th>
-                                                <th>Contributors</th>
-                                                <th>Start Date</th>
+                                                <th>Submit By</th>
+                                                <th>Submission Date</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
+                                          {updateList?.map((item,index) => {
+                                            return(
+                                                <>
+                                                   <tr key={index}>
                                                 <td>
                                                     <div className='innerparent'>
-                                                        <div className='left'>
+                                                        {/* <div className='left'>
                                                             <img src='\assets\imagetbl.png' alt='img' className='img-fluid' />
-                                                        </div>
+                                                        </div> */}
                                                         <div className='right'>
-                                                            <p className='bold'>FLOWX</p>
-                                                            <h6>$FLOW</h6>
+                                                            <p className='bold'>{item?.launchpad?.projectName}</p>
+                                                            <h6>${item?.launchpad?.tokenSymbol}</h6>
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td><p className='bold'>$100.32K</p></td>
-                                                <td><p className='green'>Live</p></td>
-                                                <td><p className='bold'>ETH</p></td>
-                                                <td><p className='bold'>29,200</p></td>
-                                                <td><p className='bold'>2/12/2023</p></td>
-                                                <td><Link to="/userpresaleflow"><button>Details</button></Link></td>
+                                                <td><p className='bold'>{item?.User?.full_name}</p></td>
+                                                <td><p className='bold'>{item?.createdAt}</p></td>
+                                                <td><Link to={"/updatedroadmap?id=" + item?.id}><button>View</button></Link></td>
                                             </tr>
-                                            <tr>
-                                                <td>
-                                                    <div className='innerparent'>
-                                                        <div className='left'>
-                                                            <img src='\assets\imagetbl.png' alt='img' className='img-fluid' />
-                                                        </div>
-                                                        <div className='right'>
-                                                            <p className='bold'>FLOWX</p>
-                                                            <h6>$FLOW</h6>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td><p className='bold'>$100.32K</p></td>
-                                                <td><p className='green'>Live</p></td>
-                                                <td><p className='bold'>ETH</p></td>
-                                                <td><p className='bold'>29,200</p></td>
-                                                <td><p className='bold'>2/12/2023</p></td>
-                                                <td><button>Details</button></td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div className='innerparent'>
-                                                        <div className='left'>
-                                                            <img src='\assets\imagetbl.png' alt='img' className='img-fluid' />
-                                                        </div>
-                                                        <div className='right'>
-                                                            <p className='bold'>FLOWX</p>
-                                                            <h6>$FLOW</h6>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td><p className='bold'>$100.32K</p></td>
-                                                <td><p className='green'>Live</p></td>
-                                                <td><p className='bold'>ETH</p></td>
-                                                <td><p className='bold'>29,200</p></td>
-                                                <td><p className='bold'>2/12/2023</p></td>
-                                                <td><button>Details</button></td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div className='innerparent'>
-                                                        <div className='left'>
-                                                            <img src='\assets\imagetbl.png' alt='img' className='img-fluid' />
-                                                        </div>
-                                                        <div className='right'>
-                                                            <p className='bold'>FLOWX</p>
-                                                            <h6>$FLOW</h6>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td><p className='bold'>$100.32K</p></td>
-                                                <td><p className='green'>Live</p></td>
-                                                <td><p className='bold'>ETH</p></td>
-                                                <td><p className='bold'>29,200</p></td>
-                                                <td><p className='bold'>2/12/2023</p></td>
-                                                <td><button>Details</button></td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div className='innerparent'>
-                                                        <div className='left'>
-                                                            <img src='\assets\imagetbl.png' alt='img' className='img-fluid' />
-                                                        </div>
-                                                        <div className='right'>
-                                                            <p className='bold'>FLOWX</p>
-                                                            <h6>$FLOW</h6>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td><p className='bold'>$100.32K</p></td>
-                                                <td><p className='green'>Live</p></td>
-                                                <td><p className='bold'>ETH</p></td>
-                                                <td><p className='bold'>29,200</p></td>
-                                                <td><p className='bold'>2/12/2023</p></td>
-                                                <td><button>Details</button></td>
-                                            </tr>
+                                                </>
+                                            )
+                                          })}  
+                                         
                                         </tbody>
                                     </table>
                                 </div>

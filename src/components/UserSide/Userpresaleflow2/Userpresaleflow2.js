@@ -25,6 +25,8 @@ const Userpresaleflow2 = () => {
     const sign = localStorage.getItem('sign');
     const [description, setDescription] = useState('');
     const [detail, setDetail] = useState([]);
+    const [startTimeEpoch, setStartTimeEpoch] = useState(null);
+    const [endTimeEpoch, setEndTimeEpoch] = useState(null);
 
     const [id, setId] = useState("");
     const getValue = (newDescription) => {
@@ -68,10 +70,30 @@ const Userpresaleflow2 = () => {
     const { userSign } = Signature();
     const [userSigns, setUserSing] = useState(null);
 
+    const [currentTime, setCurrentTime] = useState(null);
+
+    useEffect(() => {
+        const updateTime = () => {
+          const currentDateTime = new Date(); // Get the current date and time
+          const futureDateTime = new Date(currentDateTime.getTime() + (20 * 60000)); // Add 20 minutes (20 * 60000 milliseconds)
+          const epochTime = Math.floor(futureDateTime.getTime() / 1000); // Convert to epoch time (seconds)
+          setCurrentTime(epochTime);
+        };
+    
+        // Update the current time initially and then every second
+        updateTime();
+        const intervalId = setInterval(updateTime, 1000);
+    
+        // Cleanup interval on component unmount
+        return () => clearInterval(intervalId);
+      }, []);
+      console.log(currentTime,"currentTime");
+      
     const gettingSign = async () => {
         console.log('in sign funcationnnnn');
         if (account) {
-            const res1 = await userSign();
+            console.log("hrtr")
+            const res1 = await userSign(startTimeEpoch, endTimeEpoch, detail?.tokenAddress, account, account, currentTime);
             console.log(res1, 'res1 okokokok userSigns');
             setUserSing(res1)
 
@@ -153,7 +175,7 @@ const Userpresaleflow2 = () => {
             .then((response) => {
                 console.log("🚀 ~ file: UserDetail.js:111 ~ .then ~ response: rejectApplicationHandle", response);
                 // setOpen(false);
-                console.log(response.data, 'AccessibilityList response.data.msg');
+                console.log(response.data, 'AccessibilityList');
 
                 if (response) {
                     setAccessibilityList(response?.data?.data);
@@ -171,7 +193,7 @@ const Userpresaleflow2 = () => {
                 });
             });
     }
-
+    // console.log(accessibilityList);
     const approveProjectHandle = async () => {
         console.log("start approve");
         const payload = {
@@ -268,6 +290,10 @@ const Userpresaleflow2 = () => {
             .then((res) => {
                 console.log(res?.data?.data, "aabi");
                 setDetail(res?.data?.data);
+                const startTime = Date.parse(res?.data?.data?.startTime);
+                setStartTimeEpoch(startTime);
+                const endTime = Date.parse(res?.data?.data?.endTime);
+                setEndTimeEpoch(endTime);
             })
             .catch((err) => {
                 if (err?.response?.status == 501) {
@@ -281,7 +307,7 @@ const Userpresaleflow2 = () => {
 
             });
     };
-
+    console.log(endTimeEpoch);
 
     useEffect(() => {
         applicationHandle();
@@ -1186,12 +1212,14 @@ const Userpresaleflow2 = () => {
                                 </Dropdown.Toggle>
 
                                 <Dropdown.Menu>
-                                    <Dropdown.Item href="#/action-1">Premium Members</Dropdown.Item>
-                                    <Dropdown.Item href="#/action-2">All Stakers</Dropdown.Item>
-                                    <Dropdown.Item href="#/action-3">Legend Staker</Dropdown.Item>
-                                    <Dropdown.Item href="#/action-4">Diamond Staker</Dropdown.Item>
-                                    <Dropdown.Item href="#/action-5">Platinum Staker</Dropdown.Item>
-                                    <Dropdown.Item href="#/action-5">Gold Staker</Dropdown.Item>
+                                    {accessibilityList?.map((item,index) => {
+                                        return(
+                                            <>
+                                    <Dropdown.Item href="#/action-1">{item?.accesibilityName}</Dropdown.Item>
+                                            </>
+                                        )
+                                    })}
+                                   
                                 </Dropdown.Menu>
                             </Dropdown>
                         </div>
@@ -1233,9 +1261,14 @@ const Userpresaleflow2 = () => {
                                 </Dropdown.Toggle>
 
                                 <Dropdown.Menu>
-                                    <Dropdown.Item href="#/action-1">twitter</Dropdown.Item>
-                                    <Dropdown.Item href="#/action-2">news article</Dropdown.Item>
-                                    <Dropdown.Item href="#/action-3">an existing project that launched</Dropdown.Item>
+                                    {accessibilityList?.map((item,index) => {
+                                        return(
+                                            <>
+                                    <Dropdown.Item href="#/action-1">{item?.accesibilityName}</Dropdown.Item>
+                                            </>
+                                        )
+                                    })}
+                                   
                                 </Dropdown.Menu>
                             </Dropdown>
                         </div>
@@ -1277,9 +1310,14 @@ const Userpresaleflow2 = () => {
                                 </Dropdown.Toggle>
 
                                 <Dropdown.Menu>
-                                    <Dropdown.Item href="#/action-1">All Stakers</Dropdown.Item>
-                                    <Dropdown.Item href="#/action-2">Legend Staker</Dropdown.Item>
-                                    <Dropdown.Item href="#/action-3">Diamond Staker</Dropdown.Item>
+                                    {accessibilityList?.map((item,index) => {
+                                        return(
+                                            <>
+                                    <Dropdown.Item href="#/action-1">{item?.accesibilityName}</Dropdown.Item>
+                                            </>
+                                        )
+                                    })}
+                                   
                                 </Dropdown.Menu>
                             </Dropdown>
                         </div>
