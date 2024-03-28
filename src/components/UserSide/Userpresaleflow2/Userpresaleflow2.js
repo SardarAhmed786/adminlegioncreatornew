@@ -194,6 +194,38 @@ const Userpresaleflow2 = () => {
             });
     }
     // console.log(accessibilityList);
+
+    const rejected = async () => {
+
+        const config = {
+            method: "patch",
+            url:  Environment.backendUrl + "/launchpad/rejectLaunchpadApplication?launchpad_id=" + id ,
+            headers: {
+                Authorization: "Bearer " + token,
+            },
+        };
+        await axios(config)
+            .then((res) => {
+                console.log(res?.data?.data, "aabi");
+                toast.success(res?.data?.message, {
+                    position: "top-right",
+                    autoClose: 2000,
+                });
+                history.push("/yourproject/applications");
+            })
+            .catch((err) => {
+                if (err?.response?.status == 501) {
+                    history.push("/");
+                } else {
+                    toast.error(err?.response?.data?.message, {
+                        position: "top-right",
+                        autoClose: 2000,
+                    });
+                }
+
+            });
+    };
+
     const approveProjectHandle = async () => {
         console.log("start approve");
         const payload = {
@@ -971,7 +1003,7 @@ const Userpresaleflow2 = () => {
                             <div className='buttonsss'>
                                 <button onClick={handleShow11}>Tier & Staking Settings</button>
                                 <div className='innerbtn'>
-                                    <button className='block'>Reject</button>
+                                    <button className='block' onClick={() => rejected()}>Reject</button>
                                     <button className='release' onClick={handleShow1}>Approve</button>
                                 </div>
 
