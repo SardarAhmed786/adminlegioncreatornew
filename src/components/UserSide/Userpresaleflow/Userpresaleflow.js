@@ -4,11 +4,12 @@ import { Nav } from 'react-bootstrap';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import { Link } from 'react-router-dom';
 import Header from '../../Header/Header';
-
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Footer from '../../Footer/Footer';
+
 const Userpresaleflow = () => {
+    
     const [activeTab, setActiveTab] = useState('link-1');
     const handleSelect = (eventKey) => {
         setActiveTab(eventKey);
