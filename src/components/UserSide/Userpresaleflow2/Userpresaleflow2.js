@@ -74,21 +74,21 @@ const Userpresaleflow2 = () => {
 
     useEffect(() => {
         const updateTime = () => {
-          const currentDateTime = new Date(); // Get the current date and time
-          const futureDateTime = new Date(currentDateTime.getTime() + (20 * 60000)); // Add 20 minutes (20 * 60000 milliseconds)
-          const epochTime = Math.floor(futureDateTime.getTime() / 1000); // Convert to epoch time (seconds)
-          setCurrentTime(epochTime);
+            const currentDateTime = new Date(); // Get the current date and time
+            const futureDateTime = new Date(currentDateTime.getTime() + (20 * 60000)); // Add 20 minutes (20 * 60000 milliseconds)
+            const epochTime = Math.floor(futureDateTime.getTime() / 1000); // Convert to epoch time (seconds)
+            setCurrentTime(epochTime);
         };
-    
+
         // Update the current time initially and then every second
         updateTime();
         const intervalId = setInterval(updateTime, 1000);
-    
+
         // Cleanup interval on component unmount
         return () => clearInterval(intervalId);
-      }, []);
-      console.log(currentTime,"currentTime");
-      
+    }, []);
+    console.log(currentTime, "currentTime");
+
     const gettingSign = async () => {
         console.log('in sign funcationnnnn');
         if (account) {
@@ -201,15 +201,15 @@ const Userpresaleflow2 = () => {
             tier1NumberOfTickets: numberOfTickets1,
             tier1TotalAllocationUsd: totalAllocations1,
             tier1MaxTicketsUse: maxTicketsUse1,
-            tier1Accessibility: "Premium Members",
+            tier1Accessibility: selectedItems,
             tier2NumberOfTickets: numberOfTickets2,
             tier2TotalAllocationUsd: totalAllocations2,
             tier2MaxTicketsUse: maxTicketsUse2,
-            tier2Accessibility: "Legend Staker",
+            tier2Accessibility: selectedItems2,
             tier3NumberOfTickets: numberOfTickets3,
             tier3TotalAllocationUsd: totalAllocations3,
             tier3MaxTicketsUse: maxTicketsUse3,
-            tier3Accessibility: "All Stakers",
+            tier3Accessibility: selectedItems3,
             adminLaunchpadApprovalAddress: account,
             RSsignature: sign
         };
@@ -323,6 +323,44 @@ const Userpresaleflow2 = () => {
             getApplicationDetails();
         }
     }, [id]);
+
+
+    const [selectedItems, setSelectedItems] = useState([]);
+    const [selectedItems2, setSelectedItems2] = useState([]);
+    const [selectedItems3, setSelectedItems3] = useState([]);
+
+
+    const handleItemClick = (item) => {
+        // Check if the item is already selected
+        if (selectedItems.includes(item)) {
+            // If selected, remove it from the array
+            setSelectedItems(selectedItems.filter(selectedItem => selectedItem !== item));
+        } else {
+            // If not selected, add it to the array
+            setSelectedItems([...selectedItems, item]);
+        }
+    };
+    const handleItemClick2 = (item) => {
+        // Check if the item is already selected
+        if (selectedItems2.includes(item)) {
+            // If selected, remove it from the array
+            setSelectedItems2(selectedItems2.filter(selectedItem => selectedItem !== item));
+        } else {
+            // If not selected, add it to the array
+            setSelectedItems2([...selectedItems2, item]);
+        }
+    };
+
+    const handleItemClick3 = (item) => {
+        // Check if the item is already selected
+        if (selectedItems3.includes(item)) {
+            // If selected, remove it from the array
+            setSelectedItems3(selectedItems3.filter(selectedItem => selectedItem !== item));
+        } else {
+            // If not selected, add it to the array
+            setSelectedItems3([...selectedItems3, item]);
+        }
+    };
 
     return (
         <>
@@ -1205,21 +1243,21 @@ const Userpresaleflow2 = () => {
                                     <div className='muinput'>
                                         <div class="material-textfield">
                                             <input placeholder="Select Accessibility" type="text" />
-                                            <label>Accessibility</label>
+                                            <label>{selectedItems.length > 0 ? `Accessibility: ${selectedItems.join(', ')}` : 'Accessibility'}</label>
                                         </div>
                                     </div>
                                     <img src='\assets\Vector.png' alt='img' className='img-fluid' />
                                 </Dropdown.Toggle>
 
                                 <Dropdown.Menu>
-                                    {accessibilityList?.map((item,index) => {
-                                        return(
+                                    {accessibilityList?.map((item, index) => {
+                                        return (
                                             <>
-                                    <Dropdown.Item href="#/action-1">{item?.accesibilityName}</Dropdown.Item>
+                                                <Dropdown.Item key={index} onClick={() => handleItemClick(item.accesibilityName)}>{item?.accesibilityName}</Dropdown.Item>
                                             </>
                                         )
                                     })}
-                                   
+
                                 </Dropdown.Menu>
                             </Dropdown>
                         </div>
@@ -1254,21 +1292,22 @@ const Userpresaleflow2 = () => {
                                     <div className='muinput'>
                                         <div class="material-textfield">
                                             <input placeholder="Select Accessibility" type="text" />
-                                            <label>Accessibility</label>
+                                            <label>                                            <label>{selectedItems2.length > 0 ? `Accessibility: ${selectedItems2.join(', ')}` : 'Accessibility'}</label>
+                                            </label>
                                         </div>
                                     </div>
                                     <img src='\assets\Vector.png' alt='img' className='img-fluid' />
                                 </Dropdown.Toggle>
 
                                 <Dropdown.Menu>
-                                    {accessibilityList?.map((item,index) => {
-                                        return(
+                                    {accessibilityList?.map((item, index) => {
+                                        return (
                                             <>
-                                    <Dropdown.Item href="#/action-1">{item?.accesibilityName}</Dropdown.Item>
+                                                <Dropdown.Item key={index} onClick={() => handleItemClick2(item.accesibilityName)}>{item?.accesibilityName}</Dropdown.Item>
                                             </>
                                         )
                                     })}
-                                   
+
                                 </Dropdown.Menu>
                             </Dropdown>
                         </div>
@@ -1303,21 +1342,22 @@ const Userpresaleflow2 = () => {
                                     <div className='muinput'>
                                         <div class="material-textfield">
                                             <input placeholder="Select Accessibility" type="text" />
-                                            <label>Accessibility</label>
+                                            <label>                                            <label>{selectedItems3.length > 0 ? `Accessibility: ${selectedItems3.join(', ')}` : 'Accessibility'}</label>
+                                            </label>
                                         </div>
                                     </div>
                                     <img src='\assets\Vector.png' alt='img' className='img-fluid' />
                                 </Dropdown.Toggle>
 
                                 <Dropdown.Menu>
-                                    {accessibilityList?.map((item,index) => {
-                                        return(
+                                    {accessibilityList?.map((item, index) => {
+                                        return (
                                             <>
-                                    <Dropdown.Item href="#/action-1">{item?.accesibilityName}</Dropdown.Item>
+                                                <Dropdown.Item key={index} onClick={() => handleItemClick3(item.accesibilityName)}>{item?.accesibilityName}</Dropdown.Item>
                                             </>
                                         )
                                     })}
-                                   
+
                                 </Dropdown.Menu>
                             </Dropdown>
                         </div>
