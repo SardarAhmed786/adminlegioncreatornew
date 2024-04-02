@@ -1,5 +1,5 @@
 import web3NoAccount from "./web3";
-import AmbassadorsClaimABI from './AmbassadorsClaimABI.json';
+import launchpadFactoryABI from './launchpadFactoryABI.json';
 
 const getContract = (abi, address, web3) => {
   const _web3 = web3 ?? web3NoAccount;
@@ -8,6 +8,6 @@ const getContract = (abi, address, web3) => {
 };
 
 
-export const AmbassadorsClaimHelper = (address, web3) => {
-  return getContract(AmbassadorsClaimABI, address, web3);
+export const signHelper = (address, web3) => {
+  return getContract(launchpadFactoryABI, address, web3);
 };

@@ -1,14 +1,79 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { Nav } from 'react-bootstrap';
 import Dropdown from 'react-bootstrap/Dropdown';
 import "./yourproject.scss"
 import { Link } from 'react-router-dom';
 import { Pagination } from 'react-bootstrap'
+import ReactPaginate from "react-paginate";
+
+import Environment from '../../../utils/Environment';
+import { toast } from 'react-toastify';
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+
 const Liveprojects = () => {
-    const [activeTab, setActiveTab] = useState('link-1');
-    const handleSelect = (eventKey) => {
-        setActiveTab(eventKey);
-    }
+    const token = localStorage.getItem('mytoken');
+    const history = useHistory();
+    const [updateList,setUpdateList]  = useState([]);
+    const [searchQuery, setSearchQuery] = useState("");
+    
+    const [activeTab, setActiveTab] = useState('live');
+    const handleSelect = async (selectedTab) => {
+        setActiveTab(selectedTab);
+        await getUpdate(selectedTab);
+    };
+
+
+         // pagination ============
+
+         const [limit] = useState(10);
+         const [page, setPage] = useState(1);
+         const [pageCount, setPageCount] = useState([]);
+     
+         console.log(page, pageCount, "asd pageee");
+     
+         const handlePageChange = (e) => {
+             const selectedPage = e.selected;
+             setPage(selectedPage+1);
+         };
+     
+         // pagination ============
+  
+         const getUpdate = async (filter) => {
+
+            const config = {
+                method: "get",
+                url:  Environment.backendUrl + "/launchpad/launchpadSearchListing?limit=" + limit + "&offset=" + page + "&filter=" + filter + "&search=" + searchQuery,
+                headers: {
+                    Authorization: "Bearer " + token,
+                },
+            };
+    
+            try {
+                const response = await axios(config);
+                console.log(response?.data?.data);
+                setUpdateList(response?.data?.data);
+                setPageCount(response?.data?.count);
+                console.log(response?.data?.count,"count");
+                window.scroll(0, 0);
+               
+            } catch (error) {
+                if (error.response && error.response.status === 401) {
+    
+                    history.push("/")
+                } else {
+    
+                    console.error("Error fetching launchpads:", error);
+    
+                }
+              
+            }
+        };
+
+        useEffect(() => {
+            getUpdate(activeTab);
+        }, [searchQuery,page])
+
     return (
         <div className='right'>
             <div className='uppercard'>
@@ -18,25 +83,26 @@ const Liveprojects = () => {
             <div className='mainssss'>
                 <Nav variant="pills" activeKey={activeTab} onSelect={handleSelect}>
                     <Nav.Item>
-                        <Nav.Link eventKey="link-1">Live</Nav.Link>
+                        <Nav.Link eventKey="live">Live</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                        <Nav.Link eventKey="link-2">Upcoming</Nav.Link>
+                        <Nav.Link eventKey="upcoming">Upcoming</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                        <Nav.Link eventKey="link-3">
+                        <Nav.Link eventKey="ended">
                             Ended
                         </Nav.Link>
                     </Nav.Item>
                 </Nav>
 
             </div>
-            {activeTab === 'link-1' && (
+            {activeTab === 'live' && (
                 <>
                     <div className='parentcardmain'>
                         <div className='parentmains'>
                             <div className='left'>
-                                <input type='text' placeholder='Search' />
+                                <input value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)} type='text' placeholder='Search' />
                                 <img src='\assets\Search_Magnifying_Glass.svg' alt='img' className='img-fluid' />
                             </div>
                             <div className='right'>
@@ -95,46 +161,67 @@ const Liveprojects = () => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
+                                    {updateList?.map((item,index) => {
+                                            return(
+                                                <>
+                                        <tr key={index}>
                                             <td>
                                                 <div className='innerparent'>
                                                     <div className='left'>
-                                                        <img src='\assets\imagetbl.png' alt='img' className='img-fluid' />
+                                                        <img src={item?.projectLogo} alt='img' className='img-fluid' />
                                                     </div>
                                                     <div className='right'>
-                                                        <p className='bold'>FLOWX</p>
-                                                        <h6>$FLOW</h6>
+                                                        <p className='bold'>{item?.projectName}</p>
+                                                        <h6>${item?.tokenSymbol}</h6>
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td><p className='bold'>$100.32K</p></td>
-                                            <td><p className='green'>Live</p></td>
+                                            <td><p className='bold'>${item?.projectFundsRaised}</p></td>
+                                            <td><p className='green'>{item?.launchpadStatus}</p></td>
                                             <td><p className='bold'>ETH</p></td>
                                             <td><p className='bold'>29,200</p></td>
-                                            <td><p className='bold'>2/12/2023</p></td>
-                                            <td><Link to="/userpresaleflow"><button>Details</button></Link></td>
+                                            <td><p className='bold'>{item?.startTime}</p></td>
+                                            <td><Link to={"/userpresaleflow?id=" + item?.id}><button>Details</button></Link></td>
                                         </tr>
-                                      
+                                        </>
+                                            )
+                                          })}   
                                     </tbody>
                                 </table>
                             </div>
                             <div className="pagi">
                         <div className="rightsss">
-                            <div className='arrows'>
+                                {/* <div className='arrows'>
                                 <img src='\assets\pegiarrow1.png' alt='1mg' className='img-fluid' />
                                 <img src='\assets\pegiarrow2.png' alt='1mg' className='img-fluid' />
-                            </div>
-                            <Pagination>
-                                <Pagination.Item active>{1}</Pagination.Item>
-                                <Pagination.Item>{2}</Pagination.Item>
-                                <Pagination.Item >{3}</Pagination.Item>
-                                <Pagination.Item>{4}</Pagination.Item>
-                                <Pagination.Item >{5}</Pagination.Item>
-                            </Pagination>
-                            <div className='arrows' style={{ display: 'flex', gap: '13px', alignItems: 'center' }}>
+                            </div> */}
+                           
+              {page >= 1 ?
+                <ReactPaginate
+                  previousLabel="Previous"
+                  nextLabel="Next"
+                  pageClassName="page-item"
+                  pageLinkClassName="page-link"
+                  previousClassName="page-item"
+                  previousLinkClassName="page-link"
+                  nextClassName="page-item"
+                  nextLinkClassName="page-link"
+                  breakLabel="..."
+                  breakClassName="page-item"
+                  breakLinkClassName="page-link"
+                  pageCount={Math.ceil(pageCount / limit)}
+                  marginPagesDisplayed={2}
+                  pageRangeDisplayed={5}
+                  onPageChange={handlePageChange}
+                  containerClassName="pagination"
+                  activeClassName="active"
+                  forcePage={page - 1}
+                />
+                : ''}
+                            {/* <div className='arrows' style={{ display: 'flex', gap: '13px', alignItems: 'center' }}>
                                 <img src='\assets\pegiarrow3.png' alt='1mg' className='img-fluid' />
                                 <img src='\assets\pegiarrow4.png' alt='1mg' className='img-fluid' />
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                         </div>
@@ -142,13 +229,14 @@ const Liveprojects = () => {
 
                 </>
             )}
-            {activeTab === 'link-2' && (
+            {activeTab === 'upcoming' && (
                 <>
                 
                 <div className='parentcardmain'>
                 <div className='parentmains'>
                             <div className='left'>
-                                <input type='text' placeholder='Search' />
+                                <input value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)} type='text' placeholder='Search' />
                                 <img src='\assets\Search_Magnifying_Glass.svg' alt='img' className='img-fluid' />
                             </div>
                             <div className='right'>
@@ -207,58 +295,80 @@ const Liveprojects = () => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
+                                    {updateList?.map((item,index) => {
+                                            return(
+                                                <>
+                                        <tr key={index}>
                                             <td>
                                                 <div className='innerparent'>
                                                     <div className='left'>
-                                                        <img src='\assets\imagetbl.png' alt='img' className='img-fluid' />
+                                                        <img src={item?.projectLogo} alt='img' className='img-fluid' />
                                                     </div>
                                                     <div className='right'>
-                                                        <p className='bold'>FLOWX</p>
-                                                        <h6>$FLOW</h6>
+                                                        <p className='bold'>{item?.projectName}</p>
+                                                        <h6>${item?.tokenSymbol}</h6>
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td><p className='bold'>$100.32K</p></td>
-                                            <td><p className='green'>Live</p></td>
+                                            <td><p className='bold'>${item?.projectFundsRaised}</p></td>
+                                            <td><p className='green'>{item?.launchpadStatus}</p></td>
                                             <td><p className='bold'>ETH</p></td>
                                             <td><p className='bold'>29,200</p></td>
-                                            <td><p className='bold'>2/12/2023</p></td>
-                                            <td><Link to="/userpresaleflow"><button>Details</button></Link></td>
+                                            <td><p className='bold'>{item?.startTime}</p></td>
+                                            <td><Link to={"/userpresaleflow?id=" + item?.id}><button>Details</button></Link></td>
                                         </tr>
-                                       
+                                        </>
+                                            )
+                                          })}   
                                     </tbody>
                                 </table>
                             </div>
                             <div className="pagi">
                         <div className="rightsss">
-                            <div className='arrows'>
+                            {/* <div className='arrows'>
                                 <img src='\assets\pegiarrow1.png' alt='1mg' className='img-fluid' />
                                 <img src='\assets\pegiarrow2.png' alt='1mg' className='img-fluid' />
-                            </div>
-                            <Pagination>
-                                <Pagination.Item active>{1}</Pagination.Item>
-                                <Pagination.Item>{2}</Pagination.Item>
-                                <Pagination.Item >{3}</Pagination.Item>
-                                <Pagination.Item>{4}</Pagination.Item>
-                                <Pagination.Item >{5}</Pagination.Item>
-                            </Pagination>
-                            <div className='arrows' style={{ display: 'flex', gap: '13px', alignItems: 'center' }}>
+                            </div> */}
+                           
+              {page >= 1 ?
+                <ReactPaginate
+                  previousLabel="Previous"
+                  nextLabel="Next"
+                  pageClassName="page-item"
+                  pageLinkClassName="page-link"
+                  previousClassName="page-item"
+                  previousLinkClassName="page-link"
+                  nextClassName="page-item"
+                  nextLinkClassName="page-link"
+                  breakLabel="..."
+                  breakClassName="page-item"
+                  breakLinkClassName="page-link"
+                  pageCount={Math.ceil(pageCount / limit)}
+                  marginPagesDisplayed={2}
+                  pageRangeDisplayed={5}
+                  onPageChange={handlePageChange}
+                  containerClassName="pagination"
+                  activeClassName="active"
+                  forcePage={page - 1}
+                />
+                : ''}
+                            {/* <div className='arrows' style={{ display: 'flex', gap: '13px', alignItems: 'center' }}>
                                 <img src='\assets\pegiarrow3.png' alt='1mg' className='img-fluid' />
                                 <img src='\assets\pegiarrow4.png' alt='1mg' className='img-fluid' />
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                         </div>
                     </div>
                 </>
             )}
-            {activeTab === 'link-3' && (
+            {activeTab === 'ended' && (
                 <>
                    <div className='parentcardmain'>
                    <div className='parentmains'>
                             <div className='left'>
-                                <input type='text' placeholder='Search' />
+                                <input value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)} type='text' placeholder='Search' />
                                 <img src='\assets\Search_Magnifying_Glass.svg' alt='img' className='img-fluid' />
                             </div>
                             <div className='right'>
@@ -317,46 +427,67 @@ const Liveprojects = () => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
+                                    {updateList?.map((item,index) => {
+                                            return(
+                                                <>
+                                        <tr key={index}>
                                             <td>
                                                 <div className='innerparent'>
                                                     <div className='left'>
-                                                        <img src='\assets\imagetbl.png' alt='img' className='img-fluid' />
+                                                        <img src={item?.projectLogo} alt='img' className='img-fluid' />
                                                     </div>
                                                     <div className='right'>
-                                                        <p className='bold'>FLOWX</p>
-                                                        <h6>$FLOW</h6>
+                                                        <p className='bold'>{item?.projectName}</p>
+                                                        <h6>${item?.tokenSymbol}</h6>
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td><p className='bold'>$100.32K</p></td>
-                                            <td><p className='green'>Live</p></td>
+                                            <td><p className='bold'>${item?.projectFundsRaised}</p></td>
+                                            <td><p className='green'>{item?.launchpadStatus}</p></td>
                                             <td><p className='bold'>ETH</p></td>
                                             <td><p className='bold'>29,200</p></td>
-                                            <td><p className='bold'>2/12/2023</p></td>
-                                            <td><Link to="/userpresaleflow"><button>Details</button></Link></td>
+                                            <td><p className='bold'>{item?.startTime}</p></td>
+                                            <td><Link to={"/userpresaleflow?id=" + item?.id}><button>Details</button></Link></td>
                                         </tr>
-                                    
+                                        </>
+                                            )
+                                          })}   
                                     </tbody>
                                 </table>
                             </div>
                             <div className="pagi">
                         <div className="rightsss">
-                            <div className='arrows'>
+                                {/* <div className='arrows'>
                                 <img src='\assets\pegiarrow1.png' alt='1mg' className='img-fluid' />
                                 <img src='\assets\pegiarrow2.png' alt='1mg' className='img-fluid' />
-                            </div>
-                            <Pagination>
-                                <Pagination.Item active>{1}</Pagination.Item>
-                                <Pagination.Item>{2}</Pagination.Item>
-                                <Pagination.Item >{3}</Pagination.Item>
-                                <Pagination.Item>{4}</Pagination.Item>
-                                <Pagination.Item >{5}</Pagination.Item>
-                            </Pagination>
-                            <div className='arrows' style={{ display: 'flex', gap: '13px', alignItems: 'center' }}>
+                            </div> */}
+                           
+              {page >= 1 ?
+                <ReactPaginate
+                  previousLabel="Previous"
+                  nextLabel="Next"
+                  pageClassName="page-item"
+                  pageLinkClassName="page-link"
+                  previousClassName="page-item"
+                  previousLinkClassName="page-link"
+                  nextClassName="page-item"
+                  nextLinkClassName="page-link"
+                  breakLabel="..."
+                  breakClassName="page-item"
+                  breakLinkClassName="page-link"
+                  pageCount={Math.ceil(pageCount / limit)}
+                  marginPagesDisplayed={2}
+                  pageRangeDisplayed={5}
+                  onPageChange={handlePageChange}
+                  containerClassName="pagination"
+                  activeClassName="active"
+                  forcePage={page - 1}
+                />
+                : ''}
+                            {/* <div className='arrows' style={{ display: 'flex', gap: '13px', alignItems: 'center' }}>
                                 <img src='\assets\pegiarrow3.png' alt='1mg' className='img-fluid' />
                                 <img src='\assets\pegiarrow4.png' alt='1mg' className='img-fluid' />
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                         </div>

@@ -15,6 +15,7 @@ import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { useWeb3React } from '@web3-react/core';
 import Signature from '../../../utils/userSign';
+import GetSigner from '../../../hooks/dataFetchers/getSigner';
 
 
 const Userpresaleflow2 = () => {
@@ -27,6 +28,7 @@ const Userpresaleflow2 = () => {
     const [detail, setDetail] = useState([]);
     const [startTimeEpoch, setStartTimeEpoch] = useState(null);
     const [endTimeEpoch, setEndTimeEpoch] = useState(null);
+    const [signer, setSigner] = useState(null);
 
     const [id, setId] = useState("");
     const getValue = (newDescription) => {
@@ -88,6 +90,18 @@ const Userpresaleflow2 = () => {
         return () => clearInterval(intervalId);
     }, []);
     console.log(currentTime, "currentTime");
+
+    const { getSignerHook } = GetSigner();
+
+    const signerHandle = async () => {
+        try {
+            const response = await getSignerHook();
+            setSigner(response);
+        } catch (error) {
+            console.log(error, "sdfewaer");
+        }
+    }
+
 
     const gettingSign = async () => {
         console.log('in sign funcationnnnn');
@@ -199,7 +213,7 @@ const Userpresaleflow2 = () => {
 
         const config = {
             method: "patch",
-            url:  Environment.backendUrl + "/launchpad/rejectLaunchpadApplication?launchpad_id=" + id ,
+            url: Environment.backendUrl + "/launchpad/rejectLaunchpadApplication?launchpad_id=" + id,
             headers: {
                 Authorization: "Bearer " + token,
             },
@@ -394,6 +408,9 @@ const Userpresaleflow2 = () => {
         }
     };
 
+    useEffect(() => {
+        signerHandle();
+    }, [account])
     return (
         <>
             <Header
@@ -1004,7 +1021,8 @@ const Userpresaleflow2 = () => {
                                 <button onClick={handleShow11}>Tier & Staking Settings</button>
                                 <div className='innerbtn'>
                                     <button className='block' onClick={() => rejected()}>Reject</button>
-                                    <button className='release' onClick={handleShow1}>Approve</button>
+                                    {signer === "0x6F3fDdF3B497caB73C10A314f63a72d8D9F89C1a" ? <button className='release' onClick={handleShow1}>Approve</button>:<button className='block' >Approve</button>}
+                                    
                                 </div>
 
                             </div>
