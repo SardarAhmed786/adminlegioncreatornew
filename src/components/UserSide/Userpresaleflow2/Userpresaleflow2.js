@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import "./userpresaleflow.scss"
 import { Nav } from 'react-bootstrap';
 import ProgressBar from 'react-bootstrap/ProgressBar';
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Dropdown from 'react-bootstrap/Dropdown';
@@ -22,16 +22,33 @@ import useWeb3 from '../../../hooks/useWeb3';
 const Userpresaleflow2 = () => {
 
     const web3 = useWeb3();
+    // let { id } = useParams();
 
     const history = useHistory();
     const token = localStorage.getItem('mytoken');
-    const sign = localStorage.getItem('sign');
+    // const sign = localStorage.getItem('sign');
+    const [userSign, setUsersign] = useState(null);
+    console.log("🚀 ~ Userpresaleflow2 ~ userSign:", userSign)
     const [signDedLine, setSignDedLine] = useState(null);
     const [description, setDescription] = useState('');
     const [detail, setDetail] = useState([]);
     const [startTimeEpoch, setStartTimeEpoch] = useState(null);
     const [endTimeEpoch, setEndTimeEpoch] = useState(null);
     const [signer, setSigner] = useState(null);
+
+    const handleStartTimeChange = (value) => {
+        // setStartTimeUtc(value);
+        // validateStartTime(value);
+        // Convert the selected date and time to UTC format
+        const selectedDate = new Date(value);
+        const utcDate = selectedDate.toISOString();
+        setSignDedLine(utcDate);
+    };
+
+    const convertUtcToLocal = (utcString) => {
+        const localDate = new Date(utcString);
+        return localDate.toISOString().slice(0, 16); // Truncate seconds and milliseconds
+    };
 
     const [id, setId] = useState("");
     const getValue = (newDescription) => {
@@ -47,31 +64,52 @@ const Userpresaleflow2 = () => {
     const [min, setMin] = useState(0);
     const [sec, setSec] = useState(0);
 
-   
+    // useEffect(() => {
+    //     const interval = setInterval(() => {
+    //         const now = new Date();
+    //         const time = new Date("mar 30, 2024 08:00:00");
+    //         const diff = time.getTime() - now.getTime();
+    //         if (diff <= 0) {
+    //             clearInterval(interval);
+    //             setTimeshow(true);
+    //             return;
+    //         }
+    //         const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    //         const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    //         const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    //         const secs = Math.floor((diff % (1000 * 60)) / 1000);
+    //         setDay(days);
+    //         setHour(hours);
+    //         setMin(mins);
+    //         setSec(secs);
+    //     }, 1000);
+    //     return () => clearInterval(interval);
+    // }, []);
+
 
     // Web3 ===========================
     const { account } = useWeb3React();
-    const { userSign } = Signature();
-    const [userSigns, setUserSing] = useState(null);
+    // const { userSign } = Signature();
+    // const [userSigns, setUserSing] = useState(null);
 
     const [currentTime, setCurrentTime] = useState(null);
 
-    useEffect(() => {
-        const updateTime = () => {
-            const currentDateTime = new Date(); // Get the current date and time
-            const futureDateTime = new Date(currentDateTime.getTime() + (20 * 60000)); // Add 20 minutes (20 * 60000 milliseconds)
-            const epochTime = Math.floor(futureDateTime.getTime() / 1000); // Convert to epoch time (seconds)
-            setCurrentTime(epochTime);
-        };
+    // useEffect(() => {
+    //     const updateTime = () => {
+    //         const currentDateTime = new Date(); // Get the current date and time
+    //         const futureDateTime = new Date(currentDateTime.getTime() + (20 * 60000)); // Add 20 minutes (20 * 60000 milliseconds)
+    //         const epochTime = Math.floor(futureDateTime.getTime() / 1000); // Convert to epoch time (seconds)
+    //         setCurrentTime(epochTime);
+    //     };
 
-        // Update the current time initially and then every second
-        updateTime();
-        const intervalId = setInterval(updateTime, 1000);
+    //     // Update the current time initially and then every second
+    //     updateTime();
+    //     const intervalId = setInterval(updateTime, 1000);
 
-        // Cleanup interval on component unmount
-        return () => clearInterval(intervalId);
-    }, []);
-    console.log(currentTime, "currentTime");
+    //     // Cleanup interval on component unmount
+    //     return () => clearInterval(intervalId);
+    // }, []);
+    // console.log(currentTime, "currentTime");
 
     // const gettingSign = async () => {
     //     console.log('in sign funcationnnnn');
@@ -210,129 +248,6 @@ const Userpresaleflow2 = () => {
             });
     };
 
-    const approveProjectHandle = async () => {
-        console.log("start approve");
-        const payload = {
-            launchpad_id: "1",
-            tier1NumberOfTickets: numberOfTickets1,
-            tier1TotalAllocationUsd: totalAllocations1,
-            tier1MaxTicketsUse: maxTicketsUse1,
-            tier1Accessibility: selectedItems,
-            tier2NumberOfTickets: numberOfTickets2,
-            tier2TotalAllocationUsd: totalAllocations2,
-            tier2MaxTicketsUse: maxTicketsUse2,
-            tier2Accessibility: selectedItems2,
-            tier3NumberOfTickets: numberOfTickets3,
-            tier3TotalAllocationUsd: totalAllocations3,
-            tier3MaxTicketsUse: maxTicketsUse3,
-            tier3Accessibility: selectedItems3,
-            adminLaunchpadApprovalAddress: account,
-            RSsignature: sign,
-            RSsignatureDeadLine: signDedLine
-        };
-
-        try {
-            if (!account) {
-                toast?.error("Please connect your wallet");
-            } else if (!sign) {
-                // const res = await gettingSign();
-                // Call the API after receiving a response from gettingSign
-
-                const res = async () => {
-                    // handleClose();
-                    const message = web3.utils.soliditySha3(
-                        {
-                            t: "address",
-                            v: account, // Convert to Wei and remove decimal places
-                        },
-                        {
-                            t: "uint256",
-                            v: 1711574909,
-                        },
-                        {
-                            t: "uint256",
-                            v: 1711661308,
-                        },
-                        {
-                            t: "address",
-                            v: "0xEe81A8b78F19EaEF12d98d97aec95bfBB52C4f62",
-                        },
-                        {
-                            t: "address",
-                            v: account, // Convert to Wei and remove decimal places
-                        },
-                        {
-                            t: "address",
-                            v: account, // Convert to Wei and remove decimal places
-                        },
-                        {
-                            t: "uint256",
-                            v: 1711747708,
-                        },
-                    );
-
-                    let signature = await web3.eth.personal.sign(message, account);
-                    console.log("🚀 ~ fetchSignnnn ~ signature:", signature)
-                    return signature;
-                };
-
-                console.log("🚀 ~ approveProjectHandle ~ res:", res);
-
-                if (res) {
-                    console.log('approveProjectHandle resssssssssssssssssss');
-                    const response = await axios.post(
-                        `${Environment.backendUrl}/launchpad/approveLaunchpadApplication`,
-                        payload,
-                        {
-                            headers: {
-                                Authorization: `Bearer ${token}`
-                            }
-                        }
-                    );
-
-                    console.log("🚀 ~ response:", response);
-                    console.log(response.data, "AccessibilityList response.data.msg");
-
-                    if (response) {
-                        toast.success(response?.data?.applicationStatus?.msg, {
-                            position: "top-center",
-                            autoClose: 2000
-                        });
-                    }
-                }
-            } else {
-                const response = await axios.post(
-                    `${Environment.backendUrl}/launchpad/approveLaunchpadApplication`,
-                    payload,
-                    {
-                        headers: {
-                            Authorization: `Bearer ${token}`
-                        }
-                    }
-                );
-
-                console.log("🚀 ~ response:", response);
-                console.log(response.data, "AccessibilityList response.data.msg");
-
-                if (response) {
-                    handleClose1();
-                    toast.success(response?.data?.message, {
-                        position: "top-center",
-                        autoClose: 2000
-                    });
-                }
-            }
-        } catch (error) {
-            console.log("🚀 ~ approveProjectHandle ~ error:", error);
-            toast.error(error.response?.data.msg || "An error occurred", {
-                position: "top-center",
-                autoClose: 2000
-            });
-        }
-    };
-
-
-
     const getApplicationDetails = async () => {
 
         const config = {
@@ -363,7 +278,153 @@ const Userpresaleflow2 = () => {
 
             });
     };
-    console.log(endTimeEpoch);
+    // console.log(endTimeEpoch);
+    // const signDedlineInEpoch = Date.parse(signDedLine);
+    // new Date(time).getTime() / 1000;
+    let startepochTime = new Date(detail?.startTime).getTime() / 1000; // Convert milliseconds to seconds
+    let endepochTime = new Date(detail?.endTime).getTime() / 1000; // Convert milliseconds to seconds
+    let dedlineepochTime = new Date(signDedLine).getTime() / 1000; // Convert milliseconds to seconds
+    console.log("🚀 ~ Userpresaleflow2 ~ signDedlineInEpoch: dedline", signDedLine, dedlineepochTime)
+    console.log("🚀 ~ Userpresaleflow2 ~ signDedlineInEpoch: start time", startepochTime, detail?.startTime)
+    console.log("🚀 ~ Userpresaleflow2 ~ signDedlineInEpoch: end time", endepochTime, detail?.endTime)
+
+    const signFun = async () => {
+        // handleClose();
+
+        const message = web3.utils.soliditySha3(
+            {
+                t: "address",
+                v: account, // Convert to Wei and remove decimal places
+            },
+            {
+                t: "uint256",
+                v: startepochTime,
+            },
+            {
+                t: "uint256",
+                v: endepochTime,
+            },
+            {
+                t: "address",
+                v: detail?.tokenAddress,
+                // v: "0xEe81A8b78F19EaEF12d98d97aec95bfBB52C4f62",
+            },
+            {
+                t: "address",
+                v: account, // Convert to Wei and remove decimal places
+            },
+            {
+                t: "address",
+                v: account, // Convert to Wei and remove decimal places
+            },
+            {
+                t: "uint256",
+                v: dedlineepochTime,
+            },
+        );
+console.log(message);
+        let signature = await web3.eth.personal.sign(message, account);
+        if (signature) {
+            console.log("🚀 ~ fetchSignnnn ~ signature: start", signature)
+            setUsersign(signature);
+        }
+
+        return signature;
+    };
+
+    const approveProjectHandle = async () => {
+
+        console.log("start approve");
+
+        console.log("start approve sign");
+
+        const signFunres = await signFun();
+
+        console.log("🚀 ~ approveProjectHandle ~ res:", signFunres);
+
+
+        try {
+            if (!account) {
+                toast?.error("Please connect your wallet");
+            }
+            // const res = await gettingSign();
+            // Call the API after receiving a response from gettingSign
+
+
+            if (signFunres && userSign) {
+                const payload = {
+                    launchpad_id: id,
+                    tier1NumberOfTickets: numberOfTickets1,
+                    tier1TotalAllocationUsd: totalAllocations1,
+                    tier1MaxTicketsUse: maxTicketsUse1,
+                    tier1Accessibility: selectedItems,
+                    tier2NumberOfTickets: numberOfTickets2,
+                    tier2TotalAllocationUsd: totalAllocations2,
+                    tier2MaxTicketsUse: maxTicketsUse2,
+                    tier2Accessibility: selectedItems2,
+                    tier3NumberOfTickets: numberOfTickets3,
+                    tier3TotalAllocationUsd: totalAllocations3,
+                    tier3MaxTicketsUse: maxTicketsUse3,
+                    tier3Accessibility: selectedItems3,
+                    adminLaunchpadApprovalAddress: account,
+                    RSsignature: userSign,
+                    RSsignatureDeadLine: signDedLine
+                };
+                console.log('approveProjectHandle resssssssssssssssssss');
+                const response = await axios.post(
+                    `${Environment.backendUrl}/launchpad/approveLaunchpadApplication`,
+                    payload,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
+                    }
+                );
+
+                console.log("🚀 ~ response:", response);
+                console.log(response.data, "AccessibilityList response.data.msg");
+
+                if (response) {
+                    toast.success(response?.data?.applicationStatus?.msg, {
+                        position: "top-center",
+                        autoClose: 2000
+                    });
+                }
+
+            } else {
+                toast?.error("sign must required");
+            }
+            // else {
+            //     const response = await axios.post(
+            //         `${Environment.backendUrl}/launchpad/approveLaunchpadApplication`,
+            //         payload,
+            //         {
+            //             headers: {
+            //                 Authorization: `Bearer ${token}`
+            //             }
+            //         }
+            //     );
+
+            //     console.log("🚀 ~ response:", response);
+            //     console.log(response.data, "AccessibilityList response.data.msg");
+
+            //     if (response) {
+            //         handleClose1();
+            //         toast.success(response?.data?.message, {
+            //             position: "top-center",
+            //             autoClose: 2000
+            //         });
+            //     }
+            // }
+        } catch (error) {
+            console.log("🚀 ~ approveProjectHandle ~ error:", error);
+            toast.error(error.response?.data.msg || "An error occurred", {
+                position: "top-center",
+                autoClose: 2000
+            });
+        }
+    };
+
 
     useEffect(() => {
         applicationHandle();
@@ -1191,6 +1252,7 @@ const Userpresaleflow2 = () => {
                             </Dropdown>
                         </div>
                     </div>
+                    <input type='datetime-local' value={signDedLine ? convertUtcToLocal(signDedLine) : ""} onChange={(e) => handleStartTimeChange(e?.target?.value)} />
                     <div className='endbtns'>
                         <button className='cancle'>Cancel</button>
                         <button className='confirm' onClick={() => {
@@ -1422,6 +1484,8 @@ const Userpresaleflow2 = () => {
                             </Dropdown>
                         </div>
                     </div>
+                    <input type='datetime-local' value={signDedLine} onChange={(e) => setSignDedLine(e?.target?.value)} />
+
                     <div className='endbtns'>
                         <button className='cancle'>Cancel</button>
                         <button className='confirm' onClick={approveProjectHandle}>Save</button>

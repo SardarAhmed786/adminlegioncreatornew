@@ -4,13 +4,10 @@ import { Nav } from 'react-bootstrap';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import { Link } from 'react-router-dom';
 import Header from '../../Header/Header';
-<<<<<<< HEAD
 import Environment from '../../../utils/Environment';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
-=======
->>>>>>> d0328cd345d1e543b616df7d7aa0a25e6fbb1829
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Footer from '../../Footer/Footer';
