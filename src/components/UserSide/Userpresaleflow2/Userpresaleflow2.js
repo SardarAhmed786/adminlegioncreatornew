@@ -16,14 +16,17 @@ import { useHistory } from 'react-router-dom';
 import { useWeb3React } from '@web3-react/core';
 import Signature from '../../../utils/userSign';
 import GetSigner from '../../../hooks/dataFetchers/getSigner';
+import useWeb3 from '../../../hooks/useWeb3';
 
 
 const Userpresaleflow2 = () => {
 
+    const web3 = useWeb3();
 
     const history = useHistory();
     const token = localStorage.getItem('mytoken');
     const sign = localStorage.getItem('sign');
+    const [signDedLine, setSignDedLine] = useState(null);
     const [description, setDescription] = useState('');
     const [detail, setDetail] = useState([]);
     const [startTimeEpoch, setStartTimeEpoch] = useState(null);
@@ -44,28 +47,7 @@ const Userpresaleflow2 = () => {
     const [min, setMin] = useState(0);
     const [sec, setSec] = useState(0);
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            const now = new Date();
-            const time = new Date("mar 30, 2024 08:00:00");
-            const diff = time.getTime() - now.getTime();
-            if (diff <= 0) {
-                clearInterval(interval);
-                setTimeshow(true);
-                return;
-            }
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const secs = Math.floor((diff % (1000 * 60)) / 1000);
-            setDay(days);
-            setHour(hours);
-            setMin(mins);
-            setSec(secs);
-        }, 1000);
-        return () => clearInterval(interval);
-    }, []);
-
+   
 
     // Web3 ===========================
     const { account } = useWeb3React();
@@ -91,32 +73,20 @@ const Userpresaleflow2 = () => {
     }, []);
     console.log(currentTime, "currentTime");
 
-    const { getSignerHook } = GetSigner();
+    // const gettingSign = async () => {
+    //     console.log('in sign funcationnnnn');
+    //     if (account) {
+    //         console.log("hrtr")
+    //         const res1 = await userSign(startTimeEpoch, endTimeEpoch, detail?.tokenAddress, account, account, currentTime);
+    //         console.log(res1, 'res1 okokokok userSigns');
+    //         setUserSing(res1)
 
-    const signerHandle = async () => {
-        try {
-            const response = await getSignerHook();
-            setSigner(response);
-        } catch (error) {
-            console.log(error, "sdfewaer");
-        }
-    }
-
-
-    const gettingSign = async () => {
-        console.log('in sign funcationnnnn');
-        if (account) {
-            console.log("hrtr")
-            const res1 = await userSign(startTimeEpoch, endTimeEpoch, detail?.tokenAddress, account, account, currentTime);
-            console.log(res1, 'res1 okokokok userSigns');
-            setUserSing(res1)
-
-            if (res1) {
-                localStorage.setItem('sign', res1)
-                localStorage.setItem('userAddress', account)
-            }
-        }
-    }
+    //         if (res1) {
+    //             localStorage.setItem('sign', res1)
+    //             localStorage.setItem('userAddress', account)
+    //         }
+    //     }
+    // }
 
     // Web3 ===========================
 
@@ -257,17 +227,57 @@ const Userpresaleflow2 = () => {
             tier3MaxTicketsUse: maxTicketsUse3,
             tier3Accessibility: selectedItems3,
             adminLaunchpadApprovalAddress: account,
-            RSsignature: sign
+            RSsignature: sign,
+            RSsignatureDeadLine: signDedLine
         };
 
         try {
             if (!account) {
                 toast?.error("Please connect your wallet");
             } else if (!sign) {
-                const res = await gettingSign();
+                // const res = await gettingSign();
+                // Call the API after receiving a response from gettingSign
+
+                const res = async () => {
+                    // handleClose();
+                    const message = web3.utils.soliditySha3(
+                        {
+                            t: "address",
+                            v: account, // Convert to Wei and remove decimal places
+                        },
+                        {
+                            t: "uint256",
+                            v: 1711574909,
+                        },
+                        {
+                            t: "uint256",
+                            v: 1711661308,
+                        },
+                        {
+                            t: "address",
+                            v: "0xEe81A8b78F19EaEF12d98d97aec95bfBB52C4f62",
+                        },
+                        {
+                            t: "address",
+                            v: account, // Convert to Wei and remove decimal places
+                        },
+                        {
+                            t: "address",
+                            v: account, // Convert to Wei and remove decimal places
+                        },
+                        {
+                            t: "uint256",
+                            v: 1711747708,
+                        },
+                    );
+
+                    let signature = await web3.eth.personal.sign(message, account);
+                    console.log("🚀 ~ fetchSignnnn ~ signature:", signature)
+                    return signature;
+                };
+
                 console.log("🚀 ~ approveProjectHandle ~ res:", res);
 
-                // Call the API after receiving a response from gettingSign
                 if (res) {
                     console.log('approveProjectHandle resssssssssssssssssss');
                     const response = await axios.post(
