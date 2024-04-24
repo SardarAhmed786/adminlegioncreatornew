@@ -144,6 +144,25 @@ const Liveprojects = () => {
                                         </Dropdown.Menu>
                                     </Dropdown>
                                 </div>
+                                <div className='dropbtn'>
+                                        <Dropdown>
+                                            <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                                <div className='muinput'>
+                                                    <div class="material-textfield">
+                                                        <input placeholder="All" type="text" />
+                                                        <label>Category</label>
+                                                    </div>
+                                                </div>
+                                                <img src='\assets\Vector.png' alt='img' className='img-fluid' />
+                                            </Dropdown.Toggle>
+
+                                            <Dropdown.Menu>
+                                                <Dropdown.Item href="#/action-1">twitter</Dropdown.Item>
+                                                <Dropdown.Item href="#/action-2">news article</Dropdown.Item>
+                                                <Dropdown.Item href="#/action-3">an existing project that launched</Dropdown.Item>
+                                            </Dropdown.Menu>
+                                        </Dropdown>
+                                    </div>
                             </div>
                         </div>
                         <div className='main-card'>
