@@ -6,7 +6,7 @@ import { useWeb3React } from '@web3-react/core/dist';
 import useAuth from '../../hooks/useAuth';
 import toasts from "../../state/toasts";
 
-
+import Dropdown from 'react-bootstrap/Dropdown';
 const Header = () => {
 
   let { account } = useWeb3React();
@@ -138,14 +138,46 @@ const Header = () => {
                 <li class="nav-item">
                   <Link to="/whitelist" class="nav-link active for-a" aria-current="page" >WHITELIST</Link>
                 </li>
+                
                 <li class="nav-item">
                   <a class="nav-link connect-wallet" aria-current="page" href="#">Connect Wallet</a>
                 </li>
               </ul>
+              <div className='dropbtnss'>
+                        <Dropdown>
+                          <Dropdown.Toggle variant="success" id="dropdown-basic">
+                            <img src="\assets\notification.svg" alt="img" className="img-fluid" />
 
+                          </Dropdown.Toggle>
+
+                          <Dropdown.Menu>
+                            <h2>Notifications</h2>
+                            <div className="brdr"></div>
+                            <Link to="/changeupdate">
+                              <div className="parent">
+                                <div className="left">
+                                  <img src="\assets\arrow-updrop.svg" alt="img" className="img-fluid" />
+
+                                </div>
+                                <div className="right">
+                                  <h3>Aut alias optio sed minus</h3>
+
+                                  <p>Eum debitis consectetur quo incidunt quisquam ut odio</p>
+
+                                  <ul className="hhhh">
+                                    <li>Apr 22, 2024 at 09:15 AM</li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </Link>
+
+                          </Dropdown.Menu>
+                        </Dropdown>
+                      </div>
               {
                 account ?
                   <>
+                  
                     {/* <button onClick={gettingSign}>Sign</button> */}
                     <button className="connect-btn" onClick={logoutHandle}>Disconnect</button>
                   </>

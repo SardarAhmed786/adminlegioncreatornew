@@ -7,6 +7,8 @@ import Application from './Application';
 import Fundsrelease from './Fundsrelease';
 import Settings from './Settings';
 import Updates from './Updates';
+import Projectchange from './Projectchange';
+import Categories from './Categories';
 
 const Yourproject = () => {
     const [activeTab, setActiveTab] = useState('projects');
@@ -84,6 +86,26 @@ const Yourproject = () => {
                                 Updates
                             </a>
                             <a
+                                    onClick={() => handleTabClick('projectchange')}
+                                    className={activeTab === 'projectchange' ? 'active' : ''}
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
+                                        <path d="M3.66602 18.3336H18.3327M3.66602 18.3336V14.6669L10.9993 7.3336M3.66602 18.3336L7.33268 18.3336L14.666 11.0003M10.9993 7.3336L13.6289 4.704L13.6305 4.70244C13.9925 4.34047 14.1738 4.15916 14.3828 4.09125C14.5669 4.03143 14.7652 4.03143 14.9493 4.09125C15.1582 4.15911 15.3393 4.34021 15.7008 4.70168L17.2956 6.29649C17.6586 6.6595 17.8402 6.8411 17.9082 7.0504C17.968 7.2345 17.968 7.43282 17.9082 7.61693C17.8402 7.82608 17.6589 8.0074 17.2964 8.36989L17.2956 8.37067L14.666 11.0003M10.9993 7.3336L14.666 11.0003" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                    Project Changes
+                                </a>
+                                <a
+                                    onClick={() => handleTabClick('categories')}
+                                    className={activeTab === 'categories' ? 'active' : ''}
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
+                                        <path d="M12.2832 15.9684H9.9824C8.47907 15.9684 7.2599 14.7034 7.2599 13.1451C7.2599 12.7692 7.57157 12.4576 7.9474 12.4576C8.32323 12.4576 8.6349 12.7692 8.6349 13.1451C8.6349 13.9426 9.2399 14.5934 9.9824 14.5934H12.2832C12.8791 14.5934 13.3741 14.0617 13.3741 13.4201C13.3741 12.6226 13.0899 12.4667 12.6224 12.3017L8.92823 11.0001C8.21323 10.7526 7.25073 10.2209 7.25073 8.58007C7.25073 7.1684 8.3599 6.03174 9.71657 6.03174H12.0174C13.5207 6.03174 14.7399 7.29674 14.7399 8.85507C14.7399 9.2309 14.4282 9.54257 14.0524 9.54257C13.6766 9.54257 13.3649 9.2309 13.3649 8.85507C13.3649 8.05757 12.7599 7.40674 12.0174 7.40674H9.71657C9.12073 7.40674 8.62573 7.9384 8.62573 8.58007C8.62573 9.37757 8.9099 9.5334 9.3774 9.6984L13.0716 11.0001C13.7866 11.2476 14.7491 11.7792 14.7491 13.4201C14.7399 14.8226 13.6399 15.9684 12.2832 15.9684Z" fill="#8A97A9" />
+                                        <path d="M11 17.1875C10.6242 17.1875 10.3125 16.8758 10.3125 16.5V5.5C10.3125 5.12417 10.6242 4.8125 11 4.8125C11.3758 4.8125 11.6875 5.12417 11.6875 5.5V16.5C11.6875 16.8758 11.3758 17.1875 11 17.1875Z" fill="#8A97A9" />
+                                        <path d="M13.7499 20.8543H8.24992C3.27242 20.8543 1.14575 18.7277 1.14575 13.7502V8.25016C1.14575 3.27266 3.27242 1.146 8.24992 1.146H13.7499C18.7274 1.146 20.8541 3.27266 20.8541 8.25016V13.7502C20.8541 18.7277 18.7274 20.8543 13.7499 20.8543ZM8.24992 2.521C4.02409 2.521 2.52075 4.02433 2.52075 8.25016V13.7502C2.52075 17.976 4.02409 19.4793 8.24992 19.4793H13.7499C17.9758 19.4793 19.4791 17.976 19.4791 13.7502V8.25016C19.4791 4.02433 17.9758 2.521 13.7499 2.521H8.24992Z" fill="#8A97A9" />
+                                    </svg>
+                                    Categories
+                                </a>
+                            <a
                                 onClick={() => handleTabClick('settings')}
                                 className={activeTab === 'settings' ? 'active' : ''}
                             >
@@ -110,6 +132,8 @@ const Yourproject = () => {
                     {activeTab === 'applications' && <Application />}
                     {activeTab === 'funds' && <Fundsrelease />}
                     {activeTab === 'updates' && <Updates />}
+                    {activeTab === 'projectchange' && <Projectchange />}
+                    {activeTab === 'categories' && <Categories />}
                     {activeTab === 'settings' && <Settings />}
                     
                 </div>
