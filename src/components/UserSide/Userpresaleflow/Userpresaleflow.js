@@ -4,6 +4,10 @@ import { Nav } from 'react-bootstrap';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import { Link } from 'react-router-dom';
 import Header from '../../Header/Header';
+import Environment from '../../../utils/Environment';
+import { toast } from 'react-toastify';
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Footer from '../../Footer/Footer';
@@ -72,13 +76,89 @@ const Userpresaleflow = () => {
     const handleClose6 = () => setShow6(false);
     const handleShow6 = () => setShow6(true);
 
+    const history = useHistory();
+    const token = localStorage.getItem('mytoken');
+    const [id, setId] = useState("");
+    const [detail, setDetail] = useState([]);
+    
+    const getUpdateDetail = async () => {
+
+        const config = {
+            method: "get",
+            url:  Environment.backendUrl + "/launchpad/getLaunchpadById/" + id ,
+            headers: {
+                Authorization: "Bearer " + token,
+            },
+        };
+        await axios(config)
+            .then((res) => {
+                console.log(res?.data?.data, "aabi");
+                setDetail(res?.data?.data);
+            })
+            .catch((err) => {
+                if (err?.response?.status == 501) {
+                    history.push("/");
+                } else {
+                    toast.error(err?.response?.data?.message, {
+                        position: "top-right",
+                        autoClose: 2000,
+                    });
+                }
+
+            });
+    };
+
+
+
+    const blocked = async () => {
+
+        const config = {
+            method: "patch",
+            url:  Environment.backendUrl + "/launchpad/blockLaunchpad?launchpad_id=" + id ,
+            headers: {
+                Authorization: "Bearer " + token,
+            },
+        };
+        await axios(config)
+            .then((res) => {
+                console.log(res?.data?.data, "aabi");
+                toast.success(res?.data?.message, {
+                    position: "top-right",
+                    autoClose: 2000,
+                });
+                history.push("/yourproject/projects");
+            })
+            .catch((err) => {
+                if (err?.response?.status == 501) {
+                    history.push("/");
+                } else {
+                    toast.error(err?.response?.data?.message, {
+                        position: "top-right",
+                        autoClose: 2000,
+                    });
+                }
+
+            });
+    };
+
+    useEffect(() => {
+        var val = window.location.href;
+        val = new URL(val);
+        setId(val.searchParams.get("id"));
+        localStorage.setItem("currentId", val.searchParams.get("id"));
+        // window.scroll(0, 0);
+        if (id) {
+            getUpdateDetail();
+        }
+    }, [id]);
+
     return (
         <>
             <Header />
             <section className='mainpresaleusersss'>
                 <div className="custom-container">
                     <div className='detailimage maindetail'>
-                        <img src='\assets\userflowimg.svg' alt='img' className='img-fluid images' />
+                        <img src={detail?.projectBanner} alt='img' className='img-fluid images' />
                     </div>
                     <div className='parentdetail'>
                         <div className='left'>
@@ -86,11 +166,11 @@ const Userpresaleflow = () => {
                                 <div className='innercontent'>
                                     <div className='left'>
                                         <div className='innerright'>
-                                            <img src='\assets\presale.png' alt='img' className='img-fluid' />
+                                            <img src={detail?.projectLogo} alt='img' className='img-fluid' />
                                         </div>
                                         <div className='innerleft'>
-                                            <h4>FLOWX PRESALE</h4>
-                                            <p>Fair Launch</p>
+                                            <h4>{detail?.projectName}</h4>
+                                            <p>{detail?.tokenName}</p>
                                             <div className='parentsocial'>
                                                 <div className='social'>
                                                     <img src='\assets\twitter.svg' alt='img' className='img-fluid' />
@@ -116,18 +196,18 @@ const Userpresaleflow = () => {
                                 <div className='secondcard'>
                                     <div className='textcard'>
                                         <p>Token Price</p>
-                                        <h6>$0.02</h6>
+                                        <h6>${detail?.publicSalePrice}</h6>
                                     </div>
                                     <div className='textcard'>
                                         <p>Soft Cap</p>
-                                        <h6>1,000 USDT</h6>
+                                        <h6>{detail?.softCap} USDT</h6>
                                     </div>
                                     <div className='textcard'>
                                         <p>Hard Cap</p>
-                                        <h6>5,000 USDT</h6>
+                                        <h6>{detail?.hardCap} USDT</h6>
                                     </div>
                                     <div className='textcard'>
-                                        <p>Total Raise</p>
+                                        <p>GOAL</p>
                                         <h6>$0.02</h6>
                                     </div>
                                     <div className='textcard'>
@@ -319,7 +399,7 @@ const Userpresaleflow = () => {
                                                 <p className='graytext'>Hard Cap</p>
                                             </div>
                                             <div className='graycard forraius1'>
-                                                <p className=''>2,500,000 USD</p>
+                                                <p className=''>{detail?.hardCap}USD</p>
                                             </div>
                                         </div>
                                         <div className='parenttokencard'>
@@ -327,7 +407,7 @@ const Userpresaleflow = () => {
                                                 <p className='graytext'>Soft Cap</p>
                                             </div>
                                             <div className='graycard'>
-                                                <p className=''>10,000,000 FLOW</p>
+                                                <p className=''>{detail?.softCap} FLOW</p>
                                             </div>
                                         </div>
                                         <div className='parenttokencard'>
@@ -335,7 +415,7 @@ const Userpresaleflow = () => {
                                                 <p className='graytext'>Total Token Supply</p>
                                             </div>
                                             <div className='whitecard'>
-                                                <p className=''>1,000,000,000 FLOW</p>
+                                                <p className=''>{detail?.totalTokenSupply} FLOW</p>
                                             </div>
                                         </div>
                                         <div className='parenttokencard'>
@@ -351,7 +431,7 @@ const Userpresaleflow = () => {
                                                 <p className='graytext'>Public Sale Token Price</p>
                                             </div>
                                             <div className='whitecard'>
-                                                <p className=''>0.05 USD (price in USDT will be determined prior to the start of subscription)</p>
+                                                <p className=''>{detail?.publicSalePrice}USD (price in USDT will be determined prior to the start of subscription)</p>
                                             </div>
                                         </div>
                                         <div className='parenttokencard'>
@@ -359,7 +439,7 @@ const Userpresaleflow = () => {
                                                 <p className='graytext'>Tokens Offered</p>
                                             </div>
                                             <div className='graycard'>
-                                                <p className=''>50,000,000 FLOW</p>
+                                                <p className=''>{detail?.tokensOffered} FLOW</p>
                                             </div>
                                         </div>
                                         <div className='parenttokencard'>
@@ -367,7 +447,7 @@ const Userpresaleflow = () => {
                                                 <p className='graytext'>Hard Cap Per User</p>
                                             </div>
                                             <div className='whitecard'>
-                                                <p className=''>15,000 USD (price in USDT will be determined prior to the start of subscription)</p>
+                                                <p className=''>{detail?.hardcapPerUser}(price in USDT will be determined prior to the start of subscription)</p>
                                             </div>
                                         </div>
                                         <div className='parenttokencard'>
@@ -375,7 +455,7 @@ const Userpresaleflow = () => {
                                                 <p className='graytext'>Token Sale Vesting Period</p>
                                             </div>
                                             <div className='graycard'>
-                                                <p className=''>No lockup</p>
+                                                <p className=''>{detail?.tokenSaleVestingPeriod}</p>
                                             </div>
                                         </div>
                                         <div className='parenttokencard'>
@@ -413,11 +493,11 @@ const Userpresaleflow = () => {
                                     <div className='tokencard'>
                                         <h2 className='head'>Token Sale and Economics</h2>
                                         <div className='parenttokencard'>
-                                            <div className='graycard'>
+                                            <div className='graycard forraius'>
                                                 <p className='graytext'>Hard Cap</p>
                                             </div>
-                                            <div className='graycard'>
-                                                <p className=''>2,500,000 USD</p>
+                                            <div className='graycard forraius1'>
+                                                <p className=''>{detail?.hardCap}USD</p>
                                             </div>
                                         </div>
                                         <div className='parenttokencard'>
@@ -425,7 +505,7 @@ const Userpresaleflow = () => {
                                                 <p className='graytext'>Soft Cap</p>
                                             </div>
                                             <div className='graycard'>
-                                                <p className=''>10,000,000 FLOW</p>
+                                                <p className=''>{detail?.softCap} FLOW</p>
                                             </div>
                                         </div>
                                         <div className='parenttokencard'>
@@ -433,7 +513,7 @@ const Userpresaleflow = () => {
                                                 <p className='graytext'>Total Token Supply</p>
                                             </div>
                                             <div className='whitecard'>
-                                                <p className=''>1,000,000,000 FLOW</p>
+                                                <p className=''>{detail?.totalTokenSupply} FLOW</p>
                                             </div>
                                         </div>
                                         <div className='parenttokencard'>
@@ -449,7 +529,7 @@ const Userpresaleflow = () => {
                                                 <p className='graytext'>Public Sale Token Price</p>
                                             </div>
                                             <div className='whitecard'>
-                                                <p className=''>0.05 USD (price in USDT will be determined prior to the start of subscription)</p>
+                                                <p className=''>{detail?.publicSalePrice}USD (price in USDT will be determined prior to the start of subscription)</p>
                                             </div>
                                         </div>
                                         <div className='parenttokencard'>
@@ -457,7 +537,7 @@ const Userpresaleflow = () => {
                                                 <p className='graytext'>Tokens Offered</p>
                                             </div>
                                             <div className='graycard'>
-                                                <p className=''>50,000,000 FLOW</p>
+                                                <p className=''>{detail?.tokensOffered} FLOW</p>
                                             </div>
                                         </div>
                                         <div className='parenttokencard'>
@@ -465,7 +545,7 @@ const Userpresaleflow = () => {
                                                 <p className='graytext'>Hard Cap Per User</p>
                                             </div>
                                             <div className='whitecard'>
-                                                <p className=''>15,000 USD (price in USDT will be determined prior to the start of subscription)</p>
+                                                <p className=''>{detail?.hardcapPerUser}(price in USDT will be determined prior to the start of subscription)</p>
                                             </div>
                                         </div>
                                         <div className='parenttokencard'>
@@ -473,7 +553,7 @@ const Userpresaleflow = () => {
                                                 <p className='graytext'>Token Sale Vesting Period</p>
                                             </div>
                                             <div className='graycard'>
-                                                <p className=''>No lockup</p>
+                                                <p className=''>{detail?.tokenSaleVestingPeriod}</p>
                                             </div>
                                         </div>
                                         <div className='parenttokencard'>
@@ -485,10 +565,10 @@ const Userpresaleflow = () => {
                                             </div>
                                         </div>
                                         <div className='parenttokencard'>
-                                            <div className='graycard'>
-                                                <p className='graytext'>Token Distribution</p>
+                                            <div className='graycard forraius2'>
+                                                <p className='graytext '>Token Distribution</p>
                                             </div>
-                                            <div className='graycard'>
+                                            <div className='graycard forraius3'>
                                                 <p className=''>After the end of token sale</p>
                                             </div>
                                         </div>
@@ -956,7 +1036,7 @@ const Userpresaleflow = () => {
                             <div className='bottomcard'>
                                 <div className='bottomcardparent'>
                                     <h6>Status</h6>
-                                    <p>Upcoming</p>
+                                    <p>{detail?.launchpadApplicationStatus}</p>
 
                                 </div>
                                 <div className='bottomcardparent'>
@@ -989,7 +1069,7 @@ const Userpresaleflow = () => {
 
                             </div>
                             <div className='buttons'>
-                                <button className='block'>Block Project</button>
+                                <button onClick={() => blocked()} className='block'>Block Project</button>
                                 <button className='release'>Release Funds</button>
                             </div>
                         </div>

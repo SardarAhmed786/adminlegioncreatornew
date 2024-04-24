@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { Pagination } from 'react-bootstrap';
 import Environment from '../../../utils/Environment';
 import { toast } from 'react-toastify';
+import ReactPaginate from "react-paginate";
+
 import axios from 'axios';
 
 const Application = () => {
@@ -16,12 +18,12 @@ const Application = () => {
     // pagenition============================
 
     const [limit] = useState(10);
-    const [page, setPage] = useState(0);
+    const [page, setPage] = useState(1);
     const [pageCount, setPageCount] = useState(0);
 
-    const handlePageClick = (e) => {
+    const handlePageChange = (e) => {
         const selectedPage = e.selected;
-        setPage(selectedPage)
+        setPage(selectedPage+1)
     };
 
     // pagenition============================
@@ -61,6 +63,8 @@ const Application = () => {
 
                 if (response) {
                     setApplicationsData(response?.data?.data);
+                    setPageCount(response?.data?.count);
+
                     toast.success(response?.data?.applicationStatus?.msg, {
                         position: "top-center",
                         autoClose: 2000,
@@ -78,7 +82,7 @@ const Application = () => {
 
     useEffect(() => {
         applicationHandle();
-    }, [])
+    }, [page])
 
     return (
         <div className='right'>
@@ -175,21 +179,37 @@ const Application = () => {
                     </div>
                     <div className="pagi">
                         <div className="rightsss">
-                            <div className='arrows'>
+                                  {/* <div className='arrows'>
                                 <img src='\assets\pegiarrow1.png' alt='1mg' className='img-fluid' />
                                 <img src='\assets\pegiarrow2.png' alt='1mg' className='img-fluid' />
-                            </div>
-                            <Pagination>
-                                <Pagination.Item active>{1}</Pagination.Item>
-                                <Pagination.Item>{2}</Pagination.Item>
-                                <Pagination.Item >{3}</Pagination.Item>
-                                <Pagination.Item>{4}</Pagination.Item>
-                                <Pagination.Item >{5}</Pagination.Item>
-                            </Pagination>
-                            <div className='arrows' style={{ display: 'flex', gap: '13px', alignItems: 'center' }}>
+                            </div> */}
+                           
+              {page >= 1 ?
+                <ReactPaginate
+                  previousLabel="Previous"
+                  nextLabel="Next"
+                  pageClassName="page-item"
+                  pageLinkClassName="page-link"
+                  previousClassName="page-item"
+                  previousLinkClassName="page-link"
+                  nextClassName="page-item"
+                  nextLinkClassName="page-link"
+                  breakLabel="..."
+                  breakClassName="page-item"
+                  breakLinkClassName="page-link"
+                  pageCount={Math.ceil(pageCount / limit)}
+                  marginPagesDisplayed={2}
+                  pageRangeDisplayed={5}
+                  onPageChange={handlePageChange}
+                  containerClassName="pagination"
+                  activeClassName="active"
+                  forcePage={page - 1}
+                />
+                : ''}
+                            {/* <div className='arrows' style={{ display: 'flex', gap: '13px', alignItems: 'center' }}>
                                 <img src='\assets\pegiarrow3.png' alt='1mg' className='img-fluid' />
                                 <img src='\assets\pegiarrow4.png' alt='1mg' className='img-fluid' />
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>

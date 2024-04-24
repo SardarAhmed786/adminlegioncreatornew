@@ -15,6 +15,7 @@ import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { useWeb3React } from '@web3-react/core';
 import Signature from '../../../utils/userSign';
+import GetSigner from '../../../hooks/dataFetchers/getSigner';
 import useWeb3 from '../../../hooks/useWeb3';
 
 
@@ -34,6 +35,7 @@ const Userpresaleflow2 = () => {
     const [detail, setDetail] = useState([]);
     const [startTimeEpoch, setStartTimeEpoch] = useState(null);
     const [endTimeEpoch, setEndTimeEpoch] = useState(null);
+    const [signer, setSigner] = useState(null);
 
     // const handleStartTimeChange = (value) => {
     //     // setStartTimeUtc(value);
@@ -57,73 +59,10 @@ const Userpresaleflow2 = () => {
     const handleSelect = (eventKey) => {
         setActiveTab(eventKey);
     }
-    const [timeshow, setTimeshow] = useState(false);
-    const [day, setDay] = useState(0);
-    const [hour, setHour] = useState(0);
-    const [min, setMin] = useState(0);
-    const [sec, setSec] = useState(0);
-
-    // useEffect(() => {
-    //     const interval = setInterval(() => {
-    //         const now = new Date();
-    //         const time = new Date("mar 30, 2024 08:00:00");
-    //         const diff = time.getTime() - now.getTime();
-    //         if (diff <= 0) {
-    //             clearInterval(interval);
-    //             setTimeshow(true);
-    //             return;
-    //         }
-    //         const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    //         const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    //         const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-    //         const secs = Math.floor((diff % (1000 * 60)) / 1000);
-    //         setDay(days);
-    //         setHour(hours);
-    //         setMin(mins);
-    //         setSec(secs);
-    //     }, 1000);
-    //     return () => clearInterval(interval);
-    // }, []);
-
 
     // Web3 ===========================
     const { account } = useWeb3React();
-    // const { userSign } = Signature();
-    // const [userSigns, setUserSing] = useState(null);
 
-    const [currentTime, setCurrentTime] = useState(null);
-
-    // useEffect(() => {
-    //     const updateTime = () => {
-    //         const currentDateTime = new Date(); // Get the current date and time
-    //         const futureDateTime = new Date(currentDateTime.getTime() + (20 * 60000)); // Add 20 minutes (20 * 60000 milliseconds)
-    //         const epochTime = Math.floor(futureDateTime.getTime() / 1000); // Convert to epoch time (seconds)
-    //         setCurrentTime(epochTime);
-    //     };
-
-    //     // Update the current time initially and then every second
-    //     updateTime();
-    //     const intervalId = setInterval(updateTime, 1000);
-
-    //     // Cleanup interval on component unmount
-    //     return () => clearInterval(intervalId);
-    // }, []);
-    // console.log(currentTime, "currentTime");
-
-    // const gettingSign = async () => {
-    //     console.log('in sign funcationnnnn');
-    //     if (account) {
-    //         console.log("hrtr")
-    //         const res1 = await userSign(startTimeEpoch, endTimeEpoch, detail?.tokenAddress, account, account, currentTime);
-    //         console.log(res1, 'res1 okokokok userSigns');
-    //         setUserSing(res1)
-
-    //         if (res1) {
-    //             localStorage.setItem('sign', res1)
-    //             localStorage.setItem('userAddress', account)
-    //         }
-    //     }
-    // }
 
     // Web3 ===========================
 
@@ -153,14 +92,7 @@ const Userpresaleflow2 = () => {
     const handleShow1 = () => setShow1(true);
 
     // Allocations states =============================
-    const [selected, setSelected] = useState([]);
     const [accessibilityList, setAccessibilityList] = useState([]);
-
-    const options = [
-        { label: "Grapes 🍇", value: "grapes" },
-        { label: "Mango 🥭", value: "mango" },
-        { label: "Strawberry 🍓", value: "strawberry", disabled: true },
-    ];
 
     // 1 Allocations states =============================
     const [numberOfTickets1, setNumberOfTickets1] = useState(null);
@@ -181,6 +113,44 @@ const Userpresaleflow2 = () => {
     const [accessibilityAry3, setAccessibilityAry3] = useState(null);
 
     // Allocations states =============================
+
+    const [selectedItems, setSelectedItems] = useState([]);
+    const [selectedItems2, setSelectedItems2] = useState([]);
+    const [selectedItems3, setSelectedItems3] = useState([]);
+
+
+    const handleItemClick = (item) => {
+        // Check if the item is already selected
+        if (selectedItems.includes(item)) {
+            // If selected, remove it from the array
+            setSelectedItems(selectedItems.filter(selectedItem => selectedItem !== item));
+        } else {
+            // If not selected, add it to the array
+            setSelectedItems([...selectedItems, item]);
+        }
+    };
+
+    const handleItemClick2 = (item) => {
+        // Check if the item is already selected
+        if (selectedItems2.includes(item)) {
+            // If selected, remove it from the array
+            setSelectedItems2(selectedItems2.filter(selectedItem => selectedItem !== item));
+        } else {
+            // If not selected, add it to the array
+            setSelectedItems2([...selectedItems2, item]);
+        }
+    };
+
+    const handleItemClick3 = (item) => {
+        // Check if the item is already selected
+        if (selectedItems3.includes(item)) {
+            // If selected, remove it from the array
+            setSelectedItems3(selectedItems3.filter(selectedItem => selectedItem !== item));
+        } else {
+            // If not selected, add it to the array
+            setSelectedItems3([...selectedItems3, item]);
+        }
+    };
 
 
     const applicationHandle = () => {
@@ -448,28 +418,6 @@ const Userpresaleflow2 = () => {
             } else {
                 toast?.error("Please connect your wallet");
             }
-            // else {
-            //     const response = await axios.post(
-            //         `${Environment.backendUrl}/launchpad/approveLaunchpadApplication`,
-            //         payload,
-            //         {
-            //             headers: {
-            //                 Authorization: `Bearer ${token}`
-            //             }
-            //         }
-            //     );
-
-            //     console.log("🚀 ~ response:", response);
-            //     console.log(response.data, "AccessibilityList response.data.msg");
-
-            //     if (response) {
-            //         handleClose1();
-            //         toast.success(response?.data?.message, {
-            //             position: "top-center",
-            //             autoClose: 2000
-            //         });
-            //     }
-            // }
         } catch (error) {
             console.log("🚀 ~ approveProjectHandle ~ error:", error);
             toast.error(error.response?.data.msg || "An error occurred", {
@@ -479,6 +427,17 @@ const Userpresaleflow2 = () => {
         }
     };
 
+
+    // get signer from contract ==============================
+    const { getSignerHook } = GetSigner();
+
+    const signerHandle = async () => {
+        const res = await getSignerHook();
+        console.log(res, "res in sign okokokokokok");
+        setSigner(res);
+    }
+
+    // get signer from contract ==============================
 
     useEffect(() => {
         applicationHandle();
@@ -496,43 +455,10 @@ const Userpresaleflow2 = () => {
     }, [id]);
 
 
-    const [selectedItems, setSelectedItems] = useState([]);
-    const [selectedItems2, setSelectedItems2] = useState([]);
-    const [selectedItems3, setSelectedItems3] = useState([]);
 
-
-    const handleItemClick = (item) => {
-        // Check if the item is already selected
-        if (selectedItems.includes(item)) {
-            // If selected, remove it from the array
-            setSelectedItems(selectedItems.filter(selectedItem => selectedItem !== item));
-        } else {
-            // If not selected, add it to the array
-            setSelectedItems([...selectedItems, item]);
-        }
-    };
-    const handleItemClick2 = (item) => {
-        // Check if the item is already selected
-        if (selectedItems2.includes(item)) {
-            // If selected, remove it from the array
-            setSelectedItems2(selectedItems2.filter(selectedItem => selectedItem !== item));
-        } else {
-            // If not selected, add it to the array
-            setSelectedItems2([...selectedItems2, item]);
-        }
-    };
-
-    const handleItemClick3 = (item) => {
-        // Check if the item is already selected
-        if (selectedItems3.includes(item)) {
-            // If selected, remove it from the array
-            setSelectedItems3(selectedItems3.filter(selectedItem => selectedItem !== item));
-        } else {
-            // If not selected, add it to the array
-            setSelectedItems3([...selectedItems3, item]);
-        }
-    };
-
+    useEffect(() => {
+        signerHandle();
+    }, [account])
     return (
         <>
             <Header
@@ -1143,7 +1069,8 @@ const Userpresaleflow2 = () => {
                                 <button onClick={handleShow11}>Tier & Staking Settings</button>
                                 <div className='innerbtn'>
                                     <button className='block' onClick={() => rejected()}>Reject</button>
-                                    <button className='release' onClick={handleShow1}>Approve</button>
+                                    {signer == account ? <button className='release' onClick={handleShow1}>Approve</button> : <button className='block' >Approve</button>}
+
                                 </div>
 
                             </div>
