@@ -17,6 +17,7 @@ import { useWeb3React } from '@web3-react/core';
 import Signature from '../../../utils/userSign';
 import GetSigner from '../../../hooks/dataFetchers/getSigner';
 import useWeb3 from '../../../hooks/useWeb3';
+import Loader from '../../../hooks/loader';
 
 
 const Userpresaleflow2 = () => {
@@ -26,30 +27,17 @@ const Userpresaleflow2 = () => {
 
     const history = useHistory();
     const token = localStorage.getItem('mytoken');
-    // const sign = localStorage.getItem('sign');
+
+    const [loader, setLoader] = useState(false);
     const [userSign, setUsersign] = useState(null);
-    console.log("🚀 ~ Userpresaleflow2 ~ userSign:", userSign)
     const [signDedLine, setSignDedLine] = useState(null);
-    console.log("🚀 ~ Userpresaleflow2 ~ signDedLine:", signDedLine)
     const [description, setDescription] = useState('');
     const [detail, setDetail] = useState([]);
     const [startTimeEpoch, setStartTimeEpoch] = useState(null);
     const [endTimeEpoch, setEndTimeEpoch] = useState(null);
     const [signer, setSigner] = useState(null);
+    const [editModal, setEditModal] = useState(false);
 
-    // const handleStartTimeChange = (value) => {
-    //     // setStartTimeUtc(value);
-    //     // validateStartTime(value);
-    //     // Convert the selected date and time to UTC format
-    //     const selectedDate = new Date(value);
-    //     const utcDate = selectedDate.toISOString();
-    //     setSignDedLine(utcDate);
-    // };
-
-    // const convertUtcToLocal = (utcString) => {
-    //     const localDate = new Date(utcString);
-    //     return localDate.toISOString().slice(0, 16); // Truncate seconds and milliseconds
-    // };
 
     const [id, setId] = useState("");
     const getValue = (newDescription) => {
@@ -247,48 +235,6 @@ const Userpresaleflow2 = () => {
 
             });
     };
-    // console.log(endTimeEpoch);
-    // const signDedlineInEpoch = Date.parse(signDedLine);
-    // new Date(time).getTime() / 1000;
-
-    // const handleDedlineChange = (value) => {
-    //     // Validate the input if needed
-    //     // validateStartTime(value);
-
-    //     // Convert the selected date and time to UTC format
-    //     const selectedDate = new Date(value);
-
-    //     // Extract the components of the date
-    //     const year = selectedDate.getUTCFullYear();
-    //     const month = selectedDate.getUTCMonth() + 1; // Months are zero-based
-    //     const day = selectedDate.getUTCDate();
-    //     const hours = selectedDate.getUTCHours();
-    //     const minutes = selectedDate.getUTCMinutes();
-    //     const seconds = selectedDate.getUTCSeconds();
-
-    //     // Construct the formatted UTC date string
-    //     const formattedUtcDate = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')} ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-
-    //     console.log("🚀 ~ handleDedlineChange ~ formattedUtcDate:", formattedUtcDate)
-    //     // Set the formatted UTC date string
-    //     setSignDedLine(formattedUtcDate);
-    // };
-
-    // const convertUtcToLocal = (utcString) => {
-    //     const utcDate = new Date(utcString);
-    //     const localDate = new Date(utcDate.getTime() - (utcDate.getTimezoneOffset() * 60000));
-    //     // const localDate = new Date(utcString);
-    //     // return localDate.toISOString().slice(0, 16); // Truncate seconds and milliseconds
-
-    //     // Format the local date
-    //     const year = localDate.getFullYear();
-    //     const month = (localDate.getMonth() + 1).toString().padStart(2, '0');
-    //     const day = localDate.getDate().toString().padStart(2, '0');
-    //     const hours = localDate.getHours().toString().padStart(2, '0');
-    //     const minutes = localDate.getMinutes().toString().padStart(2, '0');
-
-    //     return `${year}-${month}-${day} ${hours}:${minutes}`;
-    // };
 
     const handleDedlineChange = (value) => {
         // setStartTimeUtc(value);
@@ -307,13 +253,13 @@ const Userpresaleflow2 = () => {
     let startepochTime = new Date(detail?.startTime).getTime() / 1000; // Convert milliseconds to seconds
     let endepochTime = new Date(detail?.endTime).getTime() / 1000; // Convert milliseconds to seconds
     let dedlineepochTime = new Date(signDedLine).getTime() / 1000; // Convert milliseconds to seconds
-    console.log("🚀 ~ Userpresaleflow2 ~ signDedlineInEpoch: dedline dddd OKOKOKOK", detail?.startTimeEpoch, detail?.endTimeEpoch)
-    console.log("🚀 ~ Userpresaleflow2 ~ signDedlineInEpoch: start time", new Date(signDedLine), startepochTime, detail?.startTime)
-    console.log("🚀 ~ Userpresaleflow2 ~ signDedlineInEpoch: end time", endepochTime, detail?.endTime)
+    // console.log("🚀 ~ Userpresaleflow2 ~ signDedlineInEpoch: dedline dddd OKOKOKOK", detail?.startTimeEpoch, detail?.endTimeEpoch)
+    // console.log("🚀 ~ Userpresaleflow2 ~ signDedlineInEpoch: start time", new Date(signDedLine), startepochTime, detail?.startTime)
+    // console.log("🚀 ~ Userpresaleflow2 ~ signDedlineInEpoch: end time", endepochTime, detail?.endTime)
 
     const signFun = async () => {
         // handleClose();
-        console.log(detail?.startTimeEpoch, detail?.endTimeEpoch, dedlineepochTime, signDedLine, "payload timesss");
+        // console.log(detail?.startTimeEpoch, detail?.endTimeEpoch, dedlineepochTime, signDedLine, "payload timesss");
 
         const message = web3.utils.soliditySha3(
             {
@@ -348,30 +294,25 @@ const Userpresaleflow2 = () => {
         );
         console.log(message);
         let signature = await web3.eth.personal.sign(message, account);
-        setUsersign(signature);
-        if (signature) {
-            console.log("🚀 ~ fetchSignnnn ~ signature: start", signature)
-        }
+        // if (signature) {
+        //     setUsersign(signature);
+        //     console.log("🚀 ~ fetchSignnnn ~ signature: start", signature)
+        // }
 
         return signature;
     };
 
     const approveProjectHandle = async () => {
-
         console.log("start approve");
-
         console.log("start approve sign");
 
-        const signFunres = await signFun();
-
-        console.log("🚀 ~ approveProjectHandle ~ res:", signFunres);
-
-
         try {
-            if (account) {
+            setLoader(true);
+            const signFunres = await signFun();
+            console.log("🚀 ~ approveProjectHandle ~ res:", signFunres);
+            // console.log("🚀 ~ approveProjectHandle ~ res: userSign stateeee", userSign);
 
-                // const res = await gettingSign();
-                // Call the API after receiving a response from gettingSign
+            if (account) {
                 if (signFunres) {
                     const payload = {
                         launchpad_id: id,
@@ -388,7 +329,7 @@ const Userpresaleflow2 = () => {
                         tier3MaxTicketsUse: maxTicketsUse3,
                         tier3Accessibility: selectedItems3,
                         adminLaunchpadApprovalAddress: account,
-                        RSsignature: userSign,
+                        RSsignature: signFunres,
                         RSsignatureDeadLine: dedlineepochTime
                     };
                     console.log('approveProjectHandle resssssssssssssssssss');
@@ -406,20 +347,27 @@ const Userpresaleflow2 = () => {
                     console.log(response.data, "AccessibilityList response.data.msg");
 
                     if (response) {
-                        toast.success(response?.data?.applicationStatus?.msg, {
-                            position: "top-center",
-                            autoClose: 2000
-                        });
+                        setLoader(false);
+                        handleShow();
+                        handleClose1();
+                        // toast.success(response?.data?.applicationStatus?.msg, {
+                        //     position: "top-center",
+                        //     autoClose: 2000
+                        // });
                     }
 
                 } else {
                     toast?.error("sign must required");
+                    setLoader(false);
                 }
             } else {
+                setLoader(false);
                 toast?.error("Please connect your wallet");
             }
+            setLoader(false);
         } catch (error) {
             console.log("🚀 ~ approveProjectHandle ~ error:", error);
+            setLoader(false);
             toast.error(error.response?.data.msg || "An error occurred", {
                 position: "top-center",
                 autoClose: 2000
@@ -461,10 +409,10 @@ const Userpresaleflow2 = () => {
     }, [account])
     return (
         <>
-            <Header
-            />            <section className='mainpresaleuser'>
+            {loader && <Loader />}
+            <Header />
+            <section className='mainpresaleuser'>
                 <div className="custom-container">
-
                     <div className='parentdetail'>
                         <div className='left'>
                             <div className='mainssss'>
@@ -1066,13 +1014,28 @@ const Userpresaleflow2 = () => {
 
                             </div>
                             <div className='buttonsss'>
-                                <button onClick={handleShow11}>Tier & Staking Settings</button>
+                                <button onClick={handleShow12}>Tier & Staking Settings</button>
                                 <div className='innerbtn'>
                                     <button className='block' onClick={() => rejected()}>Reject</button>
-                                    {signer == account ? <button className='release' onClick={handleShow1}>Approve</button> : <button className='block' >Approve</button>}
+                                    {/* {signer == account ? <button className='release' onClick={handleShow1}>Approve</button> : <button className='block' >Approve</button>} */}
+                                    {console.log(detail?.launchpadApplicationStatus, 'apppppp')}
+                                    {
+                                        signer == account ?
+                                            <>
+                                                {detail?.launchpadApplicationStatus == 'approve' ? (
+                                                    <button className='release' disabled style={{ cursor: "not-allowed" }}>Approved</button>
+                                                ) : detail?.launchpadApplicationStatus == 'pending' ? (
+                                                    <button className='release' onClick={handleShow1}>Approve</button>
+                                                ) : detail?.launchpadApplicationStatus == 'rejected' ? (
+                                                    <button className='block' disabled style={{ cursor: "not-allowed" }}>Rejected</button>
+                                                ) : (
+                                                    <button className='block' disabled style={{ cursor: "not-allowed" }}>Not illegible to approve</button>
+                                                )}
 
+                                            </>
+                                            : "You are not illegible to approve"
+                                    }
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -1091,20 +1054,20 @@ const Userpresaleflow2 = () => {
                         <div className='parentsetting'>
                             <div className='muinput'>
                                 <div class="material-textfield">
-                                    <input placeholder="Enter no. of Tickets" type="text" value={numberOfTickets1} onChange={(e) => setNumberOfTickets1(e?.target?.value)} />
+                                    <input placeholder="Enter no. of Tickets" type="number" min="0" value={numberOfTickets1} onChange={(e) => setNumberOfTickets1(e?.target?.value)} />
                                     <label>Number of Tickets</label>
                                 </div>
                             </div>
                             <div className='muinput'>
                                 <div class="material-textfield">
-                                    <input placeholder="Enter Total Allocation" type="text" value={totalAllocations1} onChange={(e) => setTotalAllocations1(e?.target?.value)} />
+                                    <input placeholder="Enter Total Allocation" type="number" min="0" value={totalAllocations1} onChange={(e) => setTotalAllocations1(e?.target?.value)} />
                                     <label>Total Allocation (USD)</label>
                                 </div>
                             </div>
                         </div>
                         <div className='muinput'>
                             <div class="material-textfield">
-                                <input placeholder="Enter Ticket amount" type="text" value={maxTicketsUse1} onChange={(e) => setMaxTicketsUse1(e?.target?.value)} />
+                                <input placeholder="Enter Ticket amount" type="number" min="0" value={maxTicketsUse1} onChange={(e) => setMaxTicketsUse1(e?.target?.value)} />
                                 <label>Max Ticket Use</label>
                             </div>
                         </div>
@@ -1148,20 +1111,20 @@ const Userpresaleflow2 = () => {
                         <div className='parentsetting'>
                             <div className='muinput'>
                                 <div class="material-textfield">
-                                    <input placeholder="Enter no. of Tickets" type="text" value={numberOfTickets2} onChange={(e) => setNumberOfTickets2(e?.target?.value)} />
+                                    <input placeholder="Enter no. of Tickets" type="number" min="0" value={numberOfTickets2} onChange={(e) => setNumberOfTickets2(e?.target?.value)} />
                                     <label>Number of Tickets</label>
                                 </div>
                             </div>
                             <div className='muinput'>
                                 <div class="material-textfield">
-                                    <input placeholder="Enter Total Allocation" type="text" value={totalAllocations2} onChange={(e) => setTotalAllocations2(e?.target?.value)} />
+                                    <input placeholder="Enter Total Allocation" type="number" min="0" value={totalAllocations2} onChange={(e) => setTotalAllocations2(e?.target?.value)} />
                                     <label>Total Allocation (USD)</label>
                                 </div>
                             </div>
                         </div>
                         <div className='muinput'>
                             <div class="material-textfield">
-                                <input placeholder="Enter Ticket amount" type="text" value={maxTicketsUse2} onChange={(e) => setMaxTicketsUse2(e?.target?.value)} />
+                                <input placeholder="Enter Ticket amount" type="number" min="0" value={maxTicketsUse2} onChange={(e) => setMaxTicketsUse2(e?.target?.value)} />
                                 <label>Max Ticket Use</label>
                             </div>
                         </div>
@@ -1192,20 +1155,20 @@ const Userpresaleflow2 = () => {
                         <div className='parentsetting'>
                             <div className='muinput'>
                                 <div class="material-textfield">
-                                    <input placeholder="Enter no. of Tickets" type="text" value={numberOfTickets3} onChange={(e) => setNumberOfTickets3(e?.target?.value)} />
+                                    <input placeholder="Enter no. of Tickets" type="number" min="0" value={numberOfTickets3} onChange={(e) => setNumberOfTickets3(e?.target?.value)} />
                                     <label>Number of Tickets</label>
                                 </div>
                             </div>
                             <div className='muinput'>
                                 <div class="material-textfield">
-                                    <input placeholder="Enter Total Allocation" type="text" value={totalAllocations3} onChange={(e) => setTotalAllocations3(e?.target?.value)} />
+                                    <input placeholder="Enter Total Allocation" type="number" min="0" value={totalAllocations3} onChange={(e) => setTotalAllocations3(e?.target?.value)} />
                                     <label>Total Allocation (USD)</label>
                                 </div>
                             </div>
                         </div>
                         <div className='muinput'>
                             <div class="material-textfield">
-                                <input placeholder="Enter Ticket amount" type="text" value={maxTicketsUse3} onChange={(e) => setMaxTicketsUse3(e?.target?.value)} />
+                                <input placeholder="Enter Ticket amount" type="number" min="0" value={maxTicketsUse3} onChange={(e) => setMaxTicketsUse3(e?.target?.value)} />
                                 <label>Max Ticket Use</label>
                             </div>
                         </div>
@@ -1248,11 +1211,10 @@ const Userpresaleflow2 = () => {
                 <Modal.Body>
                     <div className='success'>
                         <img src='\assets\tick.svg' alt='img' className='img-fluid' />
-                        <p>Project Created Successfully</p>
-                        <button>Okay</button>
+                        <p>Application approved Successfully</p>
+                        <button onClick={handleClose}>Okay</button>
                     </div>
                 </Modal.Body>
-
             </Modal>
 
 
@@ -1301,6 +1263,7 @@ const Userpresaleflow2 = () => {
                         <button className='confirm' onClick={() => {
                             handleShow12();
                             handleClose1();
+                            setEditModal(true);
                         }}>Edit</button>
                         <button className='confirm' onClick={() => approveProjectHandle()}>Approve</button>
                     </div>
@@ -1309,7 +1272,7 @@ const Userpresaleflow2 = () => {
 
             <Modal className='settingmodal' show={show12} onHide={handleClose12} centered>
                 <Modal.Header closeButton>
-                    <Modal.Title>Edit Allocation</Modal.Title>
+                    <Modal.Title>{editModal ? "Edit" : null} Allocation</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <div className='uppersettingparent'>
@@ -1319,20 +1282,20 @@ const Userpresaleflow2 = () => {
                         <div className='parentsetting'>
                             <div className='muinput'>
                                 <div class="material-textfield">
-                                    <input placeholder="Enter no. of Tickets" type="text" value={numberOfTickets1} onChange={(e) => setNumberOfTickets1(e?.target?.value)} />
+                                    <input placeholder="Enter no. of Tickets" type="number" min="0" value={numberOfTickets1} onChange={(e) => setNumberOfTickets1(e?.target?.value)} />
                                     <label>Number of Tickets</label>
                                 </div>
                             </div>
                             <div className='muinput'>
                                 <div class="material-textfield">
-                                    <input placeholder="Enter Total Allocation" type="text" value={totalAllocations1} onChange={(e) => setTotalAllocations1(e?.target?.value)} />
+                                    <input placeholder="Enter Total Allocation" type="number" min="0" value={totalAllocations1} onChange={(e) => setTotalAllocations1(e?.target?.value)} />
                                     <label>Total Allocation (USD)</label>
                                 </div>
                             </div>
                         </div>
                         <div className='muinput'>
                             <div class="material-textfield">
-                                <input placeholder="Enter Ticket amount" type="text" value={maxTicketsUse1} onChange={(e) => setMaxTicketsUse1(e?.target?.value)} />
+                                <input placeholder="Enter Ticket amount" type="number" min="0" value={maxTicketsUse1} onChange={(e) => setMaxTicketsUse1(e?.target?.value)} />
                                 <label>Max Ticket Use</label>
                             </div>
                         </div>
@@ -1368,20 +1331,20 @@ const Userpresaleflow2 = () => {
                         <div className='parentsetting'>
                             <div className='muinput'>
                                 <div class="material-textfield">
-                                    <input placeholder="Enter no. of Tickets" type="text" value={numberOfTickets2} onChange={(e) => setNumberOfTickets2(e?.target?.value)} />
+                                    <input placeholder="Enter no. of Tickets" type="number" min="0" value={numberOfTickets2} onChange={(e) => setNumberOfTickets2(e?.target?.value)} />
                                     <label>Number of Tickets</label>
                                 </div>
                             </div>
                             <div className='muinput'>
                                 <div class="material-textfield">
-                                    <input placeholder="Enter Total Allocation" type="text" value={totalAllocations2} onChange={(e) => setTotalAllocations2(e?.target?.value)} />
+                                    <input placeholder="Enter Total Allocation" type="number" min="0" value={totalAllocations2} onChange={(e) => setTotalAllocations2(e?.target?.value)} />
                                     <label>Total Allocation (USD)</label>
                                 </div>
                             </div>
                         </div>
                         <div className='muinput'>
                             <div class="material-textfield">
-                                <input placeholder="Enter Ticket amount" type="text" value={maxTicketsUse2} onChange={(e) => setMaxTicketsUse2(e?.target?.value)} />
+                                <input placeholder="Enter Ticket amount" type="number" min="0" value={maxTicketsUse2} onChange={(e) => setMaxTicketsUse2(e?.target?.value)} />
                                 <label>Max Ticket Use</label>
                             </div>
                         </div>
@@ -1418,20 +1381,20 @@ const Userpresaleflow2 = () => {
                         <div className='parentsetting'>
                             <div className='muinput'>
                                 <div class="material-textfield">
-                                    <input placeholder="Enter no. of Tickets" type="text" value={numberOfTickets3} onChange={(e) => setNumberOfTickets3(e?.target?.value)} />
+                                    <input placeholder="Enter no. of Tickets" type="number" min="0" s value={numberOfTickets3} onChange={(e) => setNumberOfTickets3(e?.target?.value)} />
                                     <label>Number of Tickets</label>
                                 </div>
                             </div>
                             <div className='muinput'>
                                 <div class="material-textfield">
-                                    <input placeholder="Enter Total Allocation" type="text" value={totalAllocations3} onChange={(e) => setTotalAllocations3(e?.target?.value)} />
+                                    <input placeholder="Enter Total Allocation" type="number" min="0" s value={totalAllocations3} onChange={(e) => setTotalAllocations3(e?.target?.value)} />
                                     <label>Total Allocation (USD)</label>
                                 </div>
                             </div>
                         </div>
                         <div className='muinput'>
                             <div class="material-textfield">
-                                <input placeholder="Enter Ticket amount" type="text" value={maxTicketsUse3} onChange={(e) => setMaxTicketsUse3(e?.target?.value)} />
+                                <input placeholder="Enter Ticket amount" type="number" min="0" s value={maxTicketsUse3} onChange={(e) => setMaxTicketsUse3(e?.target?.value)} />
                                 <label>Max Ticket Use</label>
                             </div>
                         </div>
@@ -1461,12 +1424,20 @@ const Userpresaleflow2 = () => {
                             </Dropdown>
                         </div>
                     </div>
-                    <p>Sign deadline</p>
-                    <input type='datetime-local' value={signDedLine ? convertUtcToLocal(signDedLine) : ''} onChange={(e) => handleDedlineChange(e.target.value)} />
+                    {/* <p>Sign deadline</p> */}
+                    <div className='uppersettingparent'>
+                        <div className='heading'>
+                            <h2 style={{ textTransform: "capitalize" }}>Application Deployment Signature Deadline</h2>
+                        </div>
+                        <input type='datetime-local' className='form-control' value={signDedLine ? convertUtcToLocal(signDedLine) : ''} onChange={(e) => handleDedlineChange(e.target.value)} />
+                    </div>
 
                     <div className='endbtns'>
-                        <button className='cancle'>Cancel</button>
-                        <button className='confirm' onClick={approveProjectHandle}>Save</button>
+                        <button className='cancle' onClick={handleClose12}>Cancel</button>
+                        <button className='confirm' onClick={() => {
+                            handleClose12();
+                            handleShow1();
+                        }}>Save</button>
                     </div>
                 </Modal.Body>
 
