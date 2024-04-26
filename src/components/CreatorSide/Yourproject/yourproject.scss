@@ -174,7 +174,7 @@
                             border: 1px solid #ECEFF8;
                             background: var(--White, #FFF);
                             padding: 12px;
-                            width: 735px;
+                            width: 446px;
                             height: 50px;
                             color: #B9C4D2;
                             font-size: 14px;
@@ -245,7 +245,7 @@
                                     img {
                                         position: absolute;
                                         top: 25px;
-                                        right: 30px;
+                                        right: 16px;
                                     }
                                 }
 
@@ -635,6 +635,90 @@
 
 
 }
+
+
+.addcatogory {
+    .modal-dialog {
+      max-width: 540px;
+  
+      .modal-content {
+        border-radius: 15px;
+        background: var(--White, #FFF);
+        padding: 25px;
+  
+        .modal-header {
+          border-bottom: none;
+          padding: 0px;
+          margin-bottom: 32px;
+  
+          .modal-title {
+            color: var(--Primary-Text, #343434);
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 100%;
+            /* 20px */
+            text-transform: uppercase;
+          }
+  
+          .btn-close {
+            background: url(../../../../src/assets/close-circle.svg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: contain;
+            width: 22px;
+            height: 22px;
+            box-shadow: none !important;
+            opacity: unset;
+            position: absolute;
+            padding: 0px;
+            margin: 0px;
+            top: 29px;
+            right: 31px;
+          }
+        }
+  
+        .modal-body {
+          .endbyuutons {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 8px;
+  
+            .canclelight {
+              border-radius: 50px;
+              background: #F4F8FF;
+              padding: 16px 98px;
+              max-width: 236px;
+              width: 100%;
+              color: var(--Primary-Color, #3456D0);
+              text-align: center;
+              font-size: 14px;
+              font-style: normal;
+              font-weight: 500;
+              line-height: normal;
+              border: none;
+            }
+  
+            .savebtns {
+              border-radius: 50px;
+              background: var(--Button-Primery-Gradient, linear-gradient(180deg, #3456D0 0%, #0D32B7 100%));
+              padding: 16px 98px;
+              max-width: 236px;
+              width: 100%;
+              color: var(--White, #FFF);
+              border: none;
+              text-align: center;
+              font-size: 14px;
+              font-style: normal;
+              font-weight: 500;
+              line-height: normal;
+            }
+          }
+        }
+      }
+    }
+  }
 
 @media(max-width:1024px) {
     .mainproject .mainprojectparent {

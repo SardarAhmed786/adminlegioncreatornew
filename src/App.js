@@ -18,6 +18,7 @@ import Userpresaleflow2 from './components/UserSide/Userpresaleflow2/Userpresale
 import Profileuser from './components/UserSide/Profileuser/Profileuser';
 import Updatedroadmap from './components/CreatorSide/Yourproject/Updatedroadmap';
 import useEagerConnect from './hooks/useEagerConnect';
+import Changeandupdate from './components/Changeandupdate/Changeandupdate';
 
 
 
@@ -44,6 +45,7 @@ function App() {
         <Route exact path="/userpresaleflow2" component={Userpresaleflow2} />
         <Route exact path="/profileuser" component={Profileuser} />
         <Route exact path="/updatedroadmap" component={Updatedroadmap} />
+        <Route exact path="/changeupdate" component={Changeandupdate} />
       </Switch>
     </>
   );

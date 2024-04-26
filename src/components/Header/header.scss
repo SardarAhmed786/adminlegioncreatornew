@@ -46,6 +46,98 @@
     }
   }
 
+  .dropbtnss {
+    .dropdown {
+      button {
+        background: transparent;
+        border: none;
+      }
+  
+      .dropdown-menu {
+        padding: 15px;
+        gap: 10px;
+        width: 349px;
+        // width: 100%;
+        border-radius: 10px;
+        // border-bottom: 1px solid #EDF0FA;
+  
+        background: #FFF;
+  
+        .brdr {
+          border-bottom: 1px solid #EDF0FA;
+          width: 100%;
+          margin-top: 18px;
+          margin-bottom: 15px;
+        }
+  
+        h2 {
+          color: var(--Black, #000);
+          font-family: Poppins;
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 600;
+          line-height: 140%;
+        }
+  
+        .parent {
+          display: flex;
+          justify-content: space-between;
+          // align-items: center;
+          gap: 10px;
+  
+          .right {
+            h3 {
+              color: var(--Black, #000);
+  
+              font-size: 14px;
+              font-style: normal;
+              font-weight: 500;
+              line-height: 140%;
+  
+            }
+  
+            p {
+              color: var(--Secondary-Text-Blue, #8A97A9);
+              margin: 5px 0px;
+              font-size: 12px;
+              font-style: normal;
+              font-weight: 400;
+              line-height: 140%;
+            }
+  
+            .hhhh {
+              position: unset;
+              transform: unset;
+              list-style: disc;
+              list-style-position: inside;
+  
+              li {
+           
+  
+                color: var(--Primary-Color, #3456D0);
+                text-align: right;
+                font-family: Poppins;
+                font-size: 12px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 140%;
+              }
+            }
+  
+          }
+  
+  
+        }
+      }
+    }
+  
+  }
+  
+  .dropbtnss .dropdown button {
+    outline: none;
+    box-shadow: none;
+  
+  }
   .connect-btn {
     border-radius: 40px;
 // background: var(--Button-Primery-Gradient, linear-gradient(180deg, #3456D0 0%, #0D32B7 100%));
