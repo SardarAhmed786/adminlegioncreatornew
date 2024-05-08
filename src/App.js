@@ -45,7 +45,7 @@ function App() {
         <Route exact path="/userpresaleflow2" component={Userpresaleflow2} />
         <Route exact path="/profileuser" component={Profileuser} />
         <Route exact path="/updatedroadmap" component={Updatedroadmap} />
-        <Route exact path="/changeupdate" component={Changeandupdate} />
+        <Route exact path="/update-application-detail/:id" component={Changeandupdate} />
       </Switch>
     </>
   );

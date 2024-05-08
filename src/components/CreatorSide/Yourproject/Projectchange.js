@@ -19,7 +19,7 @@ const Projectchange = () => {
     }
 
 
-    const mytoken = localStorage.getItem('token');
+    const mytoken = localStorage.getItem('mytoken');
     const [loader, setLoader] = useState(false);
     const [allProjects, setAllProjects] = useState(null);
     console.log("🚀 ~ Application ~ allProjects:", allProjects)
@@ -55,28 +55,11 @@ const Projectchange = () => {
 
     const getYourProjectsHandle = (filter) => {
         setLoader(true);
-        if (!filter) {
-            // Set filter based on activeTab if not provided
-            switch (activeTab) {
-                case "link-1":
-                    filter = "live";
-                    break;
-                case "link-2":
-                    filter = "upcoming";
-                    break;
-                case "link-3":
-                    filter = "ended";
-                    break;
-                default:
-                    filter = "live"; // Default filter if none matched
-            }
-        }
-
-        axios.get(Environment?.backendUrl + `api5/launchpad/launchpadSearchListing?search=${searchInput ? searchInput : ""}&filter=${filter}&limit=${limit}&page=${page}`)
+        axios.get(`${Environment?.backendUrl}/launchpadUpdateHistory/launchpadUpdateListing?search=${searchInput ? searchInput : ""}&filter=${filter ? filter : 'pending'}&limit=${limit}&page=${page}`, { headers: { "Authorization": `Bearer ${mytoken}` } })
             .then((response) => {
-                console.log("🚀 ~ .then ~ response: getAllApplicantsHandle", response)
+                console.log("🚀 ~ .then ~ response: getAllCategories", response)
                 setLoader(false);
-                setAllProjects(response?.data?.data)
+                setAllProjects(response?.data?.data);
                 toast.success(response.data.msg, {
                     position: "top-center",
                     autoClose: 2000,
@@ -108,13 +91,13 @@ const Projectchange = () => {
                 <div className='mainssss'>
                     <Nav variant="pills" activeKey={activeTab} onSelect={handleSelect}>
                         <Nav.Item>
-                            <Nav.Link eventKey="link-1" onClick={() => getYourProjectsHandle("live")}>Pending</Nav.Link>
+                            <Nav.Link eventKey="link-1" onClick={() => getYourProjectsHandle("pending")}>Pending</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link eventKey="link-2" onClick={() => getYourProjectsHandle("upcoming")}>Approved</Nav.Link>
+                            <Nav.Link eventKey="link-2" onClick={() => getYourProjectsHandle("approve")}>Approved</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link eventKey="link-3" onClick={() => getYourProjectsHandle("ended")}>
+                            <Nav.Link eventKey="link-3" onClick={() => getYourProjectsHandle("rejected")}>
                                 Rejected
                             </Nav.Link>
                         </Nav.Item>
@@ -132,89 +115,29 @@ const Projectchange = () => {
                                                 <th>Project</th>
                                                 <th>Submit By</th>
                                                 <th>Submission Date</th>
-
                                                 <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>
-                                                    <p className='bold'>EARN NETWORK</p>
-                                                    <h6 className='light'>$EARN</h6>
-                                                </td>
-                                                <td>
-                                                    <p className='bold'>Ruth Wilson</p>
-
-                                                </td>
-                                                <td><p className='bold'>14/11/2023</p></td>
-                                                <td><button>View</button></td>
-
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <p className='bold'>EARN NETWORK</p>
-                                                    <h6 className='light'>$EARN</h6>
-                                                </td>
-                                                <td>
-                                                    <p className='bold'>Ruth Wilson</p>
-
-                                                </td>
-                                                <td><p className='bold'>14/11/2023</p></td>
-                                                <td><button>View</button></td>
-
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <p className='bold'>EARN NETWORK</p>
-                                                    <h6 className='light'>$EARN</h6>
-                                                </td>
-                                                <td>
-                                                    <p className='bold'>Ruth Wilson</p>
-
-                                                </td>
-                                                <td><p className='bold'>14/11/2023</p></td>
-                                                <td><button>View</button></td>
-
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <p className='bold'>EARN NETWORK</p>
-                                                    <h6 className='light'>$EARN</h6>
-                                                </td>
-                                                <td>
-                                                    <p className='bold'>Ruth Wilson</p>
-
-                                                </td>
-                                                <td><p className='bold'>14/11/2023</p></td>
-                                                <td><button>View</button></td>
-
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <p className='bold'>EARN NETWORK</p>
-                                                    <h6 className='light'>$EARN</h6>
-                                                </td>
-                                                <td>
-                                                    <p className='bold'>Ruth Wilson</p>
-
-                                                </td>
-                                                <td><p className='bold'>14/11/2023</p></td>
-                                                <td><button>View</button></td>
-
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <p className='bold'>EARN NETWORK</p>
-                                                    <h6 className='light'>$EARN</h6>
-                                                </td>
-                                                <td>
-                                                    <p className='bold'>Ruth Wilson</p>
-
-                                                </td>
-                                                <td><p className='bold'>14/11/2023</p></td>
-                                                <td><button>View</button></td>
-
-                                            </tr>
+                                            {
+                                                allProjects?.length > 0 ?
+                                                    allProjects?.map((data, index) => {
+                                                        return (
+                                                            <tr key={index}>
+                                                                <td>
+                                                                    <p className='bold'>{data?.projectName}</p>
+                                                                    <h6 className='light'>{data?.tokenSymbol}</h6>
+                                                                </td>
+                                                                <td>
+                                                                    <p className='bold'>{data?.User?.full_name}</p>
+                                                                </td>
+                                                                <td><p className='bold'>{changeDateFormate(data?.createdAt)}</p></td>
+                                                                <td><Link to={`/update-application-detail/${data?.id}`}><button>View</button></Link></td>
+                                                            </tr>
+                                                        )
+                                                    })
+                                                    : "No project found"
+                                            }
                                         </tbody>
                                     </table>
                                 </div>
@@ -277,39 +200,31 @@ const Projectchange = () => {
                                         <thead className='tblheadss'>
                                             <tr>
                                                 <th>Project</th>
-                                                <th>Total Raised</th>
-                                                <th>Total Raised</th>
-                                                <th>Chain</th>
-                                                <th>Contributors</th>
-                                                <th>Start Date</th>
+                                                <th>Submit By</th>
+                                                <th>Submission Date</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {
-                                                allProjects?.map((data, index) => {
-                                                    return (
-                                                        <tr key={index}>
-                                                            <td>
-                                                                <div className='innerparent'>
-                                                                    <div className='left'>
-                                                                        <img src={data?.projectLogo} alt='img' className='img-fluid' />
-                                                                    </div>
-                                                                    <div className='right'>
-                                                                        <p className='bold'>{data?.projectName}</p>
-                                                                        <h6>{data?.tokenSymbol}</h6>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td><p className='bold'>0</p></td>
-                                                            <td><p className='green'>Live</p></td>
-                                                            <td><p className='bold'>BSC</p></td>
-                                                            <td><p className='bold'>0</p></td>
-                                                            <td><p className='bold'>{changeDateFormate(data?.startTime)}</p></td>
-                                                            <td><Link to={`/launchpad-details/${data?.id}`}><button>Details</button></Link></td>
-                                                        </tr>
-                                                    )
-                                                })
+                                                allProjects?.length > 0 ?
+
+                                                    allProjects?.map((data, index) => {
+                                                        return (
+                                                            <tr key={index}>
+                                                                <td>
+                                                                    <p className='bold'>{data?.projectName}</p>
+                                                                    <h6 className='light'>{data?.tokenSymbol}</h6>
+                                                                </td>
+                                                                <td>
+                                                                    <p className='bold'>{data?.User?.full_name}</p>
+                                                                </td>
+                                                                <td><p className='bold'>{changeDateFormate(data?.createdAt)}</p></td>
+                                                                <td><Link to={`/update-application-detail/${data?.id}`}><button>View</button></Link></td>
+                                                            </tr>
+                                                        )
+                                                    })
+                                                    : "No project found"
                                             }
                                         </tbody>
                                     </table>
@@ -373,39 +288,30 @@ const Projectchange = () => {
                                         <thead className='tblheadss'>
                                             <tr>
                                                 <th>Project</th>
-                                                <th>Total Raised</th>
-                                                <th>Total Raised</th>
-                                                <th>Chain</th>
-                                                <th>Contributors</th>
-                                                <th>Start Date</th>
+                                                <th>Submit By</th>
+                                                <th>Submission Date</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {
-                                                allProjects?.map((data, index) => {
-                                                    return (
-                                                        <tr key={index}>
-                                                            <td>
-                                                                <div className='innerparent'>
-                                                                    <div className='left'>
-                                                                        <img src={data?.projectLogo} alt='img' className='img-fluid' />
-                                                                    </div>
-                                                                    <div className='right'>
-                                                                        <p className='bold'>{data?.projectName}</p>
-                                                                        <h6>{data?.tokenSymbol}</h6>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td><p className='bold'>0</p></td>
-                                                            <td><p className='green'>Live</p></td>
-                                                            <td><p className='bold'>BSC</p></td>
-                                                            <td><p className='bold'>0</p></td>
-                                                            <td><p className='bold'>{changeDateFormate(data?.startTime)}</p></td>
-                                                            <td><Link to={`/launchpad-details/${data?.id}`}><button>Details</button></Link></td>
-                                                        </tr>
-                                                    )
-                                                })
+                                                allProjects?.length > 0 ?
+                                                    allProjects?.map((data, index) => {
+                                                        return (
+                                                            <tr key={index}>
+                                                                <td>
+                                                                    <p className='bold'>{data?.projectName}</p>
+                                                                    <h6 className='light'>{data?.tokenSymbol}</h6>
+                                                                </td>
+                                                                <td>
+                                                                    <p className='bold'>{data?.User?.full_name}</p>
+                                                                </td>
+                                                                <td><p className='bold'>{changeDateFormate(data?.createdAt)}</p></td>
+                                                                <td><Link to={`/update-application-detail/${data?.id}`}><button>View</button></Link></td>
+                                                            </tr>
+                                                        )
+                                                    })
+                                                    : "No project found"
                                             }
                                         </tbody>
                                     </table>

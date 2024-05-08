@@ -253,9 +253,6 @@ const Userpresaleflow2 = () => {
     let startepochTime = new Date(detail?.startTime).getTime() / 1000; // Convert milliseconds to seconds
     let endepochTime = new Date(detail?.endTime).getTime() / 1000; // Convert milliseconds to seconds
     let dedlineepochTime = new Date(signDedLine).getTime() / 1000; // Convert milliseconds to seconds
-    // console.log("🚀 ~ Userpresaleflow2 ~ signDedlineInEpoch: dedline dddd OKOKOKOK", detail?.startTimeEpoch, detail?.endTimeEpoch)
-    // console.log("🚀 ~ Userpresaleflow2 ~ signDedlineInEpoch: start time", new Date(signDedLine), startepochTime, detail?.startTime)
-    // console.log("🚀 ~ Userpresaleflow2 ~ signDedlineInEpoch: end time", endepochTime, detail?.endTime)
 
     const signFun = async () => {
         // handleClose();
@@ -1217,7 +1214,6 @@ const Userpresaleflow2 = () => {
                 </Modal.Body>
             </Modal>
 
-
             <Modal className='summerymodal' show={show1} onHide={handleClose1} centered>
                 <Modal.Header closeButton>
                     <Modal.Title>Tier Summery</Modal.Title>
@@ -1442,24 +1438,6 @@ const Userpresaleflow2 = () => {
                 </Modal.Body>
 
             </Modal>
-
-            {/* 
-            <Modal className='participatemodal' show={show55} onHide={handleClose55} centered>
-                <Modal.Header closeButton>
-                    <Modal.Title>Success</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <div className='success'>
-                        <img src='\assets\tick.svg' alt='img' className='img-fluid' />
-                        <p>your Feedback submitted successfully</p>
-                        <button>Okay</button>
-                    </div>
-                </Modal.Body>
-            </Modal> */}
-
-
-
-
 
             <Modal className='participatemodal' show={show55} onHide={handleClose55} centered>
                 <Modal.Header closeButton>

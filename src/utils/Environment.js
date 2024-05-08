@@ -1,5 +1,5 @@
 let Environment = {
-  backendUrl: "https://legionapi.quecko.com/admin", //staging url
+  // backendUrl: "https://legionapi.quecko.com/admin", //staging url
   // backendUrl: "https://api.legionnetwork.io/admin", //production url
   // backendUrl: "http://192.168.20.141:3027/admin",
   backendUrl : "http://192.168.20.81:4000/admin",    // local backend URL
