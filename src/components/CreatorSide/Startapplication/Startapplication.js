@@ -70,6 +70,7 @@ const Startapplication = () => {
         formValidation();
         if (email && password) {
             setOpen(true)
+            // axios.post("http://192.168.20.79:4000/admin/user/loginadmin", { email, password })
             axios.post(Environment.backendUrl + "/user/loginadmin", { email, password })
                 .then((response) => {
                     setLoginnRes(response?.data)
