@@ -13,7 +13,7 @@ import Modal from 'react-bootstrap/Modal';
 import Footer from '../../Footer/Footer';
 
 const Userpresaleflow = () => {
-    
+
     const [activeTab, setActiveTab] = useState('link-1');
     const handleSelect = (eventKey) => {
         setActiveTab(eventKey);
@@ -45,6 +45,17 @@ const Userpresaleflow = () => {
         }, 1000);
         return () => clearInterval(interval);
     }, []);
+    const [showend, setShowend] = useState(false);
+
+    const handleCloseend = () => setShowend(false);
+    const handleShowend = () => setShowend(true);
+
+    const [showend1, setShowend1] = useState(false);
+
+    const handleCloseend1 = () => setShowend1(false);
+    const handleShowend1 = () => setShowend1(true);
+
+
 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -80,12 +91,12 @@ const Userpresaleflow = () => {
     const token = localStorage.getItem('mytoken');
     const [id, setId] = useState("");
     const [detail, setDetail] = useState([]);
-    
+
     const getUpdateDetail = async () => {
 
         const config = {
             method: "get",
-            url:  Environment.backendUrl + "/launchpad/getLaunchpadById/" + id ,
+            url: Environment.backendUrl + "/launchpad/getLaunchpadById/" + id,
             headers: {
                 Authorization: "Bearer " + token,
             },
@@ -114,7 +125,7 @@ const Userpresaleflow = () => {
 
         const config = {
             method: "patch",
-            url:  Environment.backendUrl + "/launchpad/blockLaunchpad?launchpad_id=" + id ,
+            url: Environment.backendUrl + "/launchpad/blockLaunchpad?launchpad_id=" + id,
             headers: {
                 Authorization: "Bearer " + token,
             },
@@ -1032,6 +1043,7 @@ const Userpresaleflow = () => {
                                     </div>
                                 </div>
 
+
                             </div>
                             <div className='bottomcard'>
                                 <div className='bottomcardparent'>
@@ -1055,6 +1067,10 @@ const Userpresaleflow = () => {
 
                                     <h6>Total Contributors</h6>
                                     <p>0</p>
+                                </div>
+                                <div className='buttons'>
+                                    <button className='block' onClick={handleShowend}>End Project</button>
+                                    {/* <button className='release'>Release Funds</button> */}
                                 </div>
 
                             </div>
@@ -1103,6 +1119,54 @@ const Userpresaleflow = () => {
                 </Modal.Body>
 
             </Modal>
+            <Modal className='addcatogory ' show={showend} onHide={handleCloseend} centered>
+                <Modal.Header closeButton>
+                    <Modal.Title>End Project</Modal.Title>
+                </Modal.Header>
+                <Modal.Body className='textbvcenter'>
+
+
+                    <div className='mainsssxz '>
+                        <img src='\assets\questionmark.png' alt='img' className='img-fluid' />
+                        <p className='modalpara'>Are your sure you want to End this project?</p>
+                        <div className='endbyuutons'>
+                            <button className='canclelight'>Cancel</button>
+                            <button className='savebtnsssdd '
+                                onClick={() => {
+                                    handleShowend1();
+                                    handleClose();
+                                }}
+                            >Yes i’m sure</button>
+                        </div>
+                    </div>
+                </Modal.Body>
+
+            </Modal>
+
+            <Modal className='participatemodal' show={showend1} onHide={handleCloseend1} centered>
+                <Modal.Header closeButton>
+                    <Modal.Title>End project</Modal.Title>
+                </Modal.Header>
+                <Modal.Body className='textbvcenter'>
+
+            
+                    <div className='success'>
+                        <img src='\assets\tick.svg' alt='img' className='img-fluid' />
+                        <p>Project Ended Successfully</p>
+                        <button onClick={() => {
+
+                            handleCloseend1();
+                        }}>
+                            Okay</button>
+                    </div>
+
+
+
+                </Modal.Body>
+
+            </Modal>
+
+
 
             {/* <Modal className='participatemodal' show={show1} onHide={handleClose1} centered>
                 <Modal.Header closeButton>
