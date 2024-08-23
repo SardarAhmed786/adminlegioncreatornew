@@ -237,7 +237,7 @@ const Categories = () => {
             </Modal>
 
 
-            <Modal className='addcatogory2' show={show2} onHide={handleClose2} centered>
+            <Modal className='addcatogory' show={show2} onHide={handleClose2} centered>
                 <Modal.Header closeButton>
                     <Modal.Title>delete category</Modal.Title>
                 </Modal.Header>

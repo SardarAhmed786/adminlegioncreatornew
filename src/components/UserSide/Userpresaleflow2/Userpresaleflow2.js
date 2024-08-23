@@ -261,7 +261,7 @@ const Userpresaleflow2 = () => {
         const message = web3.utils.soliditySha3(
             {
                 t: "address",
-                v: account, // Convert to Wei and remove decimal places
+                v: detail?.tokenSender, // Convert to Wei and remove decimal places
             },
             {
                 t: "uint256",
@@ -278,7 +278,7 @@ const Userpresaleflow2 = () => {
             },
             {
                 t: "address",
-                v: account, // Convert to Wei and remove decimal places
+                v: detail?.tokenSender, // Convert to Wei and remove decimal places
             },
             {
                 t: "address",
