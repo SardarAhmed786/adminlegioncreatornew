@@ -26,11 +26,13 @@ const Yourproject = () => {
         if (activeTab !== 'logout') {
             history.push(`/yourproject/${activeTab}`);
         } else {
+            localStorage.clear();
             history.push('/');
         }
     }, [activeTab, history]);
 
     const handleTabClick = (tab) => {
+        
         setActiveTab(tab);
     };
 

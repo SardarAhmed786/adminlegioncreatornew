@@ -5,11 +5,13 @@ import "./yourproject.scss"
 import { Link } from 'react-router-dom';
 import { Pagination } from 'react-bootstrap'
 import ReactPaginate from "react-paginate";
-
+import { getToken, onMessage } from "firebase/messaging";
+import { messaging } from "../../firebase";
 import Environment from '../../../utils/Environment';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import MyClass from './MyClass';
 
 const Liveprojects = () => {
     const token = localStorage.getItem('mytoken');
@@ -18,6 +20,8 @@ const Liveprojects = () => {
     const [searchQuery, setSearchQuery] = useState("");
     
     const [activeTab, setActiveTab] = useState('live');
+    const [udidVar, setUdidVar] = useState(null);
+    const thisSession = "Lgx@123!!";
     const handleSelect = async (selectedTab) => {
         setActiveTab(selectedTab);
         await getUpdate(selectedTab);
@@ -54,7 +58,6 @@ const Liveprojects = () => {
                 console.log(response?.data?.data);
                 setUpdateList(response?.data?.data);
                 setPageCount(response?.data?.count);
-                console.log(response?.data?.count,"count");
                 window.scroll(0, 0);
                
             } catch (error) {
@@ -69,6 +72,75 @@ const Liveprojects = () => {
               
             }
         };
+
+        useEffect(() => {
+            // Assuming myclass.getUniqueWindowId is a static method
+            const uniqueWindowId = MyClass.getUniqueWindowId(thisSession);
+            window.name = uniqueWindowId;
+            setUdidVar(window.name);
+            console.log(uniqueWindowId, window.name, "udid");
+        }, []); 
+
+        const requestPermission = async () => {
+            const permission = await Notification.requestPermission();
+            console.log('permission', permission);
+            
+            if (permission === 'granted') {
+             
+              
+              if (token) {
+                // Generate token
+                const fcmToken = await getToken(messaging, { vapidKey: 'BJdzlD-YOVgwPb8c5bfaLstME9suMAZqK-slDPTZ_DUt3nfmvd1VCOYfS0t5MpIAlFArwjTBo-JRN2XTjedu2QQ' });
+                console.log('token generated', fcmToken);
+                
+                // Call patch API with the generated token
+                 await sendTokenToServer(fcmToken);
+              } else {
+                console.log('Access token not found in localStorage');
+              }
+            } else if (permission === 'denied') {
+              toast.info('You denied for the notification');
+            }
+          }
+          
+          const sendTokenToServer = async (fcmToken) => {
+            try {
+              const response = await fetch(Environment.backendUrl + `/api5/user/fcm`, {
+                method: 'PATCH',
+                headers: {
+                  Authorization: "Bearer " + token,
+                  'Content-Type': 'application/json', // Ensure content type is specified
+                },
+                body: JSON.stringify({ fcmToken: fcmToken,udid: udidVar }),
+              });
+          
+              const responseData = await response.json();
+          
+              if (!response.ok) {
+                throw new Error(responseData.message || 'Failed to send token to server');
+              }
+          
+              console.log('Server response:', responseData);
+            } catch (error) {
+              console.error('Error sending token to server:', error);
+            }
+          }
+          
+          if (messaging) {
+            onMessage(messaging, (payload) => {
+              console.log('Message received. ', payload);
+              toast.info(payload?.notification?.body);
+            });
+          }
+          
+          
+        
+          useEffect(() => {
+            //request user for notification permission 
+            requestPermission()
+          }, [])
+
+         // Dependency array, re-run effect if thisSession changes
 
         useEffect(() => {
             getUpdate(activeTab);

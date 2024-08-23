@@ -10,7 +10,7 @@ import Loader from '../../../utils/loader/Loader';
 
 const Projectchange = () => {
 
-    const [activeTab, setActiveTab] = useState('link-1');
+    const [activeTab, setActiveTab] = useState('pending');
 
     const handleSelect = (eventKey) => {
         setActiveTab(eventKey);
@@ -91,19 +91,19 @@ const Projectchange = () => {
                 <div className='mainssss'>
                     <Nav variant="pills" activeKey={activeTab} onSelect={handleSelect}>
                         <Nav.Item>
-                            <Nav.Link eventKey="link-1" onClick={() => getYourProjectsHandle("pending")}>Pending</Nav.Link>
+                            <Nav.Link eventKey="pending" onClick={() => getYourProjectsHandle("pending")}>Pending</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link eventKey="link-2" onClick={() => getYourProjectsHandle("approve")}>Approved</Nav.Link>
+                            <Nav.Link eventKey="approve" onClick={() => getYourProjectsHandle("approve")}>Approved</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link eventKey="link-3" onClick={() => getYourProjectsHandle("rejected")}>
+                            <Nav.Link eventKey="rejected" onClick={() => getYourProjectsHandle("rejected")}>
                                 Rejected
                             </Nav.Link>
                         </Nav.Item>
                     </Nav>
                 </div>
-                {activeTab === 'link-1' && (
+                {activeTab === 'pending' && (
                     <>
                         <div className='parentcardmain'>
 
@@ -145,7 +145,7 @@ const Projectchange = () => {
                         </div>
                     </>
                 )}
-                {activeTab === 'link-2' && (
+                {activeTab === 'approve' && (
                     <>
                         <div className='parentcardmain'>
                             <div className='parentmains'>
@@ -233,7 +233,7 @@ const Projectchange = () => {
                         </div>
                     </>
                 )}
-                {activeTab === 'link-3' && (
+                {activeTab === 'rejected' && (
                     <>
                         <div className='parentcardmain'>
                             <div className='parentmains'>
