@@ -1014,10 +1014,7 @@ const Userpresaleflow2 = () => {
                                 <button onClick={handleShow12}>Tier & Staking Settings</button>
                                 <div className='innerbtn'>
                                     <button className='block' onClick={() => rejected()}>Reject</button>
-                                    {/* {signer == account ? <button className='release' onClick={handleShow1}>Approve</button> : <button className='block' >Approve</button>} */}
-                                    {console.log(detail?.launchpadApplicationStatus, 'apppppp')}
-                                    {
-                                        signer == account ?
+                                 { signer == account ?
                                             <>
                                                 {detail?.launchpadApplicationStatus == 'approve' ? (
                                                     <button className='release' disabled style={{ cursor: "not-allowed" }}>Approved</button>

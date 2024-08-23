@@ -566,7 +566,6 @@ const Changeandupdate = () => {
                                 {/* <button className='approve'>Reject</button> */}
                                 {/* () => rejected() */}
                                 <button className='reject' onClick={() => handleShow0()}>Reject</button>
-                                {console.log(projectDetail?.launchpad?.launchpadApplicationStatus, 'statusss')}
                                 {
                                     signer == account ?
                                         <>
@@ -581,8 +580,8 @@ const Changeandupdate = () => {
                                             )}
 
                                         </>
-                                        : "You are not illegible to approve"
-                                }
+                                         : "You are not illegible to approve"
+                                 }
                             </div>
                         </div>
                     </div>
